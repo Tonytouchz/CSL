@@ -1,0 +1,85 @@
+﻿body
+{
+    padding: 0px;
+    margin: 0px;
+}
+
+#global
+{
+    width: 1000px;
+    margin-left: auto;  
+    margin-right: auto; 
+}
+#banniere
+{
+    height: 150px;
+    width: 700px;
+    float: left;
+    background-image: url('images/banniereSoccer.jpg');
+} 
+#login
+{
+    height: 150px;
+    width: 275px; 
+    padding-left: 25px;
+    float: left;
+    background-image: url('images/Login.jpg');
+} 
+#bandeHautGauche
+{
+    float: left;
+    height: 30px;
+    width: 480px; 
+    padding-left: 20px;
+    padding-top: 10px;
+    clear: left;
+    background-image: url('images/filAriane.jpg');
+}
+#bandeHautDroite
+{
+    float: left;
+    height: 30px;
+    width: 480px; 
+    padding-top: 10px;
+    padding-right: 20px;
+    text-align: right; 
+    background-image: url('images/filAriane.jpg');
+} 
+#menu {
+    height: 30px; 
+    width: 650px;  
+    padding-left: 350px; 
+    padding-top: 10px;
+    background-image: url('images/Login.jpg');
+    background-repeat: repeat-x;
+    clear: both;  
+    text-decoration: none;
+}
+#contenu
+{
+    height: 700px;
+    width: 800px;
+    padding-top: 50px;
+    padding-left: 100px; 
+    padding-right: 100px;
+    clear: both;
+    background-image: url('images/contenu.jpg');
+    text-align: justify;
+}
+#footer
+{
+    text-align: center;
+    width: 1000px;
+    height: 100px;
+    padding-top:50px;
+    background-image: url('images/Login.jpg');
+    background-repeat: repeat-x;
+}
+
+.Titrecontenu
+{
+    font-weight: bold;
+    font-family: Aharoni;
+    font-style: italic;
+    font-size: 20px;
+}
