@@ -2,6 +2,7 @@
 {
     padding: 0px;
     margin: 0px;
+    background-color:#025570
 }
 
 #global
@@ -15,7 +16,7 @@
     height: 150px;
     width: 700px;
     float: left;
-    background-image: url('images/banniereSoccer.jpg');
+    background-image: url('images/banniere.gif');
 } 
 #login
 {
@@ -23,7 +24,9 @@
     width: 275px; 
     padding-left: 25px;
     float: left;
-    background-image: url('images/Login.jpg');
+    background-image: url('images/login.gif');
+    
+
 } 
 #bandeHautGauche
 {
@@ -33,7 +36,8 @@
     padding-left: 20px;
     padding-top: 10px;
     clear: left;
-    background-image: url('images/filAriane.jpg');
+    background-color: #0583ad
+
 }
 #bandeHautDroite
 {
@@ -42,38 +46,58 @@
     width: 480px; 
     padding-top: 10px;
     padding-right: 20px;
-    text-align: right; 
-    background-image: url('images/filAriane.jpg');
+    text-align: right;
+    background-color: #0583ad 
+
 } 
-#menu {
+#arianne {
     height: 30px; 
     width: 650px;  
     padding-left: 350px; 
-    padding-top: 10px;
-    background-image: url('images/Login.jpg');
+  
+
     background-repeat: repeat-x;
     clear: both;  
     text-decoration: none;
+    background-image: url('images/arianne.jpg');
+    
 }
+#contenant 
+{
+    width: 1000px;
+    height: 700px;
+    background-color:#3aafd6;
+}
+
+#menu {
+    height: 350px; 
+    width: 200px;   
+    padding-top: 50px;
+    padding-left: 50px;
+    float: left; 
+    background-image: url('images/menu.gif');
+    
+}
+
 #contenu
 {
     height: 700px;
-    width: 800px;
-    padding-top: 50px;
-    padding-left: 100px; 
-    padding-right: 100px;
-    clear: both;
-    background-image: url('images/contenu.jpg');
+    width: 700px;
+    float: right; 
     text-align: justify;
+    padding-left: 50px;
+    background-color: #3aafd6 
+
+  
 }
 #footer
 {
     text-align: center;
     width: 1000px;
     height: 100px;
-    padding-top:50px;
-    background-image: url('images/Login.jpg');
-    background-repeat: repeat-x;
+    clear: both;
+    background-image: url('images/footer.gif');
+   
 }
 
 .Titrecontenu
@@ -82,4 +106,8 @@
     font-family: Aharoni;
     font-style: italic;
     font-size: 20px;
+}
+menu leMenu MenuItem
+{
+    margin-left:20px;
 }

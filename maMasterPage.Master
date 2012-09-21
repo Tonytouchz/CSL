@@ -5,6 +5,7 @@
 <head id="Head1" runat="server">
     <title>CSL</title>
     <link href="App_Themes/Default/css.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Default/Default.skin" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -20,7 +21,7 @@
                             </td>
                             <td>
                                 <asp:TextBox ID="txtLogin" runat="server" TabIndex="1" 
-                                    ValidationGroup="login" />
+                                    ValidationGroup="login" Width="120px" />
                             </td>
                         </tr>
                         <tr>
@@ -29,9 +30,9 @@
                             </td>
                             <td>
                                 <asp:TextBox ID="txtMotPasse" runat="server" TextMode="Password" TabIndex="2" 
-                                    ValidationGroup="login" />
+                                    ValidationGroup="login" Width="120px" />
                             </td>
-                        </tr>
+                        </tr>                     
                     </table>
                     <asp:CheckBox ID="chkBoxSessionActive" runat="server" Text="Garder la session active" />
                     <br />
@@ -63,20 +64,30 @@
                     <asp:Image ID="imgPanier" runat="server" Width="20" Height="20" ImageAlign="Top"
                         ImageUrl="~/App_Themes/Default/images/panier.png" />
                 </div>
-                <div id="menu" runat="server">
-                    <asp:LinkButton ID="lnkbtnAccueil" runat="server" />
-                    <asp:LinkButton ID="lnkbtnCoursOffert" runat="server" Text="Cours Offert" />
-                    <asp:LinkButton ID="lnkbtnMonProfil" runat="server" Text="Mon Profil" />
-                    <asp:LinkButton ID="lnkbtnContact" runat="server" Text="Nous Contacter" />
+                <div id="arianne" runat="server">
+                    <asp:LinkButton ID="lnkbtnArianeUn" runat="server" Text="Nous contacter" />
+                    &nbsp;&gt;
+                    <asp:LinkButton ID="lnkbtnArianeDeux" runat="server" Text="À propos de nous" /> 
+                </div>
+                <div id="contenant" runat="server">
+                <div id="menu" runat="server" align="left" >
+                
+                    <asp:Menu ID="leMenu" runat="server">
+                        <Items>
+                            <asp:MenuItem Text="Accueil" Value="Accueil"></asp:MenuItem>
+                            <asp:MenuItem Text="Cours Offerts" Value="Cours Offerts"></asp:MenuItem>
+                            <asp:MenuItem Text="Mon Profil" Value="Mon Profil"></asp:MenuItem>
+                            <asp:MenuItem Text="Nous Contacter" Value="Nous Contacter"></asp:MenuItem>
+                        </Items>
+                    </asp:Menu>
+                
                 </div>
                 <div id="contenu">
-                    <asp:LinkButton ID="lnkbtnArianeUn" runat="server" Text="Nous contacter" />
-                    &nbsp;&lt;
-                    <asp:LinkButton ID="lnkbtnArianeDeux" runat="server" Text="À propos de nous" /> 
-                    <br />
+                    &nbsp;<br />
                     <br />
                     <asp:ContentPlaceHolder ID="placeHolderContenu" runat="server">
                     </asp:ContentPlaceHolder>
+                </div>  
                 </div>
                 <div id="footer">
                     <asp:Label ID="lblCopyRight" runat="server" Text="© CLS 2012, Tous droits réservés." />
