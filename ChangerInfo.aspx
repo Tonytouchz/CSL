@@ -1,9 +1,7 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/maMasterPage.Master" AutoEventWireup="false" CodeFile="ChangerInfo.aspx.vb" Inherits="CreerCompte" %>
 
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="contenu" ContentPlaceHolderID="placeHolderContenu" Runat="Server">
-
-
 
         Informations personnels 
     <table style="width: 100%">
@@ -122,7 +120,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtEmail" runat="server" Width="200px"
-                    MaxLength="25" ValidationGroup="creerCompte" TabIndex="11"></asp:TextBox>
+                    MaxLength="30" ValidationGroup="creerCompte" TabIndex="11"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="ReqValAdresseCourriel" runat="server" 
                     ErrorMessage="L'adresse Courriel est requise" 
                     ControlToValidate="txtEmail" ValidationGroup="creerCompte"></asp:RequiredFieldValidator>
@@ -137,61 +135,9 @@
                 <asp:Label ID="lblDateNaissance" runat="server" Text="Date de Naissance"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlJoursNaissance" runat="server" 
-                    ValidationGroup="creerCompte" TabIndex="12">
-                    <asp:ListItem>--Jours--</asp:ListItem>
-                    <asp:ListItem>1</asp:ListItem>
-                    <asp:ListItem>2</asp:ListItem>
-                    <asp:ListItem>3</asp:ListItem>
-                    <asp:ListItem>4</asp:ListItem>
-                    <asp:ListItem>5</asp:ListItem>
-                    <asp:ListItem>6</asp:ListItem>
-                    <asp:ListItem>7</asp:ListItem>
-                    <asp:ListItem>8</asp:ListItem>
-                    <asp:ListItem>9</asp:ListItem>
-                    <asp:ListItem>10</asp:ListItem>
-                    <asp:ListItem>11</asp:ListItem>
-                    <asp:ListItem>12</asp:ListItem>
-                    <asp:ListItem>13</asp:ListItem>
-                    <asp:ListItem>14</asp:ListItem>
-                    <asp:ListItem>15</asp:ListItem>
-                    <asp:ListItem>16</asp:ListItem>
-                    <asp:ListItem>17</asp:ListItem>
-                    <asp:ListItem>18</asp:ListItem>
-                    <asp:ListItem>19</asp:ListItem>
-                    <asp:ListItem>20</asp:ListItem>
-                    <asp:ListItem>21</asp:ListItem>
-                    <asp:ListItem>22</asp:ListItem>
-                    <asp:ListItem>23</asp:ListItem>
-                    <asp:ListItem>24</asp:ListItem>
-                    <asp:ListItem>25</asp:ListItem>
-                    <asp:ListItem>26</asp:ListItem>
-                    <asp:ListItem>27</asp:ListItem>
-                    <asp:ListItem>28</asp:ListItem>
-                    <asp:ListItem>29</asp:ListItem>
-                    <asp:ListItem>30</asp:ListItem>
-                    <asp:ListItem>31</asp:ListItem>
-                </asp:DropDownList>
-&nbsp;<asp:DropDownList ID="ddlMoisNaissance" runat="server" ValidationGroup="creerCompte" 
-                    TabIndex="13">
-                    <asp:ListItem>--Mois--</asp:ListItem>
-                    <asp:ListItem>Janvier</asp:ListItem>
-                    <asp:ListItem Value="Fevrier">Février</asp:ListItem>
-                    <asp:ListItem>Mars</asp:ListItem>
-                    <asp:ListItem>Avril</asp:ListItem>
-                    <asp:ListItem>Mai</asp:ListItem>
-                    <asp:ListItem>Juin</asp:ListItem>
-                    <asp:ListItem>Juillet</asp:ListItem>
-                    <asp:ListItem Value="Aout">Août</asp:ListItem>
-                    <asp:ListItem>Septembre</asp:ListItem>
-                    <asp:ListItem>Octobre</asp:ListItem>
-                    <asp:ListItem>Novembre</asp:ListItem>
-                    <asp:ListItem Value="Decembre">Décembre</asp:ListItem>
-                </asp:DropDownList>
-&nbsp;<asp:DropDownList ID="ddlAnneeNaissance" runat="server" ValidationGroup="creerCompte" 
-                    TabIndex="14">
-                    <asp:ListItem>--Année--</asp:ListItem>
-                </asp:DropDownList>
+                <asp:TextBox ID="txtDateNaissance" runat="server" MaxLength="11"></asp:TextBox> 
+                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateNaissance">
+            </asp:CalendarExtender>
             </td>
         </tr>
     </table>
@@ -251,6 +197,17 @@
             Text="Ajouter un client au dossier" />
 
 
+        <p>
+            <asp:EntityDataSource ID="dsClients" runat="server" 
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+                EntitySetName="usersJeu" EntityTypeFilter="clients">
+            </asp:EntityDataSource>
+            <asp:EntityDataSource ID="dsDossiers" runat="server" 
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+                EnableFlattening="False" EntitySetName="dossiersJeu">
+            </asp:EntityDataSource>
+        <asp:ScriptManager ID="scriptManageDateNaissance" runat="server">
+    </asp:ScriptManager>        
 </asp:Content>
 
 

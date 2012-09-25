@@ -5,7 +5,6 @@
 <head id="Head1" runat="server">
     <title>CSL</title>
     <link href="App_Themes/Default/css.css" rel="stylesheet" type="text/css" />
-    <link href="App_Themes/Default/Default.skin" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -65,10 +64,7 @@
                         ImageUrl="~/App_Themes/Default/images/panier.png" />
                 </div>
                 <div id="arianne" runat="server">
-                    <asp:LinkButton ID="lnkbtnArianeUn" runat="server" Text="Nous contacter" />
-                    &nbsp;&gt;
-                    <asp:LinkButton ID="lnkbtnArianeDeux" runat="server" Text="À propos de nous" /> 
-                </div>
+                    &nbsp;Page d&#39;accueil &gt; Mon Profil</div>
                 <div id="contenant" runat="server">
                 <div id="menu" runat="server" align="left" >
                 
