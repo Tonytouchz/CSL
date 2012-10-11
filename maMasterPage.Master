@@ -1,18 +1,25 @@
-﻿<%@ Master Language="VB" CodeFile="maMasterPage.Master.vb" Inherits="maMasterPage" %>
+﻿<%@ Master Language="VB" CodeFile="maMasterPage.Master.vb" Inherits="maMasterPage"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>CSL</title>
     <link href="App_Themes/Default/css.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Default/Default.skin" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
             <div id="global" runat="server">
                 <div id="banniere" runat="server">
                 </div>
                 <div id="login" runat="server">
+
+                    <asp:MultiView ID="MultiViewConnection" runat="server" ActiveViewIndex="0">
+                     
+                    
+                    <asp:View ID="ViewConnection" runat="server">
+
+                    
                     <table class="style1">
                         <tr>
                             <td>
@@ -36,11 +43,37 @@
                     <asp:CheckBox ID="chkBoxSessionActive" runat="server" Text="Garder la session active" />
                     <br />
                     <asp:Button ID="btnConnecter" runat="server" Text="Se Connecter" 
-                        ValidationGroup="login" />
+                        ValidationGroup="login" UseSubmitBehavior="False" />
                     <br />
-                    <asp:LinkButton ID="lnkbtnOubliezMdp" runat="server" Text="Oubliez votre mot de passe?" />
+                    <asp:LinkButton ID="lnkbtnOubliezMdp" runat="server" 
+                            Text="Oubliez votre mot de passe?" PostBackUrl="~/OublierMotPasse.aspx" />
                     <br />
-                    <asp:LinkButton ID="lnkbtnCreerCompte" runat="server" Text="Créer un compte" />
+                    <asp:LinkButton ID="lnkbtnCreerCompte" runat="server" Text="Créer un compte" 
+                            PostBackUrl="~/CreerDossier.aspx"/>
+
+                        </asp:View>
+
+                        <asp:View ID="ViewEstConnecte" runat="server">
+
+                         <table class="style1">
+                        <tr>
+                            <td>
+                                <p>Bienvenue <asp:Label ID="lblUtilisateur" runat="server" Text="" /></p>
+                            </td>
+                          
+                           <tr>
+                           <td>
+                           <asp:LinkButton ID="lnkDeconnecter" runat="server"> se déconnecter</asp:LinkButton>
+                           </td>
+                           </tr>
+                        </tr>                   
+                    </table>
+
+                        </asp:View>
+
+
+                        </asp:MultiView>
+
                 </div>
                 <div id="bandeHautGauche">
                     
@@ -64,17 +97,23 @@
                         ImageUrl="~/App_Themes/Default/images/panier.png" />
                 </div>
                 <div id="arianne" runat="server">
-                    &nbsp;Page d&#39;accueil &gt; Mon Profil</div>
+                    </div>
                 <div id="contenant" runat="server">
                 <div id="menu" runat="server" align="left" >
                 
                     <asp:Menu ID="leMenu" runat="server">
                         <Items>
-                            <asp:MenuItem Text="Accueil" Value="Accueil"></asp:MenuItem>
-                            <asp:MenuItem Text="Cours Offerts" Value="Cours Offerts"></asp:MenuItem>
-                            <asp:MenuItem Text="Mon Profil" Value="Mon Profil"></asp:MenuItem>
-                            <asp:MenuItem Text="Nous Contacter" Value="Nous Contacter"></asp:MenuItem>
+                            <asp:MenuItem Text="Accueil" Value="Accueil" NavigateUrl="~/Historique.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Cours Offerts" Value="Cours Offerts" 
+                                NavigateUrl="AjouterActivite.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Mon Profil" Value="Mon Profil" 
+                                NavigateUrl="#"></asp:MenuItem>
+                            <asp:MenuItem Text="Nous Contacter" Value="Nous Contacter" 
+                                NavigateUrl="~/NousContacter.aspx"></asp:MenuItem>
                         </Items>
+                        <StaticHoverStyle Font-Bold="True" Font-Size="XX-Large" />
+                        <StaticMenuItemStyle Font-Bold="False" Font-Size="X-Large" ForeColor="#3AAFD6" 
+                            ItemSpacing="20px" VerticalPadding="20px" />
                     </asp:Menu>
                 
                 </div>
@@ -90,8 +129,7 @@
                     <br />
                     <asp:Label ID="lblDateModification" runat="server" Text="Dernière modification le 10 septembre 2012" />
                 </div>
-            </div>
     </div>
-    </form>
-</body>
+        </form>
+    </body>
 </html>

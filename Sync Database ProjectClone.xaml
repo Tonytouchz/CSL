@@ -1,0 +1,18 @@
+<Activity x:Class="GenerateDatabaseScriptWorkflow" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sde="clr-namespace:System.Data.Metadata.Edm;assembly=System.Data.Entity" xmlns:edm="clr-namespace:Microsoft.Data.Entity.Design.DatabaseGeneration.Activities;assembly=Microsoft.Data.Entity.Design.DatabaseGeneration" xmlns:ded="clr-namespace:Microsoft.Data.Entity.Design.DatabaseGeneration.Activities;assembly=Microsoft.Data.Entity.Design" xmlns:dbtk="clr-namespace:Microsoft.Data.Entity.Design.DatabaseGenerationToolkit.Activities;assembly=Microsoft.Data.Entity.Design.DatabaseGenerationToolkit" xmlns:ss="clr-namespace:Microsoft.Data.Entity.Design.DatabaseGenerationToolkit.SsdlDacServer;assembly=Microsoft.Data.Entity.Design.DatabaseGenerationToolkit" xmlns:msms="clr-namespace:Microsoft.SqlServer.Management.SqlParser;assembly=Microsoft.SqlServer.Management.SqlParser">
+  <x:Members>
+    <x:Property Name="Csdl" Type="InArgument(sde:EdmItemCollection)" />
+    <x:Property Name="ExistingSsdl" Type="InArgument(s:String)" />
+    <x:Property Name="ExistingMsl" Type="InArgument(s:String)" />
+    <x:Property Name="Ssdl" Type="OutArgument(s:String)" />
+    <x:Property Name="Msl" Type="OutArgument(s:String)" />
+    <x:Property Name="Ddl" Type="OutArgument(s:String)" />
+    <x:Property Name="SmoSsdl" Type="OutArgument(ss:SsdlServer)" />
+  </x:Members>
+  <Sequence>
+    <dbtk:ProgressBarStartActivity />
+    <dbtk:CsdlToSsdlTemplateActivity SsdlOutput="[Ssdl]" TemplatePath="$(VSEFTools)\DBGen\CSDLToSSDL_TPT.tt" />
+    <dbtk:CsdlToMslTemplateActivity MslOutput="[Msl]" TemplatePath="$(VSEFTools)\DBGen\CSDLToMSL_TPT.tt" />
+    <ded:SsdlToDdlActivity ExistingSsdlInput="[ExistingSsdl]" SsdlInput="[Ssdl]" DdlOutput="[Ddl]" />
+    <dbtk:ProgressBarEndActivity ClosePopup="true" />
+  </Sequence>
+</Activity>

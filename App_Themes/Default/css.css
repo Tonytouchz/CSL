@@ -61,15 +61,15 @@
 #contenant 
 {
     width: 1000px;
-    height: 700px;
+    height: 900px;
     background-color:#3aafd6;
 }
 
 #menu {
     height: 350px; 
-    width: 200px;   
+    width: 230px;   
     padding-top: 50px;
-    padding-left: 50px;
+    padding-left: 20px;
     float: left; 
     background-image: url('images/menu.gif');
     
@@ -78,14 +78,15 @@
 #contenu
 {
     height: 700px;
-    width: 700px;
+    width: 710px;
     float: right; 
     text-align: justify;
-    padding-left: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #3aafd6; 
 }
 #footer
-{
+{   
     text-align: center;
     width: 1000px;
     height: 100px;
@@ -94,14 +95,21 @@
    
 }
 
-.Titrecontenu
-{
-    font-weight: bold;
-    font-family: Aharoni;
-    font-style: italic;
-    font-size: 20px;
-}
 menu leMenu MenuItem
 {
-    margin-left:20px;
+    margin-left: 20px;  
+}
+.waterMark 
+{
+    color:Gray;
+}
+
+.controleValidation
+{
+    font-weight: bold;
+    font-style: italic;
+    color: #FF0000;
+    font-family: 'Franklin Gothic Medium';
+    font-size: x-small;
+    padding-top: -10px
 }

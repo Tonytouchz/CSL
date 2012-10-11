@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/maMasterPage.Master" AutoEventWireup="false" CodeFile="OublierMotPasse.aspx.vb" Inherits="OublierMotPasse" %>
 
 <asp:Content ID="Content" ContentPlaceHolderID="placeHolderContenu" runat="server">
-   <div id="oublieMotDePasse" style="margin: 60px; padding: 60px">
-        <table style="border: 3px solid #009933; width: 100%" cellpadding="10">
+    <div id="oublieMotDePasse" style="margin: 60px; padding: 60px">
+        <table style="border: 3px solid #025570; width: 100%" cellpadding="10">
             <tr>
-                <td colspan="2" bgcolor="#009933" 
-                    style="height: 41px; border-bottom-style: solid; border-bottom-width: 3px; border-bottom-color: #009933;">
+                <td colspan="2" bgcolor="#0583AD" 
+                    
+                    style="height: 41px; border-bottom-style: solid; border-bottom-width: 3px; border-bottom-color: #025570;">
         <asp:Label ID="lblTitreTableau" runat="server" 
                         Text="Mot de passe oublié"></asp:Label>
                 </td>
@@ -17,16 +18,12 @@
             </tr>
             <tr>
                 <td style="width: 105px">
-        <asp:Label ID="lblAdresseCourriel" runat="server" Text="Adresse courriel:"></asp:Label>
+        <asp:Label ID="lblUtilisateur" runat="server" Text="Utilisateur"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtAdresseCourriel" runat="server" Width="215px"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="regAdresseCourriel" runat="server" 
-                        ControlToValidate="txtAdresseCourriel" 
-                        ErrorMessage="Adresse courriel invalide." ForeColor="Red" 
-                        ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!</asp:RegularExpressionValidator>
-                    <asp:RequiredFieldValidator ID="rfAdresseCourriel" runat="server" 
-                        ControlToValidate="txtAdresseCourriel" 
+                    <asp:TextBox ID="txtUtilisateur" runat="server" Width="215px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfUser" runat="server" 
+                        ControlToValidate="txtUtilisateur" 
                         ErrorMessage="Vous devez d'abord entrer votre adresse courriel." 
                         ForeColor="Red">!</asp:RequiredFieldValidator>
                 </td>

@@ -4,12 +4,10 @@
    
     <p align="center" style="font-size: xx-large">
         Histoire de la compagnie</p>
-    <p align="left">
-        &nbsp;</p>
     <p align="left" style="text-align: justify">
         <img alt="Fichier:Festival International de Jazz de Montréal 2.jpg" 
             src="http://upload.wikimedia.org/wikipedia/commons/d/dc/Festival_International_de_Jazz_de_Montréal_2.jpg" 
-            style="float: left; width: 341px; margin-right: 10px; height: 291px;" />Le Québec est animé tout au long de l’année par 217 festivals. Que l’on pense au 
+            style="float: left; width: 330px; margin-right: 10px; height: 392px;" />Le Québec est animé tout au long de l’année par 217 festivals. Que l’on pense au 
         célèbre Festival de Jazz de Montréal ou à l’éclectique Festival de Musique 
         émergente en Abitibi-Témiscaminque, au Carnaval de Québec ou au Festival 
         paysages en peinture, Rêves d&#39;automne dans Charlevoix, chaque saison, dans 

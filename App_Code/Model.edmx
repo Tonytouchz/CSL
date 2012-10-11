@@ -7,252 +7,180 @@
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="groupesJeu" EntityType="Model.Store.groupesJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="horairesJeu" EntityType="Model.Store.horairesJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="inscriptionsJeu" EntityType="Model.Store.inscriptionsJeu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="inscriptionJeu" EntityType="Model.Store.inscriptionJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="listeAttenteJeu" EntityType="Model.Store.listeAttenteJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="activitesJeu" EntityType="Model.Store.activitesJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="paiementsJeu" EntityType="Model.Store.paiementsJeu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="activitesJeu" EntityType="Model.Store.activitesJeu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="horairesJeu" EntityType="Model.Store.horairesJeu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="prealableJeu" EntityType="Model.Store.prealableJeu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="clientsJeu" EntityType="Model.Store.clientsJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="dossiersJeu" EntityType="Model.Store.dossiersJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="usersJeu" EntityType="Model.Store.usersJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="prealablesJeu" EntityType="Model.Store.prealablesJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="usersJeu_clients" EntityType="Model.Store.usersJeu_clients" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="usersJeu_admin" EntityType="Model.Store.usersJeu_admin" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="usersJeu_prepose" EntityType="Model.Store.usersJeu_prepose" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="usersJeu_professeur" EntityType="Model.Store.usersJeu_professeur" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="inscriptionsclients" EntityType="Model.Store.inscriptionsclients" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="listeAttenteclients" EntityType="Model.Store.listeAttenteclients" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="groupeslisteAttente" Association="Model.Store.groupeslisteAttente">
+    <AssociationSet Name="groupesinscription" Association="Model.Store.groupesinscription">
       <End Role="groupes" EntitySet="groupesJeu" />
-      <End Role="listeAttente" EntitySet="listeAttenteJeu" />
+      <End Role="inscription" EntitySet="inscriptionJeu" />
+    </AssociationSet>
+    <AssociationSet Name="paiementsinscription" Association="Model.Store.paiementsinscription">
+      <End Role="paiements" EntitySet="paiementsJeu" />
+      <End Role="inscription" EntitySet="inscriptionJeu" />
     </AssociationSet>
     <AssociationSet Name="groupeshoraires" Association="Model.Store.groupeshoraires">
       <End Role="groupes" EntitySet="groupesJeu" />
       <End Role="horaires" EntitySet="horairesJeu" />
     </AssociationSet>
-    <AssociationSet Name="clientsdossiers" Association="Model.Store.clientsdossiers">
-      <End Role="clients" EntitySet="usersJeu_clients" />
-      <End Role="dossiers" EntitySet="dossiersJeu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_inscriptionsclients_inscriptions" Association="Model.Store.FK_inscriptionsclients_inscriptions">
-      <End Role="inscriptions" EntitySet="inscriptionsJeu" />
-      <End Role="inscriptionsclients" EntitySet="inscriptionsclients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_inscriptionsclients_clients" Association="Model.Store.FK_inscriptionsclients_clients">
-      <End Role="clients" EntitySet="usersJeu_clients" />
-      <End Role="inscriptionsclients" EntitySet="inscriptionsclients" />
-    </AssociationSet>
-    <AssociationSet Name="groupesinscriptions" Association="Model.Store.groupesinscriptions">
-      <End Role="groupes" EntitySet="groupesJeu" />
-      <End Role="inscriptions" EntitySet="inscriptionsJeu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_listeAttenteclients_listeAttente" Association="Model.Store.FK_listeAttenteclients_listeAttente">
-      <End Role="listeAttente" EntitySet="listeAttenteJeu" />
-      <End Role="listeAttenteclients" EntitySet="listeAttenteclients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_listeAttenteclients_clients" Association="Model.Store.FK_listeAttenteclients_clients">
-      <End Role="clients" EntitySet="usersJeu_clients" />
-      <End Role="listeAttenteclients" EntitySet="listeAttenteclients" />
-    </AssociationSet>
-    <AssociationSet Name="paiementsinscriptions" Association="Model.Store.paiementsinscriptions">
-      <End Role="paiements" EntitySet="paiementsJeu" />
-      <End Role="inscriptions" EntitySet="inscriptionsJeu" />
-    </AssociationSet>
     <AssociationSet Name="activitesgroupes" Association="Model.Store.activitesgroupes">
       <End Role="activites" EntitySet="activitesJeu" />
       <End Role="groupes" EntitySet="groupesJeu" />
     </AssociationSet>
-    <AssociationSet Name="prealablesactivites" Association="Model.Store.prealablesactivites">
-      <End Role="prealables" EntitySet="prealablesJeu" />
+    <AssociationSet Name="activitesprealable" Association="Model.Store.activitesprealable">
       <End Role="activites" EntitySet="activitesJeu" />
+      <End Role="prealable" EntitySet="prealableJeu" />
     </AssociationSet>
-    <AssociationSet Name="FK_clients_inherits_users" Association="Model.Store.FK_clients_inherits_users">
-      <End Role="users" EntitySet="usersJeu" />
-      <End Role="clients" EntitySet="usersJeu_clients" />
+    <AssociationSet Name="groupeslisteAttente" Association="Model.Store.groupeslisteAttente">
+      <End Role="groupes" EntitySet="groupesJeu" />
+      <End Role="listeAttente" EntitySet="listeAttenteJeu" />
     </AssociationSet>
-    <AssociationSet Name="FK_admin_inherits_users" Association="Model.Store.FK_admin_inherits_users">
-      <End Role="users" EntitySet="usersJeu" />
-      <End Role="admin" EntitySet="usersJeu_admin" />
+    <AssociationSet Name="dossiersclients" Association="Model.Store.dossiersclients">
+      <End Role="dossiers" EntitySet="dossiersJeu" />
+      <End Role="clients" EntitySet="clientsJeu" />
     </AssociationSet>
-    <AssociationSet Name="FK_prepose_inherits_users" Association="Model.Store.FK_prepose_inherits_users">
-      <End Role="users" EntitySet="usersJeu" />
-      <End Role="prepose" EntitySet="usersJeu_prepose" />
+    <AssociationSet Name="clientsinscription" Association="Model.Store.clientsinscription">
+      <End Role="clients" EntitySet="clientsJeu" />
+      <End Role="inscription" EntitySet="inscriptionJeu" />
     </AssociationSet>
-    <AssociationSet Name="FK_professeur_inherits_users" Association="Model.Store.FK_professeur_inherits_users">
-      <End Role="users" EntitySet="usersJeu" />
-      <End Role="professeur" EntitySet="usersJeu_professeur" />
+    <AssociationSet Name="clientslisteAttente" Association="Model.Store.clientslisteAttente">
+      <End Role="clients" EntitySet="clientsJeu" />
+      <End Role="listeAttente" EntitySet="listeAttenteJeu" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="groupesJeu">
     <Key>
       <PropertyRef Name="noGroupe" />
     </Key>
-    <Property Name="noGroupe" Type="nvarchar" StoreGeneratedPattern="Identity" Nullable="false" MaxLength="100" />
-    <Property Name="noActivite" Type="int" Nullable="false" DefaultValue="1" />
-    <Property Name="nomProf" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="noGroupe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomProf" Type="nvarchar(max)" Nullable="false" />
     <Property Name="prix" Type="int" Nullable="false" />
-    <Property Name="nbPlaceDispo" Type="int" Nullable="false" />
-    <Property Name="debutDateInscription" Type="datetime" Nullable="false" />
-    <Property Name="finDateInscription" Type="datetime" Nullable="false" />
-    <Property Name="clientele" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="ageMin" Type="nvarchar" Nullable="false" MaxLength="10" />
-    <Property Name="ageMax" Type="nvarchar" Nullable="false" MaxLength="10" />
-    <Property Name="session" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="nomActivite" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="dateDebutActivite" Type="datetime" Nullable="false" />
-    <Property Name="inscriptions_noTransaction" Type="int" Nullable="false" />
+    <Property Name="nbPlaceDisponible" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ageMin" Type="int" Nullable="false" />
+    <Property Name="ageMax" Type="int" Nullable="false" />
+    <Property Name="session" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dateDebut" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="noActivite" Type="nvarchar(max)" Nullable="false" />
     <Property Name="activites_noActivite" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="horairesJeu">
+  <EntityType Name="inscriptionJeu">
     <Key>
-      <PropertyRef Name="noGroupe" />
+      <PropertyRef Name="noInscription" />
     </Key>
-    <Property Name="noGroupe" Type="int" Nullable="false" />
-    <Property Name="heureDebut" Type="datetime" Nullable="false" />
-    <Property Name="emplacement" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="duree" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="groupes_noGroupe" Type="nvarchar" MaxLength="100" Nullable="false" />
-  </EntityType>
-  <EntityType Name="inscriptionsJeu">
-    <Key>
-      <PropertyRef Name="noTransaction" />
-    </Key>
-    <Property Name="noTransaction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noInscription" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="noClient" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="dateInscription" Type="datetime" Nullable="false" />
+    <Property Name="dateInscription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="descriptionAchat" Type="nvarchar(max)" Nullable="false" />
     <Property Name="noGroupe" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="noPaiement" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="groupes_noGroupe" Type="int" Nullable="false" />
+    <Property Name="paiements_noPaiement" Type="int" Nullable="false" />
+    <Property Name="clients_noClient" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="listeAttenteJeu">
     <Key>
-      <PropertyRef Name="noGroupe" />
-      <PropertyRef Name="noClient" />
+      <PropertyRef Name="noListeAttente" />
     </Key>
+    <Property Name="noListeAttente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="noGroupe" Type="int" Nullable="false" />
-    <Property Name="noClient" Type="int" Nullable="false" />
-    <Property Name="groupes_noGroupe" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="noClient" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dateDebutAttente" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="groupes_noGroupe" Type="int" Nullable="false" />
+    <Property Name="clients_noClient" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="paiementsJeu">
+    <Key>
+      <PropertyRef Name="noPaiement" />
+    </Key>
+    <Property Name="noPaiement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noInscription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="datePaiement" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TPS" Type="int" Nullable="false" />
+    <Property Name="TVQ" Type="int" Nullable="false" />
+    <Property Name="rabais" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="totalPaiement" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="activitesJeu">
     <Key>
       <PropertyRef Name="noActivite" />
     </Key>
     <Property Name="noActivite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noPrealable" Type="int" Nullable="false" />
-    <Property Name="materielRequis" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="typeActivite" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="nomActivite" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="materielRequis" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="typeActivite" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="clientele" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="paiementsJeu">
+  <EntityType Name="horairesJeu">
     <Key>
-      <PropertyRef Name="noTransaction" />
+      <PropertyRef Name="noHoraire" />
     </Key>
-    <Property Name="noTransaction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="dateTransaction" Type="datetime" Nullable="false" />
-    <Property Name="totalTransaction" Type="int" Nullable="false" />
-    <Property Name="rabais" Type="int" Nullable="false" />
-    <Property Name="TPS" Type="int" Nullable="false" />
-    <Property Name="TVQ" Type="int" Nullable="false" />
-    <Property Name="inscriptions_noTransaction" Type="int" Nullable="false" />
+    <Property Name="noHoraire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noGroupe" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="heureDebut" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="heureFin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="emplacement" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="groupes_noGroupe" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="prealableJeu">
+    <Key>
+      <PropertyRef Name="noPrealable" />
+    </Key>
+    <Property Name="noPrealable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="noActivite" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="activites_noActivite" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="clientsJeu">
+    <Key>
+      <PropertyRef Name="noClient" />
+    </Key>
+    <Property Name="noClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noDossier" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="prenom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dateNaissance" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dossiers_noDossier" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="dossiersJeu">
     <Key>
       <PropertyRef Name="noDossier" />
     </Key>
     <Property Name="noDossier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="adresse" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="ville" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="codePostal" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="province" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="telephone" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="adresse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ville" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="codePostal" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="province" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="noTelephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="typeUtilisateur" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="usersJeu">
-    <Key>
-      <PropertyRef Name="username" />
-      <PropertyRef Name="password" />
-    </Key>
-    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="typeUtilisateur" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="prealablesJeu">
-    <Key>
-      <PropertyRef Name="noPrealable" />
-    </Key>
-    <Property Name="noPrealable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noActivite" Type="int" Nullable="false" />
-    <Property Name="activites_noActivite" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="usersJeu_clients">
-    <Key>
-      <PropertyRef Name="username" />
-      <PropertyRef Name="password" />
-    </Key>
-    <Property Name="noClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noDossier" Type="int" Nullable="false" />
-    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="prenom" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="dateNaissance" Type="datetime" Nullable="false" />
-    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="dossiers_noDossier" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="usersJeu_admin">
-    <Key>
-      <PropertyRef Name="username" />
-      <PropertyRef Name="password" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="usersJeu_prepose">
-    <Key>
-      <PropertyRef Name="username" />
-      <PropertyRef Name="password" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="usersJeu_professeur">
-    <Key>
-      <PropertyRef Name="username" />
-      <PropertyRef Name="password" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="inscriptionsclients">
-    <Key>
-      <PropertyRef Name="inscriptions_noTransaction" />
-      <PropertyRef Name="clients_username" />
-      <PropertyRef Name="clients_password" />
-    </Key>
-    <Property Name="inscriptions_noTransaction" Type="int" Nullable="false" />
-    <Property Name="clients_username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="clients_password" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="listeAttenteclients">
-    <Key>
-      <PropertyRef Name="listeAttente_noGroupe" />
-      <PropertyRef Name="listeAttente_noClient" />
-      <PropertyRef Name="clients_username" />
-      <PropertyRef Name="clients_password" />
-    </Key>
-    <Property Name="listeAttente_noGroupe" Type="int" Nullable="false" />
-    <Property Name="listeAttente_noClient" Type="int" Nullable="false" />
-    <Property Name="clients_username" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="clients_password" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <Association Name="groupeslisteAttente">
+  <Association Name="groupesinscription">
     <End Role="groupes" Type="Model.Store.groupesJeu" Multiplicity="1" />
-    <End Role="listeAttente" Type="Model.Store.listeAttenteJeu" Multiplicity="*" />
+    <End Role="inscription" Type="Model.Store.inscriptionJeu" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="groupes">
         <PropertyRef Name="noGroupe" />
       </Principal>
-      <Dependent Role="listeAttente">
+      <Dependent Role="inscription">
         <PropertyRef Name="groupes_noGroupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="paiementsinscription">
+    <End Role="paiements" Type="Model.Store.paiementsJeu" Multiplicity="1" />
+    <End Role="inscription" Type="Model.Store.inscriptionJeu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paiements">
+        <PropertyRef Name="noPaiement" />
+      </Principal>
+      <Dependent Role="inscription">
+        <PropertyRef Name="paiements_noPaiement" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -268,42 +196,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="clientsdossiers">
-    <End Role="clients" Type="Model.Store.usersJeu_clients" Multiplicity="*" />
-    <End Role="dossiers" Type="Model.Store.dossiersJeu" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="dossiers">
-        <PropertyRef Name="noDossier" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="dossiers_noDossier" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="groupesinscriptions">
-    <End Role="groupes" Type="Model.Store.groupesJeu" Multiplicity="*" />
-    <End Role="inscriptions" Type="Model.Store.inscriptionsJeu" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="inscriptions">
-        <PropertyRef Name="noTransaction" />
-      </Principal>
-      <Dependent Role="groupes">
-        <PropertyRef Name="inscriptions_noTransaction" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="paiementsinscriptions">
-    <End Role="paiements" Type="Model.Store.paiementsJeu" Multiplicity="*" />
-    <End Role="inscriptions" Type="Model.Store.inscriptionsJeu" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="inscriptions">
-        <PropertyRef Name="noTransaction" />
-      </Principal>
-      <Dependent Role="paiements">
-        <PropertyRef Name="inscriptions_noTransaction" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="activitesgroupes">
     <End Role="activites" Type="Model.Store.activitesJeu" Multiplicity="1" />
     <End Role="groupes" Type="Model.Store.groupesJeu" Multiplicity="*" />
@@ -316,125 +208,63 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="prealablesactivites">
-    <End Role="prealables" Type="Model.Store.prealablesJeu" Multiplicity="*" />
+  <Association Name="activitesprealable">
     <End Role="activites" Type="Model.Store.activitesJeu" Multiplicity="1" />
+    <End Role="prealable" Type="Model.Store.prealableJeu" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="activites">
         <PropertyRef Name="noActivite" />
       </Principal>
-      <Dependent Role="prealables">
+      <Dependent Role="prealable">
         <PropertyRef Name="activites_noActivite" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_inscriptionsclients_inscriptions">
-    <End Role="inscriptions" Type="Model.Store.inscriptionsJeu" Multiplicity="1" />
-    <End Role="inscriptionsclients" Type="Model.Store.inscriptionsclients" Multiplicity="*" />
+  <Association Name="groupeslisteAttente">
+    <End Role="groupes" Type="Model.Store.groupesJeu" Multiplicity="1" />
+    <End Role="listeAttente" Type="Model.Store.listeAttenteJeu" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="inscriptions">
-        <PropertyRef Name="noTransaction" />
-      </Principal>
-      <Dependent Role="inscriptionsclients">
-        <PropertyRef Name="inscriptions_noTransaction" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_inscriptionsclients_clients">
-    <End Role="inscriptionsclients" Type="Model.Store.inscriptionsclients" Multiplicity="*" />
-    <End Role="clients" Type="Model.Store.usersJeu_clients" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
-      </Principal>
-      <Dependent Role="inscriptionsclients">
-        <PropertyRef Name="clients_username" />
-        <PropertyRef Name="clients_password" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_listeAttenteclients_listeAttente">
-    <End Role="listeAttente" Type="Model.Store.listeAttenteJeu" Multiplicity="1" />
-    <End Role="listeAttenteclients" Type="Model.Store.listeAttenteclients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="listeAttente">
+      <Principal Role="groupes">
         <PropertyRef Name="noGroupe" />
-        <PropertyRef Name="noClient" />
       </Principal>
-      <Dependent Role="listeAttenteclients">
-        <PropertyRef Name="listeAttente_noGroupe" />
-        <PropertyRef Name="listeAttente_noClient" />
+      <Dependent Role="listeAttente">
+        <PropertyRef Name="groupes_noGroupe" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_listeAttenteclients_clients">
-    <End Role="listeAttenteclients" Type="Model.Store.listeAttenteclients" Multiplicity="*" />
-    <End Role="clients" Type="Model.Store.usersJeu_clients" Multiplicity="1" />
+  <Association Name="dossiersclients">
+    <End Role="dossiers" Type="Model.Store.dossiersJeu" Multiplicity="1" />
+    <End Role="clients" Type="Model.Store.clientsJeu" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
-      </Principal>
-      <Dependent Role="listeAttenteclients">
-        <PropertyRef Name="clients_username" />
-        <PropertyRef Name="clients_password" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clients_inherits_users">
-    <End Role="users" Type="Model.Store.usersJeu" Multiplicity="1" />
-    <End Role="clients" Type="Model.Store.usersJeu_clients" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
+      <Principal Role="dossiers">
+        <PropertyRef Name="noDossier" />
       </Principal>
       <Dependent Role="clients">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
+        <PropertyRef Name="dossiers_noDossier" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_admin_inherits_users">
-    <End Role="users" Type="Model.Store.usersJeu" Multiplicity="1" />
-    <End Role="admin" Type="Model.Store.usersJeu_admin" Multiplicity="0..1" />
+  <Association Name="clientsinscription">
+    <End Role="clients" Type="Model.Store.clientsJeu" Multiplicity="1" />
+    <End Role="inscription" Type="Model.Store.inscriptionJeu" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
+      <Principal Role="clients">
+        <PropertyRef Name="noClient" />
       </Principal>
-      <Dependent Role="admin">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
+      <Dependent Role="inscription">
+        <PropertyRef Name="clients_noClient" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_prepose_inherits_users">
-    <End Role="users" Type="Model.Store.usersJeu" Multiplicity="1" />
-    <End Role="prepose" Type="Model.Store.usersJeu_prepose" Multiplicity="0..1" />
+  <Association Name="clientslisteAttente">
+    <End Role="clients" Type="Model.Store.clientsJeu" Multiplicity="1" />
+    <End Role="listeAttente" Type="Model.Store.listeAttenteJeu" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
+      <Principal Role="clients">
+        <PropertyRef Name="noClient" />
       </Principal>
-      <Dependent Role="prepose">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_professeur_inherits_users">
-    <End Role="users" Type="Model.Store.usersJeu" Multiplicity="1" />
-    <End Role="professeur" Type="Model.Store.usersJeu_professeur" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
-      </Principal>
-      <Dependent Role="professeur">
-        <PropertyRef Name="username" />
-        <PropertyRef Name="password" />
+      <Dependent Role="listeAttente">
+        <PropertyRef Name="clients_noClient" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -442,266 +272,259 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ModelContainer1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="groupesJeu" EntityType="Model.groupes" />
-          <EntitySet Name="horairesJeu" EntityType="Model.horaires" />
-          <EntitySet Name="inscriptionsJeu" EntityType="Model.inscriptions" />
-          <EntitySet Name="listeAttenteJeu" EntityType="Model.listeAttente" />
-          <EntitySet Name="activitesJeu" EntityType="Model.activites" />
-          <AssociationSet Name="groupeslisteAttente" Association="Model.groupeslisteAttente">
+          <EntitySet Name="inscriptionJeu" EntityType="Model.inscription" />
+          <AssociationSet Name="groupesinscription" Association="Model.groupesinscription">
             <End Role="groupes" EntitySet="groupesJeu" />
-            <End Role="listeAttente" EntitySet="listeAttenteJeu" />
+            <End Role="inscription" EntitySet="inscriptionJeu" />
           </AssociationSet>
+          <EntitySet Name="listeAttenteJeu" EntityType="Model.listeAttente" />
+          <EntitySet Name="paiementsJeu" EntityType="Model.paiements" />
+          <AssociationSet Name="paiementsinscription" Association="Model.paiementsinscription">
+            <End Role="paiements" EntitySet="paiementsJeu" />
+            <End Role="inscription" EntitySet="inscriptionJeu" />
+          </AssociationSet>
+          <EntitySet Name="activitesJeu" EntityType="Model.activites" />
+          <EntitySet Name="horairesJeu" EntityType="Model.horaires" />
           <AssociationSet Name="groupeshoraires" Association="Model.groupeshoraires">
             <End Role="groupes" EntitySet="groupesJeu" />
             <End Role="horaires" EntitySet="horairesJeu" />
-          </AssociationSet>
-          <EntitySet Name="paiementsJeu" EntityType="Model.paiements" />
-          <EntitySet Name="dossiersJeu" EntityType="Model.dossiers" />
-          <EntitySet Name="usersJeu" EntityType="Model.users" />
-          <AssociationSet Name="clientsdossiers" Association="Model.clientsdossiers">
-            <End Role="clients" EntitySet="usersJeu" />
-            <End Role="dossiers" EntitySet="dossiersJeu" />
-          </AssociationSet>
-          <AssociationSet Name="inscriptionsclients" Association="Model.inscriptionsclients">
-            <End Role="inscriptions" EntitySet="inscriptionsJeu" />
-            <End Role="clients" EntitySet="usersJeu" />
-          </AssociationSet>
-          <AssociationSet Name="groupesinscriptions" Association="Model.groupesinscriptions">
-            <End Role="groupes" EntitySet="groupesJeu" />
-            <End Role="inscriptions" EntitySet="inscriptionsJeu" />
-          </AssociationSet>
-          <AssociationSet Name="listeAttenteclients" Association="Model.listeAttenteclients">
-            <End Role="listeAttente" EntitySet="listeAttenteJeu" />
-            <End Role="clients" EntitySet="usersJeu" />
-          </AssociationSet>
-          <AssociationSet Name="paiementsinscriptions" Association="Model.paiementsinscriptions">
-            <End Role="paiements" EntitySet="paiementsJeu" />
-            <End Role="inscriptions" EntitySet="inscriptionsJeu" />
           </AssociationSet>
           <AssociationSet Name="activitesgroupes" Association="Model.activitesgroupes">
             <End Role="activites" EntitySet="activitesJeu" />
             <End Role="groupes" EntitySet="groupesJeu" />
           </AssociationSet>
-          <EntitySet Name="prealablesJeu" EntityType="Model.prealables" />
-          <AssociationSet Name="prealablesactivites" Association="Model.prealablesactivites">
-            <End Role="prealables" EntitySet="prealablesJeu" />
+          <EntitySet Name="prealableJeu" EntityType="Model.prealable" />
+          <AssociationSet Name="activitesprealable" Association="Model.activitesprealable">
             <End Role="activites" EntitySet="activitesJeu" />
+            <End Role="prealable" EntitySet="prealableJeu" />
           </AssociationSet>
-          </EntityContainer>
+          <AssociationSet Name="groupeslisteAttente" Association="Model.groupeslisteAttente">
+            <End Role="groupes" EntitySet="groupesJeu" />
+            <End Role="listeAttente" EntitySet="listeAttenteJeu" />
+          </AssociationSet>
+          <EntitySet Name="clientsJeu" EntityType="Model.clients" />
+          <EntitySet Name="dossiersJeu" EntityType="Model.dossiers" />
+          <AssociationSet Name="dossiersclients" Association="Model.dossiersclients">
+            <End Role="dossiers" EntitySet="dossiersJeu" />
+            <End Role="clients" EntitySet="clientsJeu" />
+          </AssociationSet>
+          <AssociationSet Name="clientsinscription" Association="Model.clientsinscription">
+            <End Role="clients" EntitySet="clientsJeu" />
+            <End Role="inscription" EntitySet="inscriptionJeu" />
+          </AssociationSet>
+          <AssociationSet Name="clientslisteAttente" Association="Model.clientslisteAttente">
+            <End Role="clients" EntitySet="clientsJeu" />
+            <End Role="listeAttente" EntitySet="listeAttenteJeu" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="groupes">
           <Key>
             <PropertyRef Name="noGroupe" />
           </Key>
-          <Property Type="String" Name="noGroupe" Nullable="false" annotation:StoreGeneratedPattern="Identity" MaxLength="100" />
-          <Property Type="Int32" Name="noActivite" Nullable="false" DefaultValue="1" />
-          <Property Type="String" Name="nomProf" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="noGroupe" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nomProf" Nullable="false" />
           <Property Type="Int32" Name="prix" Nullable="false" />
-          <Property Type="Int32" Name="nbPlaceDispo" Nullable="false" />
-          <Property Type="DateTime" Name="debutDateInscription" Nullable="false" />
-          <Property Type="DateTime" Name="finDateInscription" Nullable="false" />
-          <Property Type="String" Name="clientele" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ageMin" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="ageMax" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="session" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="nomActivite" Nullable="false" MaxLength="100" />
-          <Property Name="dateDebutActivite" Nullable="false" Type="DateTime" />
-          <NavigationProperty Name="listeAttente" Relationship="Model.groupeslisteAttente" FromRole="groupes" ToRole="listeAttente" />
+          <Property Type="String" Name="nbPlaceDisponible" Nullable="false" />
+          <Property Type="Int32" Name="ageMin" Nullable="false" />
+          <Property Type="Int32" Name="ageMax" Nullable="false" />
+          <Property Type="String" Name="session" Nullable="false" />
+          <Property Type="String" Name="dateDebut" Nullable="false" />
+          <NavigationProperty Name="inscription" Relationship="Model.groupesinscription" FromRole="groupes" ToRole="inscription" />
+          <Property Type="String" Name="noActivite" Nullable="false" />
           <NavigationProperty Name="horaires" Relationship="Model.groupeshoraires" FromRole="groupes" ToRole="horaires" />
-          <NavigationProperty Name="inscriptions" Relationship="Model.groupesinscriptions" FromRole="groupes" ToRole="inscriptions" />
           <NavigationProperty Name="activites" Relationship="Model.activitesgroupes" FromRole="groupes" ToRole="activites" />
-        </EntityType>
-        <EntityType Name="clients" BaseType="Model.users">
-          <Property Name="noClient" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="noDossier" Nullable="false" Type="Int32" annotation:StoreGeneratedPattern="None" />
-          <Property Type="String" Name="nom" Nullable="false" />
-          <Property Type="String" Name="prenom" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
-          <Property Type="DateTime" Name="dateNaissance" Nullable="false" />
-          <NavigationProperty Name="dossiers" Relationship="Model.clientsdossiers" FromRole="clients" ToRole="dossiers" />
-          <NavigationProperty Name="inscriptions" Relationship="Model.inscriptionsclients" FromRole="clients" ToRole="inscriptions" />
-          <NavigationProperty Name="listeAttente" Relationship="Model.listeAttenteclients" FromRole="clients" ToRole="listeAttente" />
-        </EntityType>
-        <EntityType Name="users">
+          <NavigationProperty Name="listeAttente" Relationship="Model.groupeslisteAttente" FromRole="groupes" ToRole="listeAttente" />
+          </EntityType>
+        <EntityType Name="inscription">
           <Key>
-            <PropertyRef Name="username" />
-            <PropertyRef Name="password" />
+            <PropertyRef Name="noInscription" />
           </Key>
-          <Property Type="String" Name="username" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="100" />
-          <Property Type="String" Name="password" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="typeUtilisateur" Nullable="false" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="horaires">
-          <Key>
-            <PropertyRef Name="noGroupe" />
-          </Key>
-          <Property Type="Int32" Name="noGroupe" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Type="DateTime" Name="heureDebut" Nullable="false" />
-          <Property Type="String" Name="emplacement" Nullable="false" MaxLength="100" />
-          <NavigationProperty Name="groupes" Relationship="Model.groupeshoraires" FromRole="horaires" ToRole="groupes" />
-          <Property Type="String" Name="duree" Nullable="false" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="inscriptions">
-          <Key>
-            <PropertyRef Name="noTransaction" />
-          </Key>
-          <Property Type="Int32" Name="noTransaction" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="noInscription" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="noClient" Nullable="false" />
-          <Property Type="DateTime" Name="dateInscription" Nullable="false" />
-          <NavigationProperty Name="clients" Relationship="Model.inscriptionsclients" FromRole="inscriptions" ToRole="clients" />
-          <NavigationProperty Name="groupes" Relationship="Model.groupesinscriptions" FromRole="inscriptions" ToRole="groupes" />
-          <NavigationProperty Name="paiements" Relationship="Model.paiementsinscriptions" FromRole="inscriptions" ToRole="paiements" />
+          <Property Type="String" Name="dateInscription" Nullable="false" />
+          <Property Type="String" Name="descriptionAchat" Nullable="false" />
           <Property Type="String" Name="noGroupe" Nullable="false" />
+          <NavigationProperty Name="groupes" Relationship="Model.groupesinscription" FromRole="inscription" ToRole="groupes" />
+          <NavigationProperty Name="paiements" Relationship="Model.paiementsinscription" FromRole="inscription" ToRole="paiements" />
+          <Property Type="String" Name="noPaiement" Nullable="false" />
+          <NavigationProperty Name="clients" Relationship="Model.clientsinscription" FromRole="inscription" ToRole="clients" />
         </EntityType>
+        <Association Name="groupesinscription">
+          <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
+          <End Type="Model.inscription" Role="inscription" Multiplicity="*" />
+        </Association>
         <EntityType Name="listeAttente">
           <Key>
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noClient" />
+            <PropertyRef Name="noListeAttente" />
           </Key>
-          <Property Type="Int32" Name="noGroupe" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Type="Int32" Name="noClient" Nullable="false" />
+          <Property Type="Int32" Name="noListeAttente" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="noGroupe" Nullable="false" />
+          <Property Type="String" Name="noClient" Nullable="false" />
+          <Property Type="String" Name="dateDebutAttente" Nullable="false" />
           <NavigationProperty Name="groupes" Relationship="Model.groupeslisteAttente" FromRole="listeAttente" ToRole="groupes" />
-          <NavigationProperty Name="clients" Relationship="Model.listeAttenteclients" FromRole="listeAttente" ToRole="clients" />
+          <NavigationProperty Name="clients" Relationship="Model.clientslisteAttente" FromRole="listeAttente" ToRole="clients" />
         </EntityType>
+        <EntityType Name="paiements">
+          <Key>
+            <PropertyRef Name="noPaiement" />
+          </Key>
+          <Property Type="Int32" Name="noPaiement" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="noInscription" Nullable="false" />
+          <Property Type="String" Name="datePaiement" Nullable="false" />
+          <Property Type="Int32" Name="TPS" Nullable="false" />
+          <Property Type="Int32" Name="TVQ" Nullable="false" />
+          <Property Type="String" Name="rabais" Nullable="false" />
+          <Property Type="String" Name="totalPaiement" Nullable="false" />
+          <NavigationProperty Name="inscription" Relationship="Model.paiementsinscription" FromRole="paiements" ToRole="inscription" />
+        </EntityType>
+        <Association Name="paiementsinscription">
+          <End Type="Model.paiements" Role="paiements" Multiplicity="1" />
+          <End Type="Model.inscription" Role="inscription" Multiplicity="*" />
+        </Association>
         <EntityType Name="activites">
           <Key>
             <PropertyRef Name="noActivite" />
           </Key>
           <Property Type="Int32" Name="noActivite" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="noPrealable" Nullable="false" />
-          <Property Type="String" Name="materielRequis" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="typeActivite" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="nomActivite" Nullable="false" />
+          <Property Type="String" Name="materielRequis" Nullable="false" />
+          <Property Type="String" Name="typeActivite" Nullable="false" />
+          <Property Type="String" Name="clientele" Nullable="false" />
           <NavigationProperty Name="groupes" Relationship="Model.activitesgroupes" FromRole="activites" ToRole="groupes" />
-          <NavigationProperty Name="prealables" Relationship="Model.prealablesactivites" FromRole="activites" ToRole="prealables" />
+          <NavigationProperty Name="prealable" Relationship="Model.activitesprealable" FromRole="activites" ToRole="prealable" />
         </EntityType>
-        <Association Name="groupeslisteAttente">
-          <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
-          <End Type="Model.listeAttente" Role="listeAttente" Multiplicity="*" />
-        </Association>
+        <EntityType Name="horaires">
+          <Key>
+            <PropertyRef Name="noHoraire" />
+          </Key>
+          <Property Type="Int32" Name="noHoraire" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="noGroupe" Nullable="false" />
+          <Property Type="String" Name="heureDebut" Nullable="false" />
+          <Property Type="String" Name="heureFin" Nullable="false" />
+          <Property Type="String" Name="emplacement" Nullable="false" />
+          <NavigationProperty Name="groupes" Relationship="Model.groupeshoraires" FromRole="horaires" ToRole="groupes" />
+        </EntityType>
         <Association Name="groupeshoraires">
           <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
           <End Type="Model.horaires" Role="horaires" Multiplicity="*" />
         </Association>
-        <EntityType Name="paiements">
+        <Association Name="activitesgroupes">
+          <End Type="Model.activites" Role="activites" Multiplicity="1" />
+          <End Type="Model.groupes" Role="groupes" Multiplicity="*" />
+        </Association>
+        <EntityType Name="prealable">
           <Key>
-            <PropertyRef Name="noTransaction" />
+            <PropertyRef Name="noPrealable" />
           </Key>
-          <Property Type="Int32" Name="noTransaction" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="dateTransaction" Nullable="false" />
-          <Property Type="Int32" Name="totalTransaction" Nullable="false" />
-          <Property Type="Int32" Name="rabais" Nullable="false" />
-          <Property Type="Int32" Name="TPS" Nullable="false" />
-          <Property Type="Int32" Name="TVQ" Nullable="false" />
-          <NavigationProperty Name="inscriptions" Relationship="Model.paiementsinscriptions" FromRole="paiements" ToRole="inscriptions" />
+          <Property Type="Int32" Name="noPrealable" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <NavigationProperty Name="activites" Relationship="Model.activitesprealable" FromRole="prealable" ToRole="activites" />
+          <Property Type="String" Name="noActivite" Nullable="false" />
+        </EntityType>
+        <Association Name="activitesprealable">
+          <End Type="Model.activites" Role="activites" Multiplicity="1" />
+          <End Type="Model.prealable" Role="prealable" Multiplicity="*" />
+        </Association>
+        <Association Name="groupeslisteAttente">
+          <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
+          <End Type="Model.listeAttente" Role="listeAttente" Multiplicity="*" />
+        </Association>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="noClient" />
+          </Key>
+          <Property Type="Int32" Name="noClient" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="noDossier" Nullable="false" />
+          <Property Type="String" Name="nom" Nullable="false" />
+          <Property Type="String" Name="prenom" Nullable="false" />
+          <Property Type="String" Name="dateNaissance" Nullable="false" />
+          <NavigationProperty Name="dossiers" Relationship="Model.dossiersclients" FromRole="clients" ToRole="dossiers" />
+          <NavigationProperty Name="inscription" Relationship="Model.clientsinscription" FromRole="clients" ToRole="inscription" />
+          <NavigationProperty Name="listeAttente" Relationship="Model.clientslisteAttente" FromRole="clients" ToRole="listeAttente" />
         </EntityType>
         <EntityType Name="dossiers">
           <Key>
             <PropertyRef Name="noDossier" />
           </Key>
           <Property Type="Int32" Name="noDossier" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="adresse" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ville" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="codePostal" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="province" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="telephone" Nullable="false" MaxLength="100" />
-          <NavigationProperty Name="clients" Relationship="Model.clientsdossiers" FromRole="dossiers" ToRole="clients" />
+          <Property Type="String" Name="adresse" Nullable="false" />
+          <Property Type="String" Name="ville" Nullable="false" />
+          <Property Type="String" Name="codePostal" Nullable="false" />
+          <Property Type="String" Name="province" Nullable="false" />
+          <Property Type="String" Name="noTelephone" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="false" />
+          <Property Type="String" Name="password" Nullable="false" />
+          <Property Type="String" Name="typeUtilisateur" Nullable="false" />
+          <NavigationProperty Name="clients" Relationship="Model.dossiersclients" FromRole="dossiers" ToRole="clients" />
         </EntityType>
-        <EntityType Name="admin" BaseType="Model.users">
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="prepose" BaseType="Model.users">
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="professeur" BaseType="Model.users">
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <Association Name="clientsdossiers">
-          <End Type="Model.clients" Role="clients" Multiplicity="*" />
+        <Association Name="dossiersclients">
           <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
-        </Association>
-        <Association Name="inscriptionsclients">
-          <End Type="Model.inscriptions" Role="inscriptions" Multiplicity="*" />
           <End Type="Model.clients" Role="clients" Multiplicity="*" />
         </Association>
-        <Association Name="groupesinscriptions">
-          <End Type="Model.groupes" Role="groupes" Multiplicity="*" />
-          <End Type="Model.inscriptions" Role="inscriptions" Multiplicity="1" />
+        <Association Name="clientsinscription">
+          <End Type="Model.clients" Role="clients" Multiplicity="1" />
+          <End Type="Model.inscription" Role="inscription" Multiplicity="*" />
         </Association>
-        <Association Name="listeAttenteclients">
+        <Association Name="clientslisteAttente">
+          <End Type="Model.clients" Role="clients" Multiplicity="1" />
           <End Type="Model.listeAttente" Role="listeAttente" Multiplicity="*" />
-          <End Type="Model.clients" Role="clients" Multiplicity="*" />
-        </Association>
-        <Association Name="paiementsinscriptions">
-          <End Type="Model.paiements" Role="paiements" Multiplicity="1" />
-          <End Type="Model.inscriptions" Role="inscriptions" Multiplicity="1" />
-        </Association>
-        <Association Name="activitesgroupes">
-          <End Type="Model.activites" Role="activites" Multiplicity="1" />
-          <End Type="Model.groupes" Role="groupes" Multiplicity="*" />
-        </Association>
-        <EntityType Name="prealables">
-          <Key>
-            <PropertyRef Name="noPrealable" />
-          </Key>
-          <Property Type="Int32" Name="noPrealable" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="activites" Relationship="Model.prealablesactivites" FromRole="prealables" ToRole="activites" />
-          <Property Type="String" Name="description" Nullable="false" />
-          <Property Type="Int32" Name="noActivite" Nullable="false" />
-        </EntityType>
-        <Association Name="prealablesactivites">
-          <End Type="Model.prealables" Role="prealables" Multiplicity="*" />
-          <End Type="Model.activites" Role="activites" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer1">
     <EntitySetMapping Name="groupesJeu">
       <EntityTypeMapping TypeName="IsTypeOf(Model.groupes)">
         <MappingFragment StoreEntitySet="groupesJeu">
           <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
           <ScalarProperty Name="nomProf" ColumnName="nomProf" />
           <ScalarProperty Name="prix" ColumnName="prix" />
-          <ScalarProperty Name="nbPlaceDispo" ColumnName="nbPlaceDispo" />
-          <ScalarProperty Name="debutDateInscription" ColumnName="debutDateInscription" />
-          <ScalarProperty Name="finDateInscription" ColumnName="finDateInscription" />
-          <ScalarProperty Name="clientele" ColumnName="clientele" />
+          <ScalarProperty Name="nbPlaceDisponible" ColumnName="nbPlaceDisponible" />
           <ScalarProperty Name="ageMin" ColumnName="ageMin" />
           <ScalarProperty Name="ageMax" ColumnName="ageMax" />
           <ScalarProperty Name="session" ColumnName="session" />
-          <ScalarProperty Name="nomActivite" ColumnName="nomActivite" />
-          <ScalarProperty Name="dateDebutActivite" ColumnName="dateDebutActivite" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="horairesJeu">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.horaires)">
-        <MappingFragment StoreEntitySet="horairesJeu">
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="heureDebut" ColumnName="heureDebut" />
-          <ScalarProperty Name="emplacement" ColumnName="emplacement" />
-          <ScalarProperty Name="duree" ColumnName="duree" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="inscriptionsJeu">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.inscriptions)">
-        <MappingFragment StoreEntitySet="inscriptionsJeu">
-          <ScalarProperty Name="noTransaction" ColumnName="noTransaction" />
+    <EntitySetMapping Name="inscriptionJeu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.inscription)">
+        <MappingFragment StoreEntitySet="inscriptionJeu">
+          <ScalarProperty Name="noInscription" ColumnName="noInscription" />
           <ScalarProperty Name="noClient" ColumnName="noClient" />
           <ScalarProperty Name="dateInscription" ColumnName="dateInscription" />
+          <ScalarProperty Name="descriptionAchat" ColumnName="descriptionAchat" />
           <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+          <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="listeAttenteJeu">
       <EntityTypeMapping TypeName="IsTypeOf(Model.listeAttente)">
         <MappingFragment StoreEntitySet="listeAttenteJeu">
+          <ScalarProperty Name="noListeAttente" ColumnName="noListeAttente" />
           <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
           <ScalarProperty Name="noClient" ColumnName="noClient" />
+          <ScalarProperty Name="dateDebutAttente" ColumnName="dateDebutAttente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paiementsJeu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.paiements)">
+        <MappingFragment StoreEntitySet="paiementsJeu">
+          <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
+          <ScalarProperty Name="noInscription" ColumnName="noInscription" />
+          <ScalarProperty Name="datePaiement" ColumnName="datePaiement" />
+          <ScalarProperty Name="TPS" ColumnName="TPS" />
+          <ScalarProperty Name="TVQ" ColumnName="TVQ" />
+          <ScalarProperty Name="rabais" ColumnName="rabais" />
+          <ScalarProperty Name="totalPaiement" ColumnName="totalPaiement" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -709,21 +532,41 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.activites)">
         <MappingFragment StoreEntitySet="activitesJeu">
           <ScalarProperty Name="noActivite" ColumnName="noActivite" />
-          <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
+          <ScalarProperty Name="nomActivite" ColumnName="nomActivite" />
           <ScalarProperty Name="materielRequis" ColumnName="materielRequis" />
           <ScalarProperty Name="typeActivite" ColumnName="typeActivite" />
+          <ScalarProperty Name="clientele" ColumnName="clientele" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="paiementsJeu">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.paiements)">
-        <MappingFragment StoreEntitySet="paiementsJeu">
-          <ScalarProperty Name="noTransaction" ColumnName="noTransaction" />
-          <ScalarProperty Name="dateTransaction" ColumnName="dateTransaction" />
-          <ScalarProperty Name="totalTransaction" ColumnName="totalTransaction" />
-          <ScalarProperty Name="rabais" ColumnName="rabais" />
-          <ScalarProperty Name="TPS" ColumnName="TPS" />
-          <ScalarProperty Name="TVQ" ColumnName="TVQ" />
+    <EntitySetMapping Name="horairesJeu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.horaires)">
+        <MappingFragment StoreEntitySet="horairesJeu">
+          <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
+          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+          <ScalarProperty Name="heureDebut" ColumnName="heureDebut" />
+          <ScalarProperty Name="heureFin" ColumnName="heureFin" />
+          <ScalarProperty Name="emplacement" ColumnName="emplacement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="prealableJeu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.prealable)">
+        <MappingFragment StoreEntitySet="prealableJeu">
+          <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clientsJeu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.clients)">
+        <MappingFragment StoreEntitySet="clientsJeu">
+                <ScalarProperty Name="noClient" ColumnName="noClient" />
+          <ScalarProperty Name="noDossier" ColumnName="noDossier" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="dateNaissance" ColumnName="dateNaissance" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -735,68 +578,28 @@
           <ScalarProperty Name="ville" ColumnName="ville" />
           <ScalarProperty Name="codePostal" ColumnName="codePostal" />
           <ScalarProperty Name="province" ColumnName="province" />
-          <ScalarProperty Name="telephone" ColumnName="telephone" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="usersJeu">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.users)">
-        <MappingFragment StoreEntitySet="usersJeu">
+          <ScalarProperty Name="noTelephone" ColumnName="noTelephone" />
+          <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="typeUtilisateur" ColumnName="typeUtilisateur" />
         </MappingFragment>
       </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(Model.clients)">
-        <MappingFragment StoreEntitySet="usersJeu_clients">
-                <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="noClient" ColumnName="noClient" />
-          <ScalarProperty Name="noDossier" ColumnName="noDossier" />
-          <ScalarProperty Name="nom" ColumnName="nom" />
-          <ScalarProperty Name="prenom" ColumnName="prenom" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="dateNaissance" ColumnName="dateNaissance" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(Model.admin)">
-        <MappingFragment StoreEntitySet="usersJeu_admin">
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(Model.prepose)">
-        <MappingFragment StoreEntitySet="usersJeu_prepose">
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(Model.professeur)">
-        <MappingFragment StoreEntitySet="usersJeu_professeur">
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="prealablesJeu">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.prealables)">
-        <MappingFragment StoreEntitySet="prealablesJeu">
-          <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="groupeslisteAttente" TypeName="Model.groupeslisteAttente" StoreEntitySet="listeAttenteJeu">
+    <AssociationSetMapping Name="groupesinscription" TypeName="Model.groupesinscription" StoreEntitySet="inscriptionJeu">
       <EndProperty Name="groupes">
         <ScalarProperty Name="noGroupe" ColumnName="groupes_noGroupe" />
       </EndProperty>
-      <EndProperty Name="listeAttente">
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noClient" ColumnName="noClient" />
+      <EndProperty Name="inscription">
+        <ScalarProperty Name="noInscription" ColumnName="noInscription" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="paiementsinscription" TypeName="Model.paiementsinscription" StoreEntitySet="inscriptionJeu">
+      <EndProperty Name="paiements">
+        <ScalarProperty Name="noPaiement" ColumnName="paiements_noPaiement" />
+      </EndProperty>
+      <EndProperty Name="inscription">
+        <ScalarProperty Name="noInscription" ColumnName="noInscription" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="groupeshoraires" TypeName="Model.groupeshoraires" StoreEntitySet="horairesJeu">
@@ -804,51 +607,7 @@
         <ScalarProperty Name="noGroupe" ColumnName="groupes_noGroupe" />
       </EndProperty>
       <EndProperty Name="horaires">
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="clientsdossiers" TypeName="Model.clientsdossiers" StoreEntitySet="usersJeu_clients">
-      <EndProperty Name="dossiers">
-        <ScalarProperty Name="noDossier" ColumnName="dossiers_noDossier" />
-      </EndProperty>
-      <EndProperty Name="clients">
-        <ScalarProperty Name="username" ColumnName="username" />
-        <ScalarProperty Name="password" ColumnName="password" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="inscriptionsclients" TypeName="Model.inscriptionsclients" StoreEntitySet="inscriptionsclients">
-      <EndProperty Name="inscriptions">
-        <ScalarProperty Name="noTransaction" ColumnName="inscriptions_noTransaction" />
-      </EndProperty>
-      <EndProperty Name="clients">
-        <ScalarProperty Name="username" ColumnName="clients_username" />
-        <ScalarProperty Name="password" ColumnName="clients_password" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="groupesinscriptions" TypeName="Model.groupesinscriptions" StoreEntitySet="groupesJeu">
-      <EndProperty Name="inscriptions">
-        <ScalarProperty Name="noTransaction" ColumnName="inscriptions_noTransaction" />
-      </EndProperty>
-      <EndProperty Name="groupes">
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="listeAttenteclients" TypeName="Model.listeAttenteclients" StoreEntitySet="listeAttenteclients">
-      <EndProperty Name="listeAttente">
-        <ScalarProperty Name="noGroupe" ColumnName="listeAttente_noGroupe" />
-        <ScalarProperty Name="noClient" ColumnName="listeAttente_noClient" />
-      </EndProperty>
-      <EndProperty Name="clients">
-        <ScalarProperty Name="username" ColumnName="clients_username" />
-        <ScalarProperty Name="password" ColumnName="clients_password" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="paiementsinscriptions" TypeName="Model.paiementsinscriptions" StoreEntitySet="paiementsJeu">
-      <EndProperty Name="inscriptions">
-        <ScalarProperty Name="noTransaction" ColumnName="inscriptions_noTransaction" />
-      </EndProperty>
-      <EndProperty Name="paiements">
-        <ScalarProperty Name="noTransaction" ColumnName="noTransaction" />
+        <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="activitesgroupes" TypeName="Model.activitesgroupes" StoreEntitySet="groupesJeu">
@@ -859,12 +618,44 @@
         <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="prealablesactivites" TypeName="Model.prealablesactivites" StoreEntitySet="prealablesJeu">
+    <AssociationSetMapping Name="activitesprealable" TypeName="Model.activitesprealable" StoreEntitySet="prealableJeu">
       <EndProperty Name="activites">
         <ScalarProperty Name="noActivite" ColumnName="activites_noActivite" />
       </EndProperty>
-      <EndProperty Name="prealables">
+      <EndProperty Name="prealable">
         <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="groupeslisteAttente" TypeName="Model.groupeslisteAttente" StoreEntitySet="listeAttenteJeu">
+      <EndProperty Name="groupes">
+        <ScalarProperty Name="noGroupe" ColumnName="groupes_noGroupe" />
+      </EndProperty>
+      <EndProperty Name="listeAttente">
+        <ScalarProperty Name="noListeAttente" ColumnName="noListeAttente" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="dossiersclients" TypeName="Model.dossiersclients" StoreEntitySet="clientsJeu">
+      <EndProperty Name="dossiers">
+        <ScalarProperty Name="noDossier" ColumnName="dossiers_noDossier" />
+      </EndProperty>
+      <EndProperty Name="clients">
+        <ScalarProperty Name="noClient" ColumnName="noClient" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="clientsinscription" TypeName="Model.clientsinscription" StoreEntitySet="inscriptionJeu">
+      <EndProperty Name="clients">
+        <ScalarProperty Name="noClient" ColumnName="clients_noClient" />
+      </EndProperty>
+      <EndProperty Name="inscription">
+        <ScalarProperty Name="noInscription" ColumnName="noInscription" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="clientslisteAttente" TypeName="Model.clientslisteAttente" StoreEntitySet="listeAttenteJeu">
+      <EndProperty Name="clients">
+        <ScalarProperty Name="noClient" ColumnName="clients_noClient" />
+      </EndProperty>
+      <EndProperty Name="listeAttente">
+        <ScalarProperty Name="noListeAttente" ColumnName="noListeAttente" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
@@ -881,78 +672,58 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Par défaut" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model" >
-        <EntityTypeShape EntityType="Model.groupes" Width="1.5" PointX="4.125" PointY="0.5" Height="4.2879036458333326" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="9.375" PointY="0.5" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="9.375" PointY="3.625" Height="1.59568359375" />
-        <EntityTypeShape EntityType="Model.horaires" Width="1.5" PointX="1.5" PointY="1" Height="1.9802864583333339" />
-        <EntityTypeShape EntityType="Model.inscriptions" Width="1.5" PointX="6.5" PointY="0.5" Height="2.3648893229166665" />
-        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="8.625" PointY="5.5" Height="1.7879850260416657" />
-        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="1.5" PointY="3.25" Height="2.1725878906249996" />
-        <InheritanceConnector EntityType="Model.clients" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.125" PointY="3.625" />
-          <ConnectorPoint PointX="10.125" PointY="3.2494921874999996" />
-        </InheritanceConnector>
-        <AssociationConnector Association="Model.groupeslisteAttente">
-          <ConnectorPoint PointX="5.40625" PointY="4.7879036458333326" />
-          <ConnectorPoint PointX="5.40625" PointY="7.0355843098958326" />
-          <ConnectorPoint PointX="8.625" PointY="7.0355843098958326" />
+        <EntityTypeShape EntityType="Model.groupes" Width="1.75" PointX="2.5" PointY="0.5" Height="2.9417936197916656" />
+        <EntityTypeShape EntityType="Model.inscription" Width="1.5" PointX="5.125" PointY="0.5" Height="2.7494921875" />
+        <AssociationConnector Association="Model.groupesinscription">
+          <ConnectorPoint PointX="4.25" PointY="1.8747460937499998" />
+          <ConnectorPoint PointX="5.125" PointY="1.8747460937499998" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="7.375" PointY="5" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="5.125" PointY="3.625" Height="2.5571907552083317" />
+        <AssociationConnector Association="Model.paiementsinscription">
+          <ConnectorPoint PointX="5.875" PointY="3.625" />
+          <ConnectorPoint PointX="5.875" PointY="3.2494921875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="0.5" PointY="3.875" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.horaires" Width="1.5" PointX="0.5" PointY="1" Height="1.9802864583333331" />
         <AssociationConnector Association="Model.groupeshoraires">
-          <ConnectorPoint PointX="4.125" PointY="1.990143229166667" />
-          <ConnectorPoint PointX="3" PointY="1.990143229166667" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="6.5" PointY="3.625" Height="2.3648893229166665" />
-        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="11.625" PointY="0.5" Height="2.364889322916667" />
-        <EntityTypeShape EntityType="Model.admin" Width="1.5" PointX="11.625" PointY="3.75" Height="0.4" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.prepose" Width="1.5" PointX="11.625" PointY="4.375" Height="0.4" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.professeur" Width="1.5" PointX="11.625" PointY="5" Height="0.4" IsExpanded="false" />
-        <InheritanceConnector EntityType="Model.professeur">
-          <ConnectorPoint PointX="10.875" PointY="5.110341796875" />
-          <ConnectorPoint PointX="11.625" PointY="5.110341796875" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="Model.admin">
-          <ConnectorPoint PointX="10.875" PointY="3.95" />
-          <ConnectorPoint PointX="11.625" PointY="3.95" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="Model.prepose">
-          <ConnectorPoint PointX="10.875" PointY="4.575" />
-          <ConnectorPoint PointX="11.625" PointY="4.575" />
-        </InheritanceConnector>
-        <AssociationConnector Association="Model.clientsdossiers">
-          <ConnectorPoint PointX="10.875" PointY="1.6824446614583337" />
-          <ConnectorPoint PointX="11.625" PointY="1.6824446614583337" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.inscriptionsclients">
-          <ConnectorPoint PointX="8" PointY="1.4361104622395833" />
-          <ConnectorPoint PointX="9.375" PointY="1.4361104622395833" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.groupesinscriptions">
-          <ConnectorPoint PointX="5.625" PointY="1.6824446614583333" />
-          <ConnectorPoint PointX="6.5" PointY="1.6824446614583333" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.listeAttenteclients">
-          <ConnectorPoint PointX="8.9687475" PointY="5.5" />
-          <ConnectorPoint PointX="8.9687475" PointY="2.4972209244791665" />
-          <ConnectorPoint PointX="9.375" PointY="2.4972209244791665" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.paiementsinscriptions">
-          <ConnectorPoint PointX="7.25" PointY="3.625" />
-          <ConnectorPoint PointX="7.25" PointY="2.8648893229166665" />
+          <ConnectorPoint PointX="2.5" PointY="2.0862939453125" />
+          <ConnectorPoint PointX="2" PointY="2.0862939453125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.activitesgroupes">
-          <ConnectorPoint PointX="3" PointY="4.0189518229166659" />
-          <ConnectorPoint PointX="4.125" PointY="4.0189518229166659" />
+          <ConnectorPoint PointX="2" PointY="3.875" />
+          <ConnectorPoint PointX="2.4999999999999956" PointY="3.826396484375" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Model.prealables" Width="1.5" PointX="3.625" PointY="5.125" Height="1.5956835937499996" />
-        <AssociationConnector Association="Model.prealablesactivites">
-          <ConnectorPoint PointX="3.625" PointY="5.922841796875" />
-          <ConnectorPoint PointX="2.25" PointY="5.922841796875" />
-          <ConnectorPoint PointX="2.25" PointY="5.422587890625" />
+        <EntityTypeShape EntityType="Model.prealable" Width="1.5" PointX="2.75" PointY="6.625" Height="1.7879850260416657" />
+        <AssociationConnector Association="Model.activitesprealable">
+          <ConnectorPoint PointX="1.25" PointY="6.2398893229166656" />
+          <ConnectorPoint PointX="1.25" PointY="7.5189925130208328" />
+          <ConnectorPoint PointX="2.75" PointY="7.5189925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.groupeslisteAttente">
+          <ConnectorPoint PointX="2.59375" PointY="4.0186979166666665" />
+          <ConnectorPoint PointX="2.59375" PointY="6.4035953776041659" />
+          <ConnectorPoint PointX="7.375" PointY="6.4035953776041659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="7.5" PointY="0.625" Height="2.5571907552083331" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="10.25" PointY="0.625" Height="2.9417936197916665" />
+        <AssociationConnector Association="Model.dossiersclients">
+          <ConnectorPoint PointX="10.25" PointY="1.9035953776041668" />
+          <ConnectorPoint PointX="9" PointY="1.9035953776041668" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.clientsinscription">
+          <ConnectorPoint PointX="7.5" PointY="1.9035953776041665" />
+          <ConnectorPoint PointX="6.625" PointY="1.9035953776041665" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.clientslisteAttente">
+          <ConnectorPoint PointX="8.1875" PointY="3.1821907552083331" />
+          <ConnectorPoint PointX="8.1875" PointY="5" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
