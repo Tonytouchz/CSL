@@ -5,6 +5,12 @@ Imports System.Data.SqlClient
 Imports System.Web.UI.Control
 Imports System.Configuration
 Imports Model
+Imports System.Security.Principal
+Imports System.Security.Cryptography
+Imports System.Text
+Imports System.Object
+Imports System.Web
+Imports System.Web.Security
 
 Partial Class CreerDossier
     Inherits System.Web.UI.Page
@@ -12,7 +18,6 @@ Partial Class CreerDossier
     Protected Shared leContexte As ModelContainer1 = New ModelContainer1
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
     End Sub
 
     Protected Sub dsDossier_ContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) Handles dsDossier.ContextCreating
@@ -42,41 +47,72 @@ Partial Class CreerDossier
 
         Else
 
+            Dim nom As String = FindChildControl(Of TextBox)(lvDossier, "txtNom").Text
+            Dim prenom As String = FindChildControl(Of TextBox)(lvDossier, "txtPrenom").Text
+            Dim dateNaissance As String = FindChildControl(Of TextBox)(lvDossier, "txtDateNaissance").Text
+            Dim username As String = FindChildControl(Of TextBox)(lvDossier, "txtNomUtilisateur").Text
+
+            Dim leDossier As dossiers = (From d In leContexte.dossiersJeu
+                                  Where d.username = username
+                                  Select d).First
+
+            Dim newClient = New clients With {.nom = nom, .prenom = prenom, .dateNaissance = dateNaissance, .noDossier = leDossier.noDossier}
+            newClient.dossiers = leDossier
+
+            leContexte.AddObject("clientsJeu", newClient)
+            leContexte.SaveChanges()
+
             Response.Redirect("CreerDossierSucces.aspx", True)
 
         End If
 
     End Sub
 
-    Protected Sub lvDossier_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lvDossier.ItemCommand
+    Sub chercherUsername(ByVal sender As Object, ByVal args As ServerValidateEventArgs)
 
-        If e.CommandSource.id = "btnInsertCompte" Then
+        Dim txtUsername As String = FindChildControl(Of TextBox)(lvDossier, "txtNomUtilisateur").Text
+        Dim varUsername As String = ""
 
-            Dim nom As String = FindChildControl(Of TextBox)(lvDossier, "txtNom").Text
-            Dim prenom As String = FindChildControl(Of TextBox)(lvDossier, "txtPrenom").Text
-            Dim dateNaissance As String = FindChildControl(Of TextBox)(lvDossier, "txtDateNaissance").Text
+        Try
 
-            Dim adresse As String = FindChildControl(Of TextBox)(lvDossier, "txtAdresse").Text
-            Dim ville As String = FindChildControl(Of TextBox)(lvDossier, "txtVille").Text
-            Dim codePostal As String = FindChildControl(Of TextBox)(lvDossier, "txtCodePostal").Text
-            Dim province As String = FindChildControl(Of DropDownList)(lvDossier, "ddlProvince").SelectedValue
-            Dim noTelephone As String = FindChildControl(Of TextBox)(lvDossier, "txtNoTelephone").Text
-            Dim email As String = FindChildControl(Of TextBox)(lvDossier, "txtEmail").Text
-            Dim nomUtilisateur As String = FindChildControl(Of TextBox)(lvDossier, "txtNomUtilisateur").Text
-            Dim motPasse As String = FindChildControl(Of TextBox)(lvDossier, "txtMotPasse").Text
-            Dim typeUtilisateur As String = FindChildControl(Of DropDownList)(lvDossier, "ddlTypeUtilisateur").SelectedValue
+            varUsername = (From d In leContexte.dossiersJeu Where d.username = txtUsername Select d.username).First
 
-            Dim newDossier = New dossiers With {.adresse = adresse, .ville = ville, .codePostal = codePostal, .province = province,
-                                                .noTelephone = noTelephone, .email = email, .username = nomUtilisateur, .password = motPasse,
-            .typeUtilisateur = typeUtilisateur}
+        Catch
 
-            leContexte.AddObject("dossiersJeu", newDossier)
+        End Try
 
-            Dim newClient = New clients With {.nom = nom, .prenom = prenom, .dateNaissance = dateNaissance, .noDossier = newDossier.noDossier}
-            newClient.dossiers = newDossier
+        If varUsername = "" Then
 
-            leContexte.AddObject("clientsJeu", newClient)
-            leContexte.SaveChanges()
+            args.IsValid = True
+
+        Else
+
+            args.IsValid = False
+
+        End If
+
+    End Sub
+
+    Sub chercherEmail(ByVal sender As Object, ByVal args As ServerValidateEventArgs)
+
+        Dim txtEmail As String = FindChildControl(Of TextBox)(lvDossier, "txtEmail").Text
+        Dim varEmail As String = ""
+
+        Try
+
+            varEmail = (From d In leContexte.dossiersJeu Where d.email = txtEmail Select d.email).First
+
+        Catch
+
+        End Try
+
+        If varEmail = "" Then
+
+            args.IsValid = True
+
+        Else
+
+            args.IsValid = False
 
         End If
 
@@ -97,9 +133,12 @@ Partial Class CreerDossier
     End Function
 
     Public Shared Function CreatePasswordHash(ByVal pwd As String, ByVal salt As String) As String
+
         Dim saltAndPwd As String = String.Concat(pwd, salt)
         Dim hashedPwd As String = FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd, "sha1")
+
         Return hashedPwd
+
     End Function
 
 End Class

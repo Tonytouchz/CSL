@@ -106,10 +106,11 @@ menu leMenu MenuItem
 
 .controleValidation
 {
+    position: absolute;
     font-weight: bold;
     font-style: italic;
     color: #FF0000;
     font-family: 'Franklin Gothic Medium';
     font-size: x-small;
-    padding-top: -10px
+    padding-top: 2px;
 }

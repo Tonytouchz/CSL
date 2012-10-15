@@ -12,9 +12,9 @@
     <EntitySet Name="paiementsJeu" EntityType="Model.Store.paiementsJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="activitesJeu" EntityType="Model.Store.activitesJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="horairesJeu" EntityType="Model.Store.horairesJeu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="prealableJeu" EntityType="Model.Store.prealableJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="clientsJeu" EntityType="Model.Store.clientsJeu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="dossiersJeu" EntityType="Model.Store.dossiersJeu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="prealablesJeu" EntityType="Model.Store.prealablesJeu" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="groupesinscription" Association="Model.Store.groupesinscription">
       <End Role="groupes" EntitySet="groupesJeu" />
       <End Role="inscription" EntitySet="inscriptionJeu" />
@@ -30,10 +30,6 @@
     <AssociationSet Name="activitesgroupes" Association="Model.Store.activitesgroupes">
       <End Role="activites" EntitySet="activitesJeu" />
       <End Role="groupes" EntitySet="groupesJeu" />
-    </AssociationSet>
-    <AssociationSet Name="activitesprealable" Association="Model.Store.activitesprealable">
-      <End Role="activites" EntitySet="activitesJeu" />
-      <End Role="prealable" EntitySet="prealableJeu" />
     </AssociationSet>
     <AssociationSet Name="groupeslisteAttente" Association="Model.Store.groupeslisteAttente">
       <End Role="groupes" EntitySet="groupesJeu" />
@@ -51,6 +47,10 @@
       <End Role="clients" EntitySet="clientsJeu" />
       <End Role="listeAttente" EntitySet="listeAttenteJeu" />
     </AssociationSet>
+    <AssociationSet Name="FK_prealablesgroupes" Association="Model.Store.FK_prealablesgroupes">
+      <End Role="groupes" EntitySet="groupesJeu" />
+      <End Role="prealablesJeu" EntitySet="prealablesJeu" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="groupesJeu">
     <Key>
@@ -65,6 +65,7 @@
     <Property Name="session" Type="nvarchar(max)" Nullable="false" />
     <Property Name="dateDebut" Type="nvarchar(max)" Nullable="false" />
     <Property Name="noActivite" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="materielRequis" Type="nvarchar(max)" Nullable="false" />
     <Property Name="activites_noActivite" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="inscriptionJeu">
@@ -110,7 +111,6 @@
     </Key>
     <Property Name="noActivite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nomActivite" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="materielRequis" Type="nvarchar(max)" Nullable="false" />
     <Property Name="typeActivite" Type="nvarchar(max)" Nullable="false" />
     <Property Name="clientele" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -124,15 +124,6 @@
     <Property Name="heureFin" Type="nvarchar(max)" Nullable="false" />
     <Property Name="emplacement" Type="nvarchar(max)" Nullable="false" />
     <Property Name="groupes_noGroupe" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="prealableJeu">
-    <Key>
-      <PropertyRef Name="noPrealable" />
-    </Key>
-    <Property Name="noPrealable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noActivite" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="activites_noActivite" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="clientsJeu">
     <Key>
@@ -159,6 +150,15 @@
     <Property Name="username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="typeUtilisateur" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="prealablesJeu">
+    <Key>
+      <PropertyRef Name="noPrealable" />
+    </Key>
+    <Property Name="noPrealable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="noGroupe" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="groupes_noGroupe" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="groupesinscription">
     <End Role="groupes" Type="Model.Store.groupesJeu" Multiplicity="1" />
@@ -204,18 +204,6 @@
         <PropertyRef Name="noActivite" />
       </Principal>
       <Dependent Role="groupes">
-        <PropertyRef Name="activites_noActivite" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="activitesprealable">
-    <End Role="activites" Type="Model.Store.activitesJeu" Multiplicity="1" />
-    <End Role="prealable" Type="Model.Store.prealableJeu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="activites">
-        <PropertyRef Name="noActivite" />
-      </Principal>
-      <Dependent Role="prealable">
         <PropertyRef Name="activites_noActivite" />
       </Dependent>
     </ReferentialConstraint>
@@ -268,6 +256,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_prealablesgroupes">
+    <End Role="groupes" Type="Model.Store.groupesJeu" Multiplicity="1" />
+    <End Role="prealablesJeu" Type="Model.Store.prealablesJeu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="groupes">
+        <PropertyRef Name="noGroupe" />
+      </Principal>
+      <Dependent Role="prealablesJeu">
+        <PropertyRef Name="groupes_noGroupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -295,11 +295,6 @@
             <End Role="activites" EntitySet="activitesJeu" />
             <End Role="groupes" EntitySet="groupesJeu" />
           </AssociationSet>
-          <EntitySet Name="prealableJeu" EntityType="Model.prealable" />
-          <AssociationSet Name="activitesprealable" Association="Model.activitesprealable">
-            <End Role="activites" EntitySet="activitesJeu" />
-            <End Role="prealable" EntitySet="prealableJeu" />
-          </AssociationSet>
           <AssociationSet Name="groupeslisteAttente" Association="Model.groupeslisteAttente">
             <End Role="groupes" EntitySet="groupesJeu" />
             <End Role="listeAttente" EntitySet="listeAttenteJeu" />
@@ -317,6 +312,11 @@
           <AssociationSet Name="clientslisteAttente" Association="Model.clientslisteAttente">
             <End Role="clients" EntitySet="clientsJeu" />
             <End Role="listeAttente" EntitySet="listeAttenteJeu" />
+          </AssociationSet>
+          <EntitySet Name="prealablesJeu" EntityType="Model.prealables" />
+          <AssociationSet Name="FK_prealablesgroupes" Association="Model.FK_prealablesgroupes">
+            <End Role="groupes" EntitySet="groupesJeu" />
+            <End Role="prealablesJeu" EntitySet="prealablesJeu" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="groupes">
@@ -336,6 +336,8 @@
           <NavigationProperty Name="horaires" Relationship="Model.groupeshoraires" FromRole="groupes" ToRole="horaires" />
           <NavigationProperty Name="activites" Relationship="Model.activitesgroupes" FromRole="groupes" ToRole="activites" />
           <NavigationProperty Name="listeAttente" Relationship="Model.groupeslisteAttente" FromRole="groupes" ToRole="listeAttente" />
+          <Property Type="String" Name="materielRequis" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="prealablesJeu" Relationship="Model.FK_prealablesgroupes" FromRole="groupes" ToRole="prealablesJeu" />
           </EntityType>
         <EntityType Name="inscription">
           <Key>
@@ -389,11 +391,9 @@
           </Key>
           <Property Type="Int32" Name="noActivite" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="nomActivite" Nullable="false" />
-          <Property Type="String" Name="materielRequis" Nullable="false" />
           <Property Type="String" Name="typeActivite" Nullable="false" />
           <Property Type="String" Name="clientele" Nullable="false" />
           <NavigationProperty Name="groupes" Relationship="Model.activitesgroupes" FromRole="activites" ToRole="groupes" />
-          <NavigationProperty Name="prealable" Relationship="Model.activitesprealable" FromRole="activites" ToRole="prealable" />
         </EntityType>
         <EntityType Name="horaires">
           <Key>
@@ -413,19 +413,6 @@
         <Association Name="activitesgroupes">
           <End Type="Model.activites" Role="activites" Multiplicity="1" />
           <End Type="Model.groupes" Role="groupes" Multiplicity="*" />
-        </Association>
-        <EntityType Name="prealable">
-          <Key>
-            <PropertyRef Name="noPrealable" />
-          </Key>
-          <Property Type="Int32" Name="noPrealable" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="description" Nullable="false" />
-          <NavigationProperty Name="activites" Relationship="Model.activitesprealable" FromRole="prealable" ToRole="activites" />
-          <Property Type="String" Name="noActivite" Nullable="false" />
-        </EntityType>
-        <Association Name="activitesprealable">
-          <End Type="Model.activites" Role="activites" Multiplicity="1" />
-          <End Type="Model.prealable" Role="prealable" Multiplicity="*" />
         </Association>
         <Association Name="groupeslisteAttente">
           <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
@@ -472,6 +459,28 @@
           <End Type="Model.clients" Role="clients" Multiplicity="1" />
           <End Type="Model.listeAttente" Role="listeAttente" Multiplicity="*" />
         </Association>
+        <EntityType Name="prealables">
+          <Key>
+            <PropertyRef Name="noPrealable" />
+          </Key>
+          <Property Type="Int32" Name="noPrealable" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="noGroupe" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="groupes_noGroupe" Nullable="false" />
+          <NavigationProperty Name="groupesJeu" Relationship="Model.FK_prealablesgroupes" FromRole="prealablesJeu" ToRole="groupes" />
+        </EntityType>
+        <Association Name="FK_prealablesgroupes">
+          <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
+          <End Type="Model.prealables" Role="prealablesJeu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="prealablesJeu">
+              <PropertyRef Name="groupes_noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -490,6 +499,7 @@
           <ScalarProperty Name="session" ColumnName="session" />
           <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
           <ScalarProperty Name="noActivite" ColumnName="noActivite" />
+          <ScalarProperty Name="materielRequis" ColumnName="materielRequis" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -533,7 +543,6 @@
         <MappingFragment StoreEntitySet="activitesJeu">
           <ScalarProperty Name="noActivite" ColumnName="noActivite" />
           <ScalarProperty Name="nomActivite" ColumnName="nomActivite" />
-          <ScalarProperty Name="materielRequis" ColumnName="materielRequis" />
           <ScalarProperty Name="typeActivite" ColumnName="typeActivite" />
           <ScalarProperty Name="clientele" ColumnName="clientele" />
         </MappingFragment>
@@ -550,19 +559,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="prealableJeu">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.prealable)">
-        <MappingFragment StoreEntitySet="prealableJeu">
-          <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="clientsJeu">
       <EntityTypeMapping TypeName="IsTypeOf(Model.clients)">
         <MappingFragment StoreEntitySet="clientsJeu">
-                <ScalarProperty Name="noClient" ColumnName="noClient" />
+          <ScalarProperty Name="noClient" ColumnName="noClient" />
           <ScalarProperty Name="noDossier" ColumnName="noDossier" />
           <ScalarProperty Name="nom" ColumnName="nom" />
           <ScalarProperty Name="prenom" ColumnName="prenom" />
@@ -583,6 +583,16 @@
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="typeUtilisateur" ColumnName="typeUtilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="prealablesJeu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.prealables)">
+        <MappingFragment StoreEntitySet="prealablesJeu">
+          <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+          <ScalarProperty Name="groupes_noGroupe" ColumnName="groupes_noGroupe" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -616,14 +626,6 @@
       </EndProperty>
       <EndProperty Name="groupes">
         <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="activitesprealable" TypeName="Model.activitesprealable" StoreEntitySet="prealableJeu">
-      <EndProperty Name="activites">
-        <ScalarProperty Name="noActivite" ColumnName="activites_noActivite" />
-      </EndProperty>
-      <EndProperty Name="prealable">
-        <ScalarProperty Name="noPrealable" ColumnName="noPrealable" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="groupeslisteAttente" TypeName="Model.groupeslisteAttente" StoreEntitySet="listeAttenteJeu">
@@ -673,6 +675,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Par défaut" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
@@ -684,46 +687,45 @@
           <ConnectorPoint PointX="4.25" PointY="1.8747460937499998" />
           <ConnectorPoint PointX="5.125" PointY="1.8747460937499998" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="7.375" PointY="5" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="7.5" PointY="5.125" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="5.125" PointY="3.625" Height="2.5571907552083317" />
         <AssociationConnector Association="Model.paiementsinscription">
           <ConnectorPoint PointX="5.875" PointY="3.625" />
           <ConnectorPoint PointX="5.875" PointY="3.2494921875" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="0.5" PointY="3.875" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="0.5" PointY="3.875" Height="1.9802864583333335" />
         <EntityTypeShape EntityType="Model.horaires" Width="1.5" PointX="0.5" PointY="1" Height="1.9802864583333331" />
         <AssociationConnector Association="Model.groupeshoraires">
-          <ConnectorPoint PointX="2.5" PointY="2.0862939453125" />
-          <ConnectorPoint PointX="2" PointY="2.0862939453125" />
+          <ConnectorPoint PointX="2.5" PointY="1.9793739654947913" />
+          <ConnectorPoint PointX="2" PointY="1.9793739654947913" />
         </AssociationConnector>
         <AssociationConnector Association="Model.activitesgroupes">
-          <ConnectorPoint PointX="2" PointY="3.875" />
-          <ConnectorPoint PointX="2.4999999999999956" PointY="3.826396484375" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="Model.prealable" Width="1.5" PointX="2.75" PointY="6.625" Height="1.7879850260416657" />
-        <AssociationConnector Association="Model.activitesprealable">
-          <ConnectorPoint PointX="1.25" PointY="6.2398893229166656" />
-          <ConnectorPoint PointX="1.25" PointY="7.5189925130208328" />
-          <ConnectorPoint PointX="2.75" PointY="7.5189925130208328" />
+          <ConnectorPoint PointX="2" PointY="4.139150390625" />
+          <ConnectorPoint PointX="2.5" PointY="4.139150390625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.groupeslisteAttente">
-          <ConnectorPoint PointX="2.59375" PointY="4.0186979166666665" />
-          <ConnectorPoint PointX="2.59375" PointY="6.4035953776041659" />
-          <ConnectorPoint PointX="7.375" PointY="6.4035953776041659" />
+          <ConnectorPoint PointX="4.09375" PointY="4.40330078125" />
+          <ConnectorPoint PointX="4.09375" PointY="7.2326871744791656" />
+          <ConnectorPoint PointX="7.5" PointY="7.2326871744791656" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="7.5" PointY="0.625" Height="2.5571907552083331" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="10.25" PointY="0.625" Height="2.9417936197916665" />
         <AssociationConnector Association="Model.dossiersclients">
-          <ConnectorPoint PointX="10.25" PointY="1.9035953776041668" />
-          <ConnectorPoint PointX="9" PointY="1.9035953776041668" />
+          <ConnectorPoint PointX="10.25" PointY="1.9035953776041663" />
+          <ConnectorPoint PointX="9" PointY="1.9035953776041663" />
         </AssociationConnector>
         <AssociationConnector Association="Model.clientsinscription">
-          <ConnectorPoint PointX="7.5" PointY="1.9035953776041665" />
-          <ConnectorPoint PointX="6.625" PointY="1.9035953776041665" />
+          <ConnectorPoint PointX="7.5" PointY="1.9035953776041663" />
+          <ConnectorPoint PointX="6.625" PointY="1.9035953776041663" />
         </AssociationConnector>
         <AssociationConnector Association="Model.clientslisteAttente">
-          <ConnectorPoint PointX="8.1875" PointY="3.1821907552083331" />
-          <ConnectorPoint PointX="8.1875" PointY="5" />
+          <ConnectorPoint PointX="8.25" PointY="3.1821907552083331" />
+          <ConnectorPoint PointX="8.25" PointY="5.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.prealables" Width="1.5" PointX="2.375" PointY="5.125" Height="1.9802864583333317" />
+        <AssociationConnector Association="Model.FK_prealablesgroupes" >
+          <ConnectorPoint PointX="3.1875" PointY="4.40330078125" />
+          <ConnectorPoint PointX="3.1875" PointY="5.125" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

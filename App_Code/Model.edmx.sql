@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/02/2012 14:36:25
+-- Date Created: 10/15/2012 11:10:20
 -- Generated from EDMX file: C:\Users\Maxime\Documents\Visual Studio 2010\WebSites\CSL\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -17,26 +17,8 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_groupesinscription]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[inscriptionJeu] DROP CONSTRAINT [FK_groupesinscription];
-GO
-IF OBJECT_ID(N'[dbo].[FK_paiementsinscription]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[inscriptionJeu] DROP CONSTRAINT [FK_paiementsinscription];
-GO
-IF OBJECT_ID(N'[dbo].[FK_groupeshoraires]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[horairesJeu] DROP CONSTRAINT [FK_groupeshoraires];
-GO
 IF OBJECT_ID(N'[dbo].[FK_activitesgroupes]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[groupesJeu] DROP CONSTRAINT [FK_activitesgroupes];
-GO
-IF OBJECT_ID(N'[dbo].[FK_activitesprealable]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[prealableJeu] DROP CONSTRAINT [FK_activitesprealable];
-GO
-IF OBJECT_ID(N'[dbo].[FK_groupeslisteAttente]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[listeAttenteJeu] DROP CONSTRAINT [FK_groupeslisteAttente];
-GO
-IF OBJECT_ID(N'[dbo].[FK_dossiersclients]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[clientsJeu] DROP CONSTRAINT [FK_dossiersclients];
 GO
 IF OBJECT_ID(N'[dbo].[FK_clientsinscription]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[inscriptionJeu] DROP CONSTRAINT [FK_clientsinscription];
@@ -44,13 +26,43 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_clientslisteAttente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[listeAttenteJeu] DROP CONSTRAINT [FK_clientslisteAttente];
 GO
+IF OBJECT_ID(N'[dbo].[FK_dossiersclients]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[clientsJeu] DROP CONSTRAINT [FK_dossiersclients];
+GO
+IF OBJECT_ID(N'[dbo].[FK_groupeshoraires]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[horairesJeu] DROP CONSTRAINT [FK_groupeshoraires];
+GO
+IF OBJECT_ID(N'[dbo].[FK_groupesinscription]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[inscriptionJeu] DROP CONSTRAINT [FK_groupesinscription];
+GO
+IF OBJECT_ID(N'[dbo].[FK_groupeslisteAttente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[listeAttenteJeu] DROP CONSTRAINT [FK_groupeslisteAttente];
+GO
+IF OBJECT_ID(N'[dbo].[FK_paiementsinscription]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[inscriptionJeu] DROP CONSTRAINT [FK_paiementsinscription];
+GO
+IF OBJECT_ID(N'[dbo].[FK_prealablesgroupes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[prealablesJeu] DROP CONSTRAINT [FK_prealablesgroupes];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[activitesJeu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[activitesJeu];
+GO
+IF OBJECT_ID(N'[dbo].[clientsJeu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[clientsJeu];
+GO
+IF OBJECT_ID(N'[dbo].[dossiersJeu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[dossiersJeu];
+GO
 IF OBJECT_ID(N'[dbo].[groupesJeu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[groupesJeu];
+GO
+IF OBJECT_ID(N'[dbo].[horairesJeu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[horairesJeu];
 GO
 IF OBJECT_ID(N'[dbo].[inscriptionJeu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[inscriptionJeu];
@@ -61,20 +73,8 @@ GO
 IF OBJECT_ID(N'[dbo].[paiementsJeu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[paiementsJeu];
 GO
-IF OBJECT_ID(N'[dbo].[activitesJeu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[activitesJeu];
-GO
-IF OBJECT_ID(N'[dbo].[horairesJeu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[horairesJeu];
-GO
-IF OBJECT_ID(N'[dbo].[prealableJeu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[prealableJeu];
-GO
-IF OBJECT_ID(N'[dbo].[clientsJeu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[clientsJeu];
-GO
-IF OBJECT_ID(N'[dbo].[dossiersJeu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[dossiersJeu];
+IF OBJECT_ID(N'[dbo].[prealablesJeu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[prealablesJeu];
 GO
 
 -- --------------------------------------------------
@@ -92,6 +92,7 @@ CREATE TABLE [dbo].[groupesJeu] (
     [session] nvarchar(max)  NOT NULL,
     [dateDebut] nvarchar(max)  NOT NULL,
     [noActivite] nvarchar(max)  NOT NULL,
+    [materielRequis] nvarchar(max)  NOT NULL,
     [activites_noActivite] int  NOT NULL
 );
 GO
@@ -137,7 +138,6 @@ GO
 CREATE TABLE [dbo].[activitesJeu] (
     [noActivite] int IDENTITY(1,1) NOT NULL,
     [nomActivite] nvarchar(max)  NOT NULL,
-    [materielRequis] nvarchar(max)  NOT NULL,
     [typeActivite] nvarchar(max)  NOT NULL,
     [clientele] nvarchar(max)  NOT NULL
 );
@@ -151,15 +151,6 @@ CREATE TABLE [dbo].[horairesJeu] (
     [heureFin] nvarchar(max)  NOT NULL,
     [emplacement] nvarchar(max)  NOT NULL,
     [groupes_noGroupe] int  NOT NULL
-);
-GO
-
--- Creating table 'prealableJeu'
-CREATE TABLE [dbo].[prealableJeu] (
-    [noPrealable] int IDENTITY(1,1) NOT NULL,
-    [description] nvarchar(max)  NOT NULL,
-    [noActivite] nvarchar(max)  NOT NULL,
-    [activites_noActivite] int  NOT NULL
 );
 GO
 
@@ -186,6 +177,15 @@ CREATE TABLE [dbo].[dossiersJeu] (
     [username] nvarchar(max)  NOT NULL,
     [password] nvarchar(max)  NOT NULL,
     [typeUtilisateur] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'prealablesJeu'
+CREATE TABLE [dbo].[prealablesJeu] (
+    [noPrealable] int IDENTITY(1,1) NOT NULL,
+    [description] nvarchar(max)  NOT NULL,
+    [noGroupe] nvarchar(max)  NOT NULL,
+    [groupes_noGroupe] int  NOT NULL
 );
 GO
 
@@ -229,12 +229,6 @@ ADD CONSTRAINT [PK_horairesJeu]
     PRIMARY KEY CLUSTERED ([noHoraire] ASC);
 GO
 
--- Creating primary key on [noPrealable] in table 'prealableJeu'
-ALTER TABLE [dbo].[prealableJeu]
-ADD CONSTRAINT [PK_prealableJeu]
-    PRIMARY KEY CLUSTERED ([noPrealable] ASC);
-GO
-
 -- Creating primary key on [noClient] in table 'clientsJeu'
 ALTER TABLE [dbo].[clientsJeu]
 ADD CONSTRAINT [PK_clientsJeu]
@@ -245,6 +239,12 @@ GO
 ALTER TABLE [dbo].[dossiersJeu]
 ADD CONSTRAINT [PK_dossiersJeu]
     PRIMARY KEY CLUSTERED ([noDossier] ASC);
+GO
+
+-- Creating primary key on [noPrealable] in table 'prealablesJeu'
+ALTER TABLE [dbo].[prealablesJeu]
+ADD CONSTRAINT [PK_prealablesJeu]
+    PRIMARY KEY CLUSTERED ([noPrealable] ASC);
 GO
 
 -- --------------------------------------------------
@@ -307,20 +307,6 @@ ON [dbo].[groupesJeu]
     ([activites_noActivite]);
 GO
 
--- Creating foreign key on [activites_noActivite] in table 'prealableJeu'
-ALTER TABLE [dbo].[prealableJeu]
-ADD CONSTRAINT [FK_activitesprealable]
-    FOREIGN KEY ([activites_noActivite])
-    REFERENCES [dbo].[activitesJeu]
-        ([noActivite])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_activitesprealable'
-CREATE INDEX [IX_FK_activitesprealable]
-ON [dbo].[prealableJeu]
-    ([activites_noActivite]);
-GO
-
 -- Creating foreign key on [groupes_noGroupe] in table 'listeAttenteJeu'
 ALTER TABLE [dbo].[listeAttenteJeu]
 ADD CONSTRAINT [FK_groupeslisteAttente]
@@ -375,6 +361,20 @@ ADD CONSTRAINT [FK_clientslisteAttente]
 CREATE INDEX [IX_FK_clientslisteAttente]
 ON [dbo].[listeAttenteJeu]
     ([clients_noClient]);
+GO
+
+-- Creating foreign key on [groupes_noGroupe] in table 'prealablesJeu'
+ALTER TABLE [dbo].[prealablesJeu]
+ADD CONSTRAINT [FK_prealablesgroupes]
+    FOREIGN KEY ([groupes_noGroupe])
+    REFERENCES [dbo].[groupesJeu]
+        ([noGroupe])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_prealablesgroupes'
+CREATE INDEX [IX_FK_prealablesgroupes]
+ON [dbo].[prealablesJeu]
+    ([groupes_noGroupe]);
 GO
 
 -- --------------------------------------------------

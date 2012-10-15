@@ -18,17 +18,17 @@ Imports System.Runtime.Serialization
 Imports System.Xml.Serialization
 
 
-<Assembly: EdmSchemaAttribute("a1cde6fa-65c0-485b-ad47-1a0cfd25bf81")>
+<Assembly: EdmSchemaAttribute("5ba17f6c-0d8f-4966-8c17-a4148a800a68")>
 #Region "Métadonnées de relation EDM"
 <Assembly: EdmRelationshipAttribute("Model", "groupesinscription", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription))>
 <Assembly: EdmRelationshipAttribute("Model", "paiementsinscription", "paiements", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.paiements), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription))>
 <Assembly: EdmRelationshipAttribute("Model", "groupeshoraires", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "horaires", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.horaires))>
 <Assembly: EdmRelationshipAttribute("Model", "activitesgroupes", "activites", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.activites), "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.groupes))>
-<Assembly: EdmRelationshipAttribute("Model", "activitesprealable", "activites", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.activites), "prealable", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.prealable))>
 <Assembly: EdmRelationshipAttribute("Model", "groupeslisteAttente", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente))>
 <Assembly: EdmRelationshipAttribute("Model", "dossiersclients", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.clients))>
 <Assembly: EdmRelationshipAttribute("Model", "clientsinscription", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription))>
 <Assembly: EdmRelationshipAttribute("Model", "clientslisteAttente", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente))>
+<Assembly: EdmRelationshipAttribute("Model", "FK_prealablesgroupes", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "prealablesJeu", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.prealables), True)>
 
 #End Region
 
@@ -169,20 +169,6 @@ Namespace Model
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property prealableJeu() As ObjectSet(Of prealable)
-            Get
-                If (_prealableJeu Is Nothing) Then
-                    _prealableJeu = MyBase.CreateObjectSet(Of prealable)("prealableJeu")
-                End If
-                Return _prealableJeu
-            End Get
-        End Property
-    
-        Private _prealableJeu As ObjectSet(Of prealable)
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
         Public ReadOnly Property clientsJeu() As ObjectSet(Of clients)
             Get
                 If (_clientsJeu Is Nothing) Then
@@ -207,6 +193,20 @@ Namespace Model
         End Property
     
         Private _dossiersJeu As ObjectSet(Of dossiers)
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        Public ReadOnly Property prealablesJeu() As ObjectSet(Of prealables)
+            Get
+                If (_prealablesJeu Is Nothing) Then
+                    _prealablesJeu = MyBase.CreateObjectSet(Of prealables)("prealablesJeu")
+                End If
+                Return _prealablesJeu
+            End Get
+        End Property
+    
+        Private _prealablesJeu As ObjectSet(Of prealables)
 
         #End Region
 
@@ -255,13 +255,6 @@ Namespace Model
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet prealableJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
-        ''' </summary>
-        Public Sub AddToprealableJeu(ByVal prealable As prealable)
-            MyBase.AddObject("prealableJeu", prealable)
-        End Sub
-    
-        ''' <summary>
         ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet clientsJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
         Public Sub AddToclientsJeu(ByVal clients As clients)
@@ -273,6 +266,13 @@ Namespace Model
         ''' </summary>
         Public Sub AddTodossiersJeu(ByVal dossiers As dossiers)
             MyBase.AddObject("dossiersJeu", dossiers)
+        End Sub
+    
+        ''' <summary>
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet prealablesJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' </summary>
+        Public Sub AddToprealablesJeu(ByVal prealables As prealables)
+            MyBase.AddObject("prealablesJeu", prealables)
         End Sub
 
         #End Region
@@ -298,14 +298,12 @@ Namespace Model
         ''' </summary>
         ''' <param name="noActivite">Valeur initiale de la propriété noActivite.</param>
         ''' <param name="nomActivite">Valeur initiale de la propriété nomActivite.</param>
-        ''' <param name="materielRequis">Valeur initiale de la propriété materielRequis.</param>
         ''' <param name="typeActivite">Valeur initiale de la propriété typeActivite.</param>
         ''' <param name="clientele">Valeur initiale de la propriété clientele.</param>
-        Public Shared Function Createactivites(noActivite As Global.System.Int32, nomActivite As Global.System.String, materielRequis As Global.System.String, typeActivite As Global.System.String, clientele As Global.System.String) As activites
+        Public Shared Function Createactivites(noActivite As Global.System.Int32, nomActivite As Global.System.String, typeActivite As Global.System.String, clientele As Global.System.String) As activites
             Dim activites as activites = New activites
             activites.noActivite = noActivite
             activites.nomActivite = nomActivite
-            activites.materielRequis = materielRequis
             activites.typeActivite = typeActivite
             activites.clientele = clientele
             Return activites
@@ -365,31 +363,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnnomActiviteChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property materielRequis() As Global.System.String
-            Get
-                Return _materielRequis
-            End Get
-            Set
-                OnmaterielRequisChanging(value)
-                ReportPropertyChanging("materielRequis")
-                _materielRequis = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("materielRequis")
-                OnmaterielRequisChanged()
-            End Set
-        End Property
-    
-        Private _materielRequis As Global.System.String
-        Private Partial Sub OnmaterielRequisChanging(value As Global.System.String)
-        End Sub
-    
-        Private Partial Sub OnmaterielRequisChanged()
         End Sub
     
         ''' <summary>
@@ -460,24 +433,6 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of groupes)("Model.activitesgroupes", "groupes", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "activitesprealable", "prealable")>
-         Public Property prealable() As EntityCollection(Of prealable)
-            Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of prealable)("Model.activitesprealable", "prealable")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of prealable)("Model.activitesprealable", "prealable", value)
                 End If
             End Set
         End Property
@@ -1062,7 +1017,8 @@ Namespace Model
         ''' <param name="session">Valeur initiale de la propriété session.</param>
         ''' <param name="dateDebut">Valeur initiale de la propriété dateDebut.</param>
         ''' <param name="noActivite">Valeur initiale de la propriété noActivite.</param>
-        Public Shared Function Creategroupes(noGroupe As Global.System.Int32, nomProf As Global.System.String, prix As Global.System.Int32, nbPlaceDisponible As Global.System.String, ageMin As Global.System.Int32, ageMax As Global.System.Int32, session As Global.System.String, dateDebut As Global.System.String, noActivite As Global.System.String) As groupes
+        ''' <param name="materielRequis">Valeur initiale de la propriété materielRequis.</param>
+        Public Shared Function Creategroupes(noGroupe As Global.System.Int32, nomProf As Global.System.String, prix As Global.System.Int32, nbPlaceDisponible As Global.System.String, ageMin As Global.System.Int32, ageMax As Global.System.Int32, session As Global.System.String, dateDebut As Global.System.String, noActivite As Global.System.String, materielRequis As Global.System.String) As groupes
             Dim groupes as groupes = New groupes
             groupes.noGroupe = noGroupe
             groupes.nomProf = nomProf
@@ -1073,6 +1029,7 @@ Namespace Model
             groupes.session = session
             groupes.dateDebut = dateDebut
             groupes.noActivite = noActivite
+            groupes.materielRequis = materielRequis
             Return groupes
         End Function
 
@@ -1306,6 +1263,31 @@ Namespace Model
     
         Private Partial Sub OnnoActiviteChanged()
         End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property materielRequis() As Global.System.String
+            Get
+                Return _materielRequis
+            End Get
+            Set
+                OnmaterielRequisChanging(value)
+                ReportPropertyChanging("materielRequis")
+                _materielRequis = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("materielRequis")
+                OnmaterielRequisChanged()
+            End Set
+        End Property
+    
+        Private _materielRequis As Global.System.String
+        Private Partial Sub OnmaterielRequisChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnmaterielRequisChanged()
+        End Sub
 
         #End Region
 
@@ -1392,6 +1374,24 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of listeAttente)("Model.groupeslisteAttente", "listeAttente", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_prealablesgroupes", "prealablesJeu")>
+         Public Property prealablesJeu() As EntityCollection(Of prealables)
+            Get
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of prealables)("Model.FK_prealablesgroupes", "prealablesJeu")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of prealables)("Model.FK_prealablesgroupes", "prealablesJeu", value)
                 End If
             End Set
         End Property
@@ -2329,25 +2329,27 @@ Namespace Model
     ''' <summary>
     ''' Aucune documentation sur les métadonnées n'est disponible.
     ''' </summary>
-    <EdmEntityTypeAttribute(NamespaceName:="Model", Name:="prealable")>
+    <EdmEntityTypeAttribute(NamespaceName:="Model", Name:="prealables")>
     <Serializable()>
     <DataContractAttribute(IsReference:=True)>
-    Public Partial Class prealable
+    Public Partial Class prealables
         Inherits EntityObject
         #Region "Méthode de fabrique"
     
         ''' <summary>
-        ''' Créez un nouvel objet prealable.
+        ''' Créez un nouvel objet prealables.
         ''' </summary>
         ''' <param name="noPrealable">Valeur initiale de la propriété noPrealable.</param>
         ''' <param name="description">Valeur initiale de la propriété description.</param>
-        ''' <param name="noActivite">Valeur initiale de la propriété noActivite.</param>
-        Public Shared Function Createprealable(noPrealable As Global.System.Int32, description As Global.System.String, noActivite As Global.System.String) As prealable
-            Dim prealable as prealable = New prealable
-            prealable.noPrealable = noPrealable
-            prealable.description = description
-            prealable.noActivite = noActivite
-            Return prealable
+        ''' <param name="noGroupe">Valeur initiale de la propriété noGroupe.</param>
+        ''' <param name="groupes_noGroupe">Valeur initiale de la propriété groupes_noGroupe.</param>
+        Public Shared Function Createprealables(noPrealable As Global.System.Int32, description As Global.System.String, noGroupe As Global.System.String, groupes_noGroupe As Global.System.Int32) As prealables
+            Dim prealables as prealables = New prealables
+            prealables.noPrealable = noPrealable
+            prealables.description = description
+            prealables.noGroupe = noGroupe
+            prealables.groupes_noGroupe = groupes_noGroupe
+            Return prealables
         End Function
 
         #End Region
@@ -2411,24 +2413,49 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noActivite() As Global.System.String
+        Public Property noGroupe() As Global.System.String
             Get
-                Return _noActivite
+                Return _noGroupe
             End Get
             Set
-                OnnoActiviteChanging(value)
-                ReportPropertyChanging("noActivite")
-                _noActivite = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("noActivite")
-                OnnoActiviteChanged()
+                OnnoGroupeChanging(value)
+                ReportPropertyChanging("noGroupe")
+                _noGroupe = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("noGroupe")
+                OnnoGroupeChanged()
             End Set
         End Property
     
-        Private _noActivite As Global.System.String
-        Private Partial Sub OnnoActiviteChanging(value As Global.System.String)
+        Private _noGroupe As Global.System.String
+        Private Partial Sub OnnoGroupeChanging(value As Global.System.String)
         End Sub
     
-        Private Partial Sub OnnoActiviteChanged()
+        Private Partial Sub OnnoGroupeChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property groupes_noGroupe() As Global.System.Int32
+            Get
+                Return _groupes_noGroupe
+            End Get
+            Set
+                Ongroupes_noGroupeChanging(value)
+                ReportPropertyChanging("groupes_noGroupe")
+                _groupes_noGroupe = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("groupes_noGroupe")
+                Ongroupes_noGroupeChanged()
+            End Set
+        End Property
+    
+        Private _groupes_noGroupe As Global.System.Int32
+        Private Partial Sub Ongroupes_noGroupeChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub Ongroupes_noGroupeChanged()
         End Sub
 
         #End Region
@@ -2441,13 +2468,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "activitesprealable", "activites")>
-        Public Property activites() As activites
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_prealablesgroupes", "groupes")>
+        Public Property groupesJeu() As groupes
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.activitesprealable", "activites").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.activitesprealable", "activites").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes").Value = value
             End Set
         End Property
         ''' <summary>
@@ -2455,13 +2482,13 @@ Namespace Model
         ''' </summary>
         <BrowsableAttribute(False)>
         <DataMemberAttribute()>
-        Public Property activitesReference() As EntityReference(Of activites)
+        Public Property groupesJeuReference() As EntityReference(Of groupes)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.activitesprealable", "activites")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of activites)("Model.activitesprealable", "activites", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes", value)
                 End If
             End Set
         End Property

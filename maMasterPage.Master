@@ -40,16 +40,18 @@
                             </td>
                         </tr>                     
                     </table>
-                    <asp:CheckBox ID="chkBoxSessionActive" runat="server" Text="Garder la session active" />
+                    <asp:CheckBox ID="chkBoxSessionActive" runat="server" 
+                            Text="Garder la session active" TabIndex="3" />
                     <br />
                     <asp:Button ID="btnConnecter" runat="server" Text="Se Connecter" 
-                        ValidationGroup="login" UseSubmitBehavior="False" />
+                        ValidationGroup="login" UseSubmitBehavior="False" TabIndex="4" />
                     <br />
                     <asp:LinkButton ID="lnkbtnOubliezMdp" runat="server" 
-                            Text="Oubliez votre mot de passe?" PostBackUrl="~/OublierMotPasse.aspx" />
+                            Text="Oubliez votre mot de passe?" PostBackUrl="~/OublierMotPasse.aspx" 
+                            TabIndex="5" />
                     <br />
                     <asp:LinkButton ID="lnkbtnCreerCompte" runat="server" Text="Créer un compte" 
-                            PostBackUrl="~/CreerDossier.aspx"/>
+                            PostBackUrl="~/CreerDossier.aspx" TabIndex="6"/>
 
                         </asp:View>
 
@@ -80,9 +82,10 @@
                     <asp:Label ID="lblRecherche" runat="server" Text="Recherche" />
                     
                 &nbsp;<asp:Image ID="imgLoupe" runat="server" ImageAlign="Top" 
-                        ImageUrl="~/App_Themes/Default/images/loupe.png" Height="20px" Width="20px"/>
+                        ImageUrl="~/App_Themes/Default/images/loupe.png" Height="20px" 
+                        Width="20px" TabIndex="8"/>
                     <asp:TextBox ID="txtRecherche" runat="server" MaxLength="25" Width="190px" 
-                        TabIndex="3" />
+                        TabIndex="7" />
                     
                 </div>
                 <div id="bandeHautDroite">

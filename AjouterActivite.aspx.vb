@@ -28,7 +28,7 @@ Partial Class AjouterActivite
         'End If
 
         Dim activiteAjout = New activites With {.typeActivite = strTypeActivite, .clientele = strClientele,
-                                                             .materielRequis = strMatRequis, .nomActivite = strNomActivite}
+                                                             .nomActivite = strNomActivite}
         leContexte.AddObject("activitesJeu", activiteAjout)
 
         'Dim prealableAjout As prealables = New prealables With {.description = strPrealable}
