@@ -1,11 +1,10 @@
-﻿<%@ Master Language="VB" CodeFile="maMasterPage.Master.vb" Inherits="maMasterPage"%>
+﻿<%@ Master Language="VB" CodeFile="maMasterPage.Master.vb" Inherits="maMasterPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>CSL</title>
     <link href="App_Themes/Default/css.css" rel="stylesheet" type="text/css" />
-    <link href="App_Themes/Default/Default.skin" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -40,18 +39,18 @@
                             </td>
                         </tr>                     
                     </table>
-                    <asp:CheckBox ID="chkBoxSessionActive" runat="server" 
-                            Text="Garder la session active" TabIndex="3" />
+                    <asp:CheckBox ID="chkBoxSessionActive" runat="server" Text="Garder la session active" />
                     <br />
                     <asp:Button ID="btnConnecter" runat="server" Text="Se Connecter" 
-                        ValidationGroup="login" UseSubmitBehavior="False" TabIndex="4" />
+                        ValidationGroup="login" UseSubmitBehavior="False" />
                     <br />
                     <asp:LinkButton ID="lnkbtnOubliezMdp" runat="server" 
-                            Text="Oubliez votre mot de passe?" PostBackUrl="~/OublierMotPasse.aspx" 
-                            TabIndex="5" />
+                            Text="Oubliez votre mot de passe?" PostBackUrl="~/OublierMotPasse.aspx" />
                     <br />
                     <asp:LinkButton ID="lnkbtnCreerCompte" runat="server" Text="Créer un compte" 
-                            PostBackUrl="~/CreerDossier.aspx" TabIndex="6"/>
+                            PostBackUrl="~/CreerDossier.aspx"/>
+
+                        &nbsp;
 
                         </asp:View>
 
@@ -79,20 +78,12 @@
                 </div>
                 <div id="bandeHautGauche">
                     
-                    <asp:Label ID="lblRecherche" runat="server" Text="Recherche" />
-                    
-                &nbsp;<asp:Image ID="imgLoupe" runat="server" ImageAlign="Top" 
-                        ImageUrl="~/App_Themes/Default/images/loupe.png" Height="20px" 
-                        Width="20px" TabIndex="8"/>
-                    <asp:TextBox ID="txtRecherche" runat="server" MaxLength="25" Width="190px" 
-                        TabIndex="7" />
-                    
-                </div>
+                &nbsp;Accueil</div>
                 <div id="bandeHautDroite">
                     <asp:LinkButton ID="lblLangue" runat="server" Text="Anglais" />
                     <asp:Label ID="lblBarreUn" runat="server" Text=" | " />
                     <asp:Label ID="lblImprimer" runat="server" Text="Imprimer" />
-                    <asp:Image ID="imgImprimante" runat="server" Width="20" Height="20" ImageAlign="Top"
+                    &nbsp;<asp:Image ID="imgImprimante" runat="server" Width="20" Height="20" ImageAlign="Top"
                         ImageUrl="~/App_Themes/Default/images/printmgr.png" />
                     <asp:Label ID="lblBarreDeux" runat="server" Text=" | " />
                     <asp:Label ID="lblPanier" runat="server" Text="Panier" />
@@ -104,18 +95,37 @@
                 <div id="contenant" runat="server">
                 <div id="menu" runat="server" align="left" >
                 
-                    <asp:Menu ID="leMenu" runat="server">
+                    <asp:Menu ID="leMenu" runat="server" DynamicEnableDefaultPopOutImage="False" 
+                        StaticEnableDefaultPopOutImage="False">
+                        <DynamicHoverStyle BackColor="#3AAFD6" BorderColor="Blue" Font-Size="Large" 
+                            ForeColor="#025570" />
+                        <DynamicMenuItemStyle 
+                            ForeColor="White" />
+                       <%-- <DynamicItemTemplate>
+                            <%# Eval("Text") %>
+                        </DynamicItemTemplate>--%>
                         <Items>
                             <asp:MenuItem Text="Accueil" Value="Accueil" NavigateUrl="~/Historique.aspx"></asp:MenuItem>
-                            <asp:MenuItem Text="Cours Offerts" Value="Cours Offerts" 
-                                NavigateUrl="AjouterActivite.aspx"></asp:MenuItem>
-                            <asp:MenuItem Text="Mon Profil" Value="Mon Profil" 
-                                NavigateUrl="#"></asp:MenuItem>
+                            <asp:MenuItem Text="Activités" Value="Activites" 
+                                NavigateUrl="AjouterActivite.aspx">
+                                <asp:MenuItem Text="Ajouter une activité" Value="ajouterActivite"></asp:MenuItem>
+                                <asp:MenuItem Text="Supprimer une activité" Value="supprimerActivite"></asp:MenuItem>
+                                <asp:MenuItem Text="Afficher les activités" Value="afficherActivite"></asp:MenuItem>
+                            </asp:MenuItem> 
+                             <asp:MenuItem Text="Groupes" Value="Nous Contacter" 
+                                NavigateUrl="~/ListeGroupe.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Profil" Value="Mon Profil">
+                                <asp:MenuItem Text="Consulter mon profil" Value="consulterProfil" 
+                                    NavigateUrl="~/ChangerInfo.aspx"></asp:MenuItem>
+                                <asp:MenuItem Text="Consulter mon horaire" Value="consulterHoraire"></asp:MenuItem>
+                                <asp:MenuItem Text="Consulter mes factures" Value="consulterFacture"></asp:MenuItem>
+                            </asp:MenuItem>
                             <asp:MenuItem Text="Nous Contacter" Value="Nous Contacter" 
                                 NavigateUrl="~/NousContacter.aspx"></asp:MenuItem>
                         </Items>
-                        <StaticHoverStyle Font-Bold="True" Font-Size="XX-Large" />
-                        <StaticMenuItemStyle Font-Bold="False" Font-Size="X-Large" ForeColor="#3AAFD6" 
+                        <StaticHoverStyle Font-Bold="True" Font-Size="XX-Large" 
+                            Font-Underline="False" />
+                        <StaticMenuItemStyle Font-Bold="False" Font-Size="X-Large" ForeColor="White" 
                             ItemSpacing="20px" VerticalPadding="20px" />
                     </asp:Menu>
                 
@@ -133,6 +143,8 @@
                     <asp:Label ID="lblDateModification" runat="server" Text="Dernière modification le 10 septembre 2012" />
                 </div>
     </div>
+
         </form>
+    
     </body>
 </html>

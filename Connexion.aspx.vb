@@ -17,18 +17,20 @@ Partial Class Connexion
 
     Protected Sub btnConnecter_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConnecter.Click
 
-        Dim verifierUser = From Model In leContexte.dossiersJeu Where Model.username = txtLogin.Text And txtMotPasse.Text = Model.password
+        Dim verifierUser = From Model In leContexte.dossiers Where Model.username = txtLogin.Text And txtMotPasse.Text = Model.password
 
         If verifierUser.Count = 0 Then
 
-            lblInvalide.Visible = True
+
 
         Else
 
-            Dim utilisateur = (From Model In leContexte.dossiersJeu Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.username).First
-            Dim leTypeUtilisateur = (From Model In leContexte.dossiersJeu Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.typeUtilisateur).First
+            Dim utilisateur = (From Model In leContexte.dossiers Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.username).First
+            Dim leTypeUtilisateur = (From Model In leContexte.dossiers Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.typeUtilisateur).First
+            Dim noClientDossier = (From Model In leContexte.dossiers Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.noDossier).First
             Session("nomUtilisateur") = utilisateur
             Session("typeUtilisateur") = leTypeUtilisateur
+            Session("noDossier") = noClientDossier
 
             Response.Redirect("Historique.aspx", True)
 

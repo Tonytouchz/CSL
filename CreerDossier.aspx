@@ -8,8 +8,8 @@
         <ItemTemplate>
         </ItemTemplate>
         <InsertItemTemplate>
-            <h2>Informations personnels</h2>
-            <table style="width: 100%">
+            <h2>Entrer vos informations personnels</h2>
+            <table >
                 <tr>
                     <td style="width: 224px; height: 45px;">
                         <asp:Label ID="lblNom" runat="server" Text="Nom*"></asp:Label>
@@ -27,7 +27,7 @@
                         <asp:Label ID="lblPrenom" runat="server" Text="Prénom*"></asp:Label>
                     </td>
                     <td style="height: 45px; width: 240px;">
-                        <asp:TextBox ID="txtPrenom" runat="server" Width="170px" MaxLength="20" ValidationGroup="creerCompte"
+                            <asp:TextBox ID="txtPrenom" runat="server" Width="170px" MaxLength="20" ValidationGroup="creerCompte"
                             TabIndex="4" />
                         <br />
                         <asp:RequiredFieldValidator ID="ReqValPrenom" runat="server" ControlToValidate="txtPrenom"
@@ -35,7 +35,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 225px; height: 45px;">
+                    <td style="width: 224px; height: 45px;">
                         <asp:Label ID="lblDateNaissance" runat="server" Text="Date de Naissance*"></asp:Label>
                     </td>
                     <td style="height: 45px; width: 240px;">
@@ -50,12 +50,9 @@
                         <br />
                         <asp:RequiredFieldValidator ID="reqValDateNaissance" runat="server" ValidationGroup="creerCompte"
                             ControlToValidate="txtDateNaissance" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance est requise</asp:RequiredFieldValidator>
-                        <asp:CompareValidator ID="compValDateNaissance" runat="server" Type="Date" ValidationGroup="creerCompte"
-                            Operator="DataTypeCheck" ControlToValidate="txtDateNaissance" Display="Dynamic"
-                            CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:CompareValidator>
                         <asp:RangeValidator ID="rangeValDateNaissanceMax" runat="server" ValidationGroup="creerCompte"
                             ControlToValidate="txtDateNaissance" CssClass="controleValidation" MinimumValue="12/12/1900"
-                            MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance doit être comprise entre la date courante et le 12/12/1900</asp:RangeValidator>
+                            MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:RangeValidator>
                     </td>
                 </tr>
                 <tr>
@@ -152,7 +149,7 @@
                             ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="creerCompte"
                             Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> L'adresse Courriel n'est pas valide</asp:RegularExpressionValidator>
                         <asp:CustomValidator ID="custValEmail" runat="server" ControlToValidate="txtEmail" OnServerValidate="chercherEmail"
-                            ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le email à déjà été utilisé</asp:CustomValidator>
+                            ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation" ><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le email est déjà utilisé</asp:CustomValidator>
                     </td>
                 </tr>
             </table>
@@ -160,12 +157,12 @@
                 Choissisez votre mot de passe et votre nom d&#39;Utilisateur</h2>
             <table style="width: 100%">
                 <tr>
-                    <td style="width: 225px; height: 45px;">
+                    <td style="width: 224px; height: 45px;">
                         <asp:Label ID="lblNomUtilisateur" runat="server" Text="Nom d'utilisateur*"></asp:Label>
                     </td>
                     <td style="height: 45px; width: 240px;">
                         <asp:TextBox ID="txtNomUtilisateur" runat="server" Width="200px" ValidationGroup="creerCompte"
-                            MaxLength="15" TabIndex="12" Height="21px" Text='<%# Bind("username")%>' />
+                            MaxLength="15" TabIndex="12" Text='<%# Bind("username")%>' />
                         <asp:TextBoxWatermarkExtender ID="txtNomUtilisateur_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtNomUtilisateur" WatermarkCssClass="waterMark" WatermarkText="Permet de se connecter au site">
                         </asp:TextBoxWatermarkExtender>
@@ -173,27 +170,27 @@
                         <asp:RequiredFieldValidator ID="ReqValNomUtilisateur" runat="server" ControlToValidate="txtNomUtilisateur"
                             ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Nom d'utilisateur est requis</asp:RequiredFieldValidator>      
                         <asp:CustomValidator ID="custValNomUtilisateur" runat="server" ControlToValidate="txtNomUtilisateur" OnServerValidate="chercherUsername"
-                            ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le nom d'utilisateur existe déjà</asp:CustomValidator>
+                            ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation" ><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le nom d'utilisateur existe déjà</asp:CustomValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 225px; height: 45px;">
+                    <td style="width: 224px; height: 45px;">
                         <asp:Label ID="lblMotPasse" runat="server" Text="Mot de passe*"></asp:Label>
                     </td>
                     <td style="height: 45px; width: 240px;">
                         <asp:TextBox ID="txtMotPasse" runat="server" Width="200px" TextMode="Password" ValidationGroup="creerCompte"
-                            MaxLength="15" TabIndex="13" Height="21px" Text='<%# Bind("password")%>' />
+                            MaxLength="15" TabIndex="13" Text='<%# Bind("password")%>' />
                         <br />
                         <asp:RequiredFieldValidator ID="ReqValMotPasse" runat="server" ControlToValidate="txtMotPasse"
                             ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Mot de passe est requis</asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <td style="width: 225px; height: 45px;">
+                <td style="width: 224px; height: 45px;">
                     <asp:Label ID="lblMotPasseRessaisir" runat="server" Text="Saisir le mot de passe de nouveau*"></asp:Label>
                 </td>
                 <td style="height: 45px; width: 240px;">
                     <asp:TextBox ID="txtMotPasseRessaisir" runat="server" Width="200px" TextMode="Password"
-                        ValidationGroup="creerCompte" MaxLength="15" TabIndex="14" Height="22px"></asp:TextBox>
+                        ValidationGroup="creerCompte" MaxLength="15" TabIndex="14"></asp:TextBox>
                     <br />
                     <asp:RequiredFieldValidator ID="ReqValMotPasseRessaisir" runat="server" ErrorMessage=""
                         ControlToValidate="txtMotPasseRessaisir" ValidationGroup="creerCompte" Display="Dynamic"
@@ -203,11 +200,11 @@
                         CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Mot de passe doit être le même</asp:CompareValidator>
                 </td>
                 <tr>
-                    <td style="width: 225px; height: 45px;">
+                    <td style="width: 224px; height: 45px;">
                         <asp:Label ID="lblTypeUtilisateur" runat="server" Text="Type de l'utilisateur" Visible="False"></asp:Label>
                     </td>
                     <td style="height: 45px; width: 240px;">
-                        <asp:DropDownList ID="ddlTypeUtilisateur" runat="server" AppendDataBoundItems="true"
+                        <asp:DropDownList ID="ddlTypeUtilisateur" runat="server"
                             TabIndex="15" ValidationGroup="creerCompte" Visible="False" SelectedValue='<%# Bind("typeUtilisateur")%>'>
                             <asp:ListItem Value="Client">Client</asp:ListItem>
                             <asp:ListItem Value="Administrateur">Administrateur</asp:ListItem>
@@ -218,7 +215,7 @@
                     <td>
                         <asp:Button ID="btnInsertCompte" runat="server" Text="Créer le compte" ValidationGroup="creerCompte"
                             Style="margin-left: 34px" CommandName="Insert" />
-                        <asp:Button ID="btnCancel" runat="server" Text="Annuler" CausesValidation="False"
+                        <asp:Button ID="btnRetablir" runat="server" Text="Rétablir" CausesValidation="False"
                             ValidationGroup="creerCompte" CommandName="Cancel" />
                     </td>
                 </tr>
@@ -229,6 +226,6 @@
         EnableScriptLocalization="true">
     </asp:ScriptManager>
     <asp:EntityDataSource ID="dsDossier" runat="server" ConnectionString="name=ModelContainer1"
-        DefaultContainerName="ModelContainer1" EnableFlattening="False" EntitySetName="dossiersJeu"
+        DefaultContainerName="ModelContainer1" EnableFlattening="False" EntitySetName="dossiers"
         EnableInsert="True" />
 </asp:Content>

@@ -52,14 +52,14 @@ Partial Class CreerDossier
             Dim dateNaissance As String = FindChildControl(Of TextBox)(lvDossier, "txtDateNaissance").Text
             Dim username As String = FindChildControl(Of TextBox)(lvDossier, "txtNomUtilisateur").Text
 
-            Dim leDossier As dossiers = (From d In leContexte.dossiersJeu
+            Dim leDossier As dossiers = (From d In leContexte.dossiers
                                   Where d.username = username
                                   Select d).First
 
             Dim newClient = New clients With {.nom = nom, .prenom = prenom, .dateNaissance = dateNaissance, .noDossier = leDossier.noDossier}
             newClient.dossiers = leDossier
 
-            leContexte.AddObject("clientsJeu", newClient)
+            leContexte.AddObject("clients", newClient)
             leContexte.SaveChanges()
 
             Response.Redirect("CreerDossierSucces.aspx", True)
@@ -75,7 +75,7 @@ Partial Class CreerDossier
 
         Try
 
-            varUsername = (From d In leContexte.dossiersJeu Where d.username = txtUsername Select d.username).First
+            varUsername = (From d In leContexte.dossiers Where d.username = txtUsername Select d.username).First
 
         Catch
 
@@ -100,7 +100,7 @@ Partial Class CreerDossier
 
         Try
 
-            varEmail = (From d In leContexte.dossiersJeu Where d.email = txtEmail Select d.email).First
+            varEmail = (From d In leContexte.dossiers Where d.email = txtEmail Select d.email).First
 
         Catch
 
@@ -118,6 +118,17 @@ Partial Class CreerDossier
 
     End Sub
 
+    Function CreatePasswordHash() As String
+
+        Dim salt As String = "E01BF48LA0W3"
+        Dim motPasse As String = FindChildControl(Of TextBox)(lvDossier, "txtMotPasse").Text
+        Dim saltAndPwd As String = String.Concat(motPasse, salt)
+        Dim hashedPwd As String = FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd, "sha1")
+
+        Return hashedPwd
+
+    End Function
+
     Public Shared Function FindChildControl(Of T As Control)(ByVal startingControl As Control, ByVal id As String) As T
         Dim found As T = Nothing
         For Each activeControl As Control In startingControl.Controls
@@ -132,13 +143,6 @@ Partial Class CreerDossier
         Return found
     End Function
 
-    Public Shared Function CreatePasswordHash(ByVal pwd As String, ByVal salt As String) As String
-
-        Dim saltAndPwd As String = String.Concat(pwd, salt)
-        Dim hashedPwd As String = FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd, "sha1")
-
-        Return hashedPwd
-
-    End Function
+    
 
 End Class

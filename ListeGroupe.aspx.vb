@@ -1,8 +1,7 @@
 ﻿Imports Model
 Imports System.IO
 
-Partial Class AjouterActivite
-
+Partial Class ListeGroupe
     Inherits System.Web.UI.Page
 
     Private Shared leContexte As ModelContainer1 = Nothing
@@ -31,93 +30,11 @@ Partial Class AjouterActivite
 
     End Sub
 
-    Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-        Handles dsActivites.ContextCreating
-
-        If Not leContexte Is Nothing Then
-            e.Context = leContexte
-        End If
-
-    End Sub
-
-    Protected Sub lvActivite_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lvActivite.ItemCommand
-
-        If e.CommandSource.id = "btnReinit" Then
-            FindChildControl(Of TextBox)(lvActivite, "txtNomActivite").Text = ""
-            FindChildControl(Of DropDownList)(lvActivite, "ddlTypeActivite").SelectedIndex = 0
-            FindChildControl(Of DropDownList)(lvActivite, "ddlClientele").SelectedIndex = 0
-            mvActivite.ActiveViewIndex = 1
-        End If
-
-    End Sub
-
-    Protected Sub lvActiviteModDel_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lvActiviteModDel.ItemCommand
-
-        If e.CommandSource.id = "btnAjouterGroupe" Then
-
-            mvActivite.ActiveViewIndex = 6
-
-        End If
-
-    End Sub
-
-    Protected Sub dsActivites_ContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-        Handles dsActivites.ContextDisposing
-        e.Cancel = True
-    End Sub
-
-    Protected Sub dsActivites_Deleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles dsActivites.Deleted
-        lvActiviteModDel.DataBind()
-        mvActivite.ActiveViewIndex = 3
-    End Sub
-
-    Protected Sub dsActivites_Inserted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles dsActivites.Inserted
-        FindChildControl(Of TextBox)(lvActivite, "txtNomActivite").Text = ""
-        FindChildControl(Of DropDownList)(lvActivite, "ddlTypeActivite").SelectedIndex = 0
-        FindChildControl(Of DropDownList)(lvActivite, "ddlClientele").SelectedIndex = 0
-        mvActivite.ActiveViewIndex = 3
-    End Sub
-
-    Protected Sub btnChoixAjout_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnChoixAjout.Click
-        mvActivite.ActiveViewIndex = 1
-    End Sub
-
-    Protected Sub btnChoixSupprimer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnChoixSupprimer.Click
-        mvActivite.ActiveViewIndex = 2
-    End Sub
-
-    Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetour.Click
-        mvActivite.ActiveViewIndex = 0
-    End Sub
-
-    Protected Sub btnAfficher_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAfficher.Click
-        mvActivite.ActiveViewIndex = 4
-    End Sub
-
-
     Protected Sub btnAjouterGroupe_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouterGroupe.Click
 
-        mvActivite.ActiveViewIndex = 6
+        MultiViewListeGroupe.ActiveViewIndex = 1
 
     End Sub
-
-    'Début code Groupe Antho
-
-    Protected Sub dsListeGroupeCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-       Handles dsListeGroupe.ContextCreating
-
-        If Not leContexte Is Nothing Then
-            e.Context = leContexte
-        End If
-
-    End Sub
-
-    Protected Sub dsListeGroupe_ContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-        Handles dsListeGroupe.ContextDisposing
-
-        e.Cancel = True
-    End Sub
-
 
     Protected Sub dsListeGroupe_Inserted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles dsListeGroupe.Inserted
 
@@ -132,7 +49,7 @@ Partial Class AjouterActivite
 
         Else
 
-            mvActivite.ActiveViewIndex = 5
+            MultiViewListeGroupe.ActiveViewIndex = 0
 
         End If
 
@@ -192,21 +109,19 @@ Partial Class AjouterActivite
             FindChildControl(Of TextBox)(lvAjoutGroupe, "txtDateDebut").Text = ""
             FindChildControl(Of TextBox)(lvAjoutGroupe, "txtPrealable").Text = ""
 
-            mvActivite.ActiveViewIndex = 5
+            MultiViewListeGroupe.ActiveViewIndex = 0
 
         End If
 
-        If e.CommandSource.id = "btnAfficheGroupe" Then
-
-            mvActivite.ActiveViewIndex = 5
-
+        If e.CommandSource.id = "btnAnnuler" Then
+            MultiViewListeGroupe.ActiveViewIndex = 0
         End If
 
     End Sub
 
-    Public Shared Function FindChildControl(Of T As System.Web.UI.Control)(ByVal startingControl As System.Web.UI.Control, ByVal id As String) As T
+    Public Shared Function FindChildControl(Of T As Control)(ByVal startingControl As Control, ByVal id As String) As T
         Dim found As T = Nothing
-        For Each activeControl As System.Web.UI.Control In startingControl.Controls
+        For Each activeControl As Control In startingControl.Controls
             found = TryCast(activeControl, T)
             If found Is Nothing OrElse (String.Compare(id, found.ID, True) <> 0) Then
                 found = FindChildControl(Of T)(activeControl, id)
@@ -217,4 +132,6 @@ Partial Class AjouterActivite
         Next
         Return found
     End Function
+
+
 End Class

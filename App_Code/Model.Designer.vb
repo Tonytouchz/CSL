@@ -18,17 +18,17 @@ Imports System.Runtime.Serialization
 Imports System.Xml.Serialization
 
 
-<Assembly: EdmSchemaAttribute("5ba17f6c-0d8f-4966-8c17-a4148a800a68")>
+<Assembly: EdmSchemaAttribute("95753db0-1545-43c1-a3bf-520adffbc157")>
 #Region "Métadonnées de relation EDM"
-<Assembly: EdmRelationshipAttribute("Model", "groupesinscription", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription))>
-<Assembly: EdmRelationshipAttribute("Model", "paiementsinscription", "paiements", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.paiements), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription))>
-<Assembly: EdmRelationshipAttribute("Model", "groupeshoraires", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "horaires", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.horaires))>
-<Assembly: EdmRelationshipAttribute("Model", "activitesgroupes", "activites", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.activites), "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.groupes))>
-<Assembly: EdmRelationshipAttribute("Model", "groupeslisteAttente", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente))>
-<Assembly: EdmRelationshipAttribute("Model", "dossiersclients", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.clients))>
-<Assembly: EdmRelationshipAttribute("Model", "clientsinscription", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription))>
-<Assembly: EdmRelationshipAttribute("Model", "clientslisteAttente", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente))>
-<Assembly: EdmRelationshipAttribute("Model", "FK_prealablesgroupes", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "prealablesJeu", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.prealables), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_groupes_activites", "activites", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.activites), "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.groupes), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_clientsJeu_dossiersJeu", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.clients), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_clientslisteAttente", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_inscription_clients", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_inscription_dossiers", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_groupeslisteAttente", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_horaires_groupes", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "horaires", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.horaires), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_inscription_groupes", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_inscription_paiements", "paiements", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.paiements), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription), True)>
 
 #End Region
 
@@ -85,194 +85,194 @@ Namespace Model
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property groupesJeu() As ObjectSet(Of groupes)
+        Public ReadOnly Property activites() As ObjectSet(Of activites)
             Get
-                If (_groupesJeu Is Nothing) Then
-                    _groupesJeu = MyBase.CreateObjectSet(Of groupes)("groupesJeu")
+                If (_activites Is Nothing) Then
+                    _activites = MyBase.CreateObjectSet(Of activites)("activites")
                 End If
-                Return _groupesJeu
+                Return _activites
             End Get
         End Property
     
-        Private _groupesJeu As ObjectSet(Of groupes)
+        Private _activites As ObjectSet(Of activites)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property inscriptionJeu() As ObjectSet(Of inscription)
+        Public ReadOnly Property clients() As ObjectSet(Of clients)
             Get
-                If (_inscriptionJeu Is Nothing) Then
-                    _inscriptionJeu = MyBase.CreateObjectSet(Of inscription)("inscriptionJeu")
+                If (_clients Is Nothing) Then
+                    _clients = MyBase.CreateObjectSet(Of clients)("clients")
                 End If
-                Return _inscriptionJeu
+                Return _clients
             End Get
         End Property
     
-        Private _inscriptionJeu As ObjectSet(Of inscription)
+        Private _clients As ObjectSet(Of clients)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property listeAttenteJeu() As ObjectSet(Of listeAttente)
+        Public ReadOnly Property dossiers() As ObjectSet(Of dossiers)
             Get
-                If (_listeAttenteJeu Is Nothing) Then
-                    _listeAttenteJeu = MyBase.CreateObjectSet(Of listeAttente)("listeAttenteJeu")
+                If (_dossiers Is Nothing) Then
+                    _dossiers = MyBase.CreateObjectSet(Of dossiers)("dossiers")
                 End If
-                Return _listeAttenteJeu
+                Return _dossiers
             End Get
         End Property
     
-        Private _listeAttenteJeu As ObjectSet(Of listeAttente)
+        Private _dossiers As ObjectSet(Of dossiers)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property paiementsJeu() As ObjectSet(Of paiements)
+        Public ReadOnly Property groupes() As ObjectSet(Of groupes)
             Get
-                If (_paiementsJeu Is Nothing) Then
-                    _paiementsJeu = MyBase.CreateObjectSet(Of paiements)("paiementsJeu")
+                If (_groupes Is Nothing) Then
+                    _groupes = MyBase.CreateObjectSet(Of groupes)("groupes")
                 End If
-                Return _paiementsJeu
+                Return _groupes
             End Get
         End Property
     
-        Private _paiementsJeu As ObjectSet(Of paiements)
+        Private _groupes As ObjectSet(Of groupes)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property activitesJeu() As ObjectSet(Of activites)
+        Public ReadOnly Property horaires() As ObjectSet(Of horaires)
             Get
-                If (_activitesJeu Is Nothing) Then
-                    _activitesJeu = MyBase.CreateObjectSet(Of activites)("activitesJeu")
+                If (_horaires Is Nothing) Then
+                    _horaires = MyBase.CreateObjectSet(Of horaires)("horaires")
                 End If
-                Return _activitesJeu
+                Return _horaires
             End Get
         End Property
     
-        Private _activitesJeu As ObjectSet(Of activites)
+        Private _horaires As ObjectSet(Of horaires)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property horairesJeu() As ObjectSet(Of horaires)
+        Public ReadOnly Property inscription() As ObjectSet(Of inscription)
             Get
-                If (_horairesJeu Is Nothing) Then
-                    _horairesJeu = MyBase.CreateObjectSet(Of horaires)("horairesJeu")
+                If (_inscription Is Nothing) Then
+                    _inscription = MyBase.CreateObjectSet(Of inscription)("inscription")
                 End If
-                Return _horairesJeu
+                Return _inscription
             End Get
         End Property
     
-        Private _horairesJeu As ObjectSet(Of horaires)
+        Private _inscription As ObjectSet(Of inscription)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property clientsJeu() As ObjectSet(Of clients)
+        Public ReadOnly Property listeAttente() As ObjectSet(Of listeAttente)
             Get
-                If (_clientsJeu Is Nothing) Then
-                    _clientsJeu = MyBase.CreateObjectSet(Of clients)("clientsJeu")
+                If (_listeAttente Is Nothing) Then
+                    _listeAttente = MyBase.CreateObjectSet(Of listeAttente)("listeAttente")
                 End If
-                Return _clientsJeu
+                Return _listeAttente
             End Get
         End Property
     
-        Private _clientsJeu As ObjectSet(Of clients)
+        Private _listeAttente As ObjectSet(Of listeAttente)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property dossiersJeu() As ObjectSet(Of dossiers)
+        Public ReadOnly Property paiements() As ObjectSet(Of paiements)
             Get
-                If (_dossiersJeu Is Nothing) Then
-                    _dossiersJeu = MyBase.CreateObjectSet(Of dossiers)("dossiersJeu")
+                If (_paiements Is Nothing) Then
+                    _paiements = MyBase.CreateObjectSet(Of paiements)("paiements")
                 End If
-                Return _dossiersJeu
+                Return _paiements
             End Get
         End Property
     
-        Private _dossiersJeu As ObjectSet(Of dossiers)
+        Private _paiements As ObjectSet(Of paiements)
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        Public ReadOnly Property prealablesJeu() As ObjectSet(Of prealables)
+        Public ReadOnly Property sysdiagrams() As ObjectSet(Of sysdiagrams)
             Get
-                If (_prealablesJeu Is Nothing) Then
-                    _prealablesJeu = MyBase.CreateObjectSet(Of prealables)("prealablesJeu")
+                If (_sysdiagrams Is Nothing) Then
+                    _sysdiagrams = MyBase.CreateObjectSet(Of sysdiagrams)("sysdiagrams")
                 End If
-                Return _prealablesJeu
+                Return _sysdiagrams
             End Get
         End Property
     
-        Private _prealablesJeu As ObjectSet(Of prealables)
+        Private _sysdiagrams As ObjectSet(Of sysdiagrams)
 
         #End Region
 
         #Region "Méthodes AddTo"
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet groupesJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet activites. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddTogroupesJeu(ByVal groupes As groupes)
-            MyBase.AddObject("groupesJeu", groupes)
+        Public Sub AddToactivites(ByVal activites As activites)
+            MyBase.AddObject("activites", activites)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet inscriptionJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet clients. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddToinscriptionJeu(ByVal inscription As inscription)
-            MyBase.AddObject("inscriptionJeu", inscription)
+        Public Sub AddToclients(ByVal clients As clients)
+            MyBase.AddObject("clients", clients)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet listeAttenteJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet dossiers. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddTolisteAttenteJeu(ByVal listeAttente As listeAttente)
-            MyBase.AddObject("listeAttenteJeu", listeAttente)
+        Public Sub AddTodossiers(ByVal dossiers As dossiers)
+            MyBase.AddObject("dossiers", dossiers)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet paiementsJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet groupes. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddTopaiementsJeu(ByVal paiements As paiements)
-            MyBase.AddObject("paiementsJeu", paiements)
+        Public Sub AddTogroupes(ByVal groupes As groupes)
+            MyBase.AddObject("groupes", groupes)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet activitesJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet horaires. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddToactivitesJeu(ByVal activites As activites)
-            MyBase.AddObject("activitesJeu", activites)
+        Public Sub AddTohoraires(ByVal horaires As horaires)
+            MyBase.AddObject("horaires", horaires)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet horairesJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet inscription. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddTohorairesJeu(ByVal horaires As horaires)
-            MyBase.AddObject("horairesJeu", horaires)
+        Public Sub AddToinscription(ByVal inscription As inscription)
+            MyBase.AddObject("inscription", inscription)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet clientsJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet listeAttente. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddToclientsJeu(ByVal clients As clients)
-            MyBase.AddObject("clientsJeu", clients)
+        Public Sub AddTolisteAttente(ByVal listeAttente As listeAttente)
+            MyBase.AddObject("listeAttente", listeAttente)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet dossiersJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet paiements. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddTodossiersJeu(ByVal dossiers As dossiers)
-            MyBase.AddObject("dossiersJeu", dossiers)
+        Public Sub AddTopaiements(ByVal paiements As paiements)
+            MyBase.AddObject("paiements", paiements)
         End Sub
     
         ''' <summary>
-        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet prealablesJeu. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
+        ''' Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet sysdiagrams. Utilisez la méthode .Add de la propriété ObjectSet(Of T) associée à la place.
         ''' </summary>
-        Public Sub AddToprealablesJeu(ByVal prealables As prealables)
-            MyBase.AddObject("prealablesJeu", prealables)
+        Public Sub AddTosysdiagrams(ByVal sysdiagrams As sysdiagrams)
+            MyBase.AddObject("sysdiagrams", sysdiagrams)
         End Sub
 
         #End Region
@@ -425,14 +425,14 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "activitesgroupes", "groupes")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_groupes_activites", "groupes")>
          Public Property groupes() As EntityCollection(Of groupes)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of groupes)("Model.activitesgroupes", "groupes")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of groupes)("Model.FK_groupes_activites", "groupes")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of groupes)("Model.activitesgroupes", "groupes", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of groupes)("Model.FK_groupes_activites", "groupes", value)
                 End If
             End Set
         End Property
@@ -455,17 +455,17 @@ Namespace Model
         ''' Créez un nouvel objet clients.
         ''' </summary>
         ''' <param name="noClient">Valeur initiale de la propriété noClient.</param>
-        ''' <param name="noDossier">Valeur initiale de la propriété noDossier.</param>
         ''' <param name="nom">Valeur initiale de la propriété nom.</param>
         ''' <param name="prenom">Valeur initiale de la propriété prenom.</param>
         ''' <param name="dateNaissance">Valeur initiale de la propriété dateNaissance.</param>
-        Public Shared Function Createclients(noClient As Global.System.Int32, noDossier As Global.System.String, nom As Global.System.String, prenom As Global.System.String, dateNaissance As Global.System.String) As clients
+        ''' <param name="noDossier">Valeur initiale de la propriété noDossier.</param>
+        Public Shared Function Createclients(noClient As Global.System.Int32, nom As Global.System.String, prenom As Global.System.String, dateNaissance As Global.System.String, noDossier As Global.System.Int32) As clients
             Dim clients as clients = New clients
             clients.noClient = noClient
-            clients.noDossier = noDossier
             clients.nom = nom
             clients.prenom = prenom
             clients.dateNaissance = dateNaissance
+            clients.noDossier = noDossier
             Return clients
         End Function
 
@@ -498,31 +498,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnnoClientChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noDossier() As Global.System.String
-            Get
-                Return _noDossier
-            End Get
-            Set
-                OnnoDossierChanging(value)
-                ReportPropertyChanging("noDossier")
-                _noDossier = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("noDossier")
-                OnnoDossierChanged()
-            End Set
-        End Property
-    
-        Private _noDossier As Global.System.String
-        Private Partial Sub OnnoDossierChanging(value As Global.System.String)
-        End Sub
-    
-        Private Partial Sub OnnoDossierChanged()
         End Sub
     
         ''' <summary>
@@ -599,6 +574,31 @@ Namespace Model
     
         Private Partial Sub OndateNaissanceChanged()
         End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noDossier() As Global.System.Int32
+            Get
+                Return _noDossier
+            End Get
+            Set
+                OnnoDossierChanging(value)
+                ReportPropertyChanging("noDossier")
+                _noDossier = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("noDossier")
+                OnnoDossierChanged()
+            End Set
+        End Property
+    
+        Private _noDossier As Global.System.Int32
+        Private Partial Sub OnnoDossierChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoDossierChanged()
+        End Sub
 
         #End Region
 
@@ -610,13 +610,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "dossiersclients", "dossiers")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_clientsJeu_dossiersJeu", "dossiers")>
         Public Property dossiers() As dossiers
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.dossiersclients", "dossiers").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_clientsJeu_dossiersJeu", "dossiers").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.dossiersclients", "dossiers").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_clientsJeu_dossiersJeu", "dossiers").Value = value
             End Set
         End Property
         ''' <summary>
@@ -626,11 +626,11 @@ Namespace Model
         <DataMemberAttribute()>
         Public Property dossiersReference() As EntityReference(Of dossiers)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.dossiersclients", "dossiers")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_clientsJeu_dossiersJeu", "dossiers")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of dossiers)("Model.dossiersclients", "dossiers", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of dossiers)("Model.FK_clientsJeu_dossiersJeu", "dossiers", value)
                 End If
             End Set
         End Property
@@ -641,32 +641,32 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "clientsinscription", "inscription")>
-         Public Property inscription() As EntityCollection(Of inscription)
-            Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.clientsinscription", "inscription")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.clientsinscription", "inscription", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "clientslisteAttente", "listeAttente")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_clientslisteAttente", "listeAttente")>
          Public Property listeAttente() As EntityCollection(Of listeAttente)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of listeAttente)("Model.clientslisteAttente", "listeAttente")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of listeAttente)("Model.FK_clientslisteAttente", "listeAttente")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of listeAttente)("Model.clientslisteAttente", "listeAttente", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of listeAttente)("Model.FK_clientslisteAttente", "listeAttente", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_clients", "inscription")>
+         Public Property inscription() As EntityCollection(Of inscription)
+            Get
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.FK_inscription_clients", "inscription")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.FK_inscription_clients", "inscription", value)
                 End If
             End Set
         End Property
@@ -979,14 +979,32 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "dossiersclients", "clients")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_clientsJeu_dossiersJeu", "clients")>
          Public Property clients() As EntityCollection(Of clients)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of clients)("Model.dossiersclients", "clients")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of clients)("Model.FK_clientsJeu_dossiersJeu", "clients")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of clients)("Model.dossiersclients", "clients", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of clients)("Model.FK_clientsJeu_dossiersJeu", "clients", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_dossiers", "inscription")>
+         Public Property inscription() As EntityCollection(Of inscription)
+            Get
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.FK_inscription_dossiers", "inscription")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.FK_inscription_dossiers", "inscription", value)
                 End If
             End Set
         End Property
@@ -1018,7 +1036,7 @@ Namespace Model
         ''' <param name="dateDebut">Valeur initiale de la propriété dateDebut.</param>
         ''' <param name="noActivite">Valeur initiale de la propriété noActivite.</param>
         ''' <param name="materielRequis">Valeur initiale de la propriété materielRequis.</param>
-        Public Shared Function Creategroupes(noGroupe As Global.System.Int32, nomProf As Global.System.String, prix As Global.System.Int32, nbPlaceDisponible As Global.System.String, ageMin As Global.System.Int32, ageMax As Global.System.Int32, session As Global.System.String, dateDebut As Global.System.String, noActivite As Global.System.String, materielRequis As Global.System.String) As groupes
+        Public Shared Function Creategroupes(noGroupe As Global.System.Int32, nomProf As Global.System.String, prix As Global.System.Int32, nbPlaceDisponible As Global.System.String, ageMin As Global.System.Int32, ageMax As Global.System.Int32, session As Global.System.String, dateDebut As Global.System.String, noActivite As Global.System.Int32, materielRequis As Global.System.String) As groupes
             Dim groupes as groupes = New groupes
             groupes.noGroupe = noGroupe
             groupes.nomProf = nomProf
@@ -1244,21 +1262,21 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noActivite() As Global.System.String
+        Public Property noActivite() As Global.System.Int32
             Get
                 Return _noActivite
             End Get
             Set
                 OnnoActiviteChanging(value)
                 ReportPropertyChanging("noActivite")
-                _noActivite = StructuralObject.SetValidValue(value, false)
+                _noActivite = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("noActivite")
                 OnnoActiviteChanged()
             End Set
         End Property
     
-        Private _noActivite As Global.System.String
-        Private Partial Sub OnnoActiviteChanging(value As Global.System.String)
+        Private _noActivite As Global.System.Int32
+        Private Partial Sub OnnoActiviteChanging(value As Global.System.Int32)
         End Sub
     
         Private Partial Sub OnnoActiviteChanged()
@@ -1288,6 +1306,31 @@ Namespace Model
     
         Private Partial Sub OnmaterielRequisChanged()
         End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+        <DataMemberAttribute()>
+        Public Property prealable() As Global.System.String
+            Get
+                Return _prealable
+            End Get
+            Set
+                OnprealableChanging(value)
+                ReportPropertyChanging("prealable")
+                _prealable = StructuralObject.SetValidValue(value, true)
+                ReportPropertyChanged("prealable")
+                OnprealableChanged()
+            End Set
+        End Property
+    
+        Private _prealable As Global.System.String
+        Private Partial Sub OnprealableChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnprealableChanged()
+        End Sub
 
         #End Region
 
@@ -1299,49 +1342,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "groupesinscription", "inscription")>
-         Public Property inscription() As EntityCollection(Of inscription)
-            Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.groupesinscription", "inscription")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.groupesinscription", "inscription", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "groupeshoraires", "horaires")>
-         Public Property horaires() As EntityCollection(Of horaires)
-            Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of horaires)("Model.groupeshoraires", "horaires")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of horaires)("Model.groupeshoraires", "horaires", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "activitesgroupes", "activites")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_groupes_activites", "activites")>
         Public Property activites() As activites
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.activitesgroupes", "activites").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.FK_groupes_activites", "activites").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.activitesgroupes", "activites").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.FK_groupes_activites", "activites").Value = value
             End Set
         End Property
         ''' <summary>
@@ -1351,11 +1358,11 @@ Namespace Model
         <DataMemberAttribute()>
         Public Property activitesReference() As EntityReference(Of activites)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.activitesgroupes", "activites")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of activites)("Model.FK_groupes_activites", "activites")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of activites)("Model.activitesgroupes", "activites", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of activites)("Model.FK_groupes_activites", "activites", value)
                 End If
             End Set
         End Property
@@ -1366,14 +1373,14 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "groupeslisteAttente", "listeAttente")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_groupeslisteAttente", "listeAttente")>
          Public Property listeAttente() As EntityCollection(Of listeAttente)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of listeAttente)("Model.groupeslisteAttente", "listeAttente")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of listeAttente)("Model.FK_groupeslisteAttente", "listeAttente")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of listeAttente)("Model.groupeslisteAttente", "listeAttente", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of listeAttente)("Model.FK_groupeslisteAttente", "listeAttente", value)
                 End If
             End Set
         End Property
@@ -1384,14 +1391,32 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_prealablesgroupes", "prealablesJeu")>
-         Public Property prealablesJeu() As EntityCollection(Of prealables)
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_horaires_groupes", "horaires")>
+         Public Property horaires() As EntityCollection(Of horaires)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of prealables)("Model.FK_prealablesgroupes", "prealablesJeu")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of horaires)("Model.FK_horaires_groupes", "horaires")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of prealables)("Model.FK_prealablesgroupes", "prealablesJeu", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of horaires)("Model.FK_horaires_groupes", "horaires", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_groupes", "inscription")>
+         Public Property inscription() As EntityCollection(Of inscription)
+            Get
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.FK_inscription_groupes", "inscription")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.FK_inscription_groupes", "inscription", value)
                 End If
             End Set
         End Property
@@ -1418,7 +1443,7 @@ Namespace Model
         ''' <param name="heureDebut">Valeur initiale de la propriété heureDebut.</param>
         ''' <param name="heureFin">Valeur initiale de la propriété heureFin.</param>
         ''' <param name="emplacement">Valeur initiale de la propriété emplacement.</param>
-        Public Shared Function Createhoraires(noHoraire As Global.System.Int32, noGroupe As Global.System.String, heureDebut As Global.System.String, heureFin As Global.System.String, emplacement As Global.System.String) As horaires
+        Public Shared Function Createhoraires(noHoraire As Global.System.Int32, noGroupe As Global.System.Int32, heureDebut As Global.System.String, heureFin As Global.System.String, emplacement As Global.System.String) As horaires
             Dim horaires as horaires = New horaires
             horaires.noHoraire = noHoraire
             horaires.noGroupe = noGroupe
@@ -1464,21 +1489,21 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.String
+        Public Property noGroupe() As Global.System.Int32
             Get
                 Return _noGroupe
             End Get
             Set
                 OnnoGroupeChanging(value)
                 ReportPropertyChanging("noGroupe")
-                _noGroupe = StructuralObject.SetValidValue(value, false)
+                _noGroupe = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("noGroupe")
                 OnnoGroupeChanged()
             End Set
         End Property
     
-        Private _noGroupe As Global.System.String
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.String)
+        Private _noGroupe As Global.System.Int32
+        Private Partial Sub OnnoGroupeChanging(value As Global.System.Int32)
         End Sub
     
         Private Partial Sub OnnoGroupeChanged()
@@ -1569,13 +1594,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "groupeshoraires", "groupes")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_horaires_groupes", "groupes")>
         Public Property groupes() As groupes
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupeshoraires", "groupes").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_horaires_groupes", "groupes").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupeshoraires", "groupes").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_horaires_groupes", "groupes").Value = value
             End Set
         End Property
         ''' <summary>
@@ -1585,11 +1610,11 @@ Namespace Model
         <DataMemberAttribute()>
         Public Property groupesReference() As EntityReference(Of groupes)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupeshoraires", "groupes")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_horaires_groupes", "groupes")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.groupeshoraires", "groupes", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.FK_horaires_groupes", "groupes", value)
                 End If
             End Set
         End Property
@@ -1617,7 +1642,8 @@ Namespace Model
         ''' <param name="descriptionAchat">Valeur initiale de la propriété descriptionAchat.</param>
         ''' <param name="noGroupe">Valeur initiale de la propriété noGroupe.</param>
         ''' <param name="noPaiement">Valeur initiale de la propriété noPaiement.</param>
-        Public Shared Function Createinscription(noInscription As Global.System.Int32, noClient As Global.System.String, dateInscription As Global.System.String, descriptionAchat As Global.System.String, noGroupe As Global.System.String, noPaiement As Global.System.String) As inscription
+        ''' <param name="noDossier">Valeur initiale de la propriété noDossier.</param>
+        Public Shared Function Createinscription(noInscription As Global.System.Int32, noClient As Global.System.Int32, dateInscription As Global.System.String, descriptionAchat As Global.System.String, noGroupe As Global.System.Int32, noPaiement As Global.System.Int32, noDossier As Global.System.Int32) As inscription
             Dim inscription as inscription = New inscription
             inscription.noInscription = noInscription
             inscription.noClient = noClient
@@ -1625,6 +1651,7 @@ Namespace Model
             inscription.descriptionAchat = descriptionAchat
             inscription.noGroupe = noGroupe
             inscription.noPaiement = noPaiement
+            inscription.noDossier = noDossier
             Return inscription
         End Function
 
@@ -1664,21 +1691,21 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noClient() As Global.System.String
+        Public Property noClient() As Global.System.Int32
             Get
                 Return _noClient
             End Get
             Set
                 OnnoClientChanging(value)
                 ReportPropertyChanging("noClient")
-                _noClient = StructuralObject.SetValidValue(value, false)
+                _noClient = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("noClient")
                 OnnoClientChanged()
             End Set
         End Property
     
-        Private _noClient As Global.System.String
-        Private Partial Sub OnnoClientChanging(value As Global.System.String)
+        Private _noClient As Global.System.Int32
+        Private Partial Sub OnnoClientChanging(value As Global.System.Int32)
         End Sub
     
         Private Partial Sub OnnoClientChanged()
@@ -1739,21 +1766,21 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.String
+        Public Property noGroupe() As Global.System.Int32
             Get
                 Return _noGroupe
             End Get
             Set
                 OnnoGroupeChanging(value)
                 ReportPropertyChanging("noGroupe")
-                _noGroupe = StructuralObject.SetValidValue(value, false)
+                _noGroupe = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("noGroupe")
                 OnnoGroupeChanged()
             End Set
         End Property
     
-        Private _noGroupe As Global.System.String
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.String)
+        Private _noGroupe As Global.System.Int32
+        Private Partial Sub OnnoGroupeChanging(value As Global.System.Int32)
         End Sub
     
         Private Partial Sub OnnoGroupeChanged()
@@ -1764,24 +1791,49 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noPaiement() As Global.System.String
+        Public Property noPaiement() As Global.System.Int32
             Get
                 Return _noPaiement
             End Get
             Set
                 OnnoPaiementChanging(value)
                 ReportPropertyChanging("noPaiement")
-                _noPaiement = StructuralObject.SetValidValue(value, false)
+                _noPaiement = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("noPaiement")
                 OnnoPaiementChanged()
             End Set
         End Property
     
-        Private _noPaiement As Global.System.String
-        Private Partial Sub OnnoPaiementChanging(value As Global.System.String)
+        Private _noPaiement As Global.System.Int32
+        Private Partial Sub OnnoPaiementChanging(value As Global.System.Int32)
         End Sub
     
         Private Partial Sub OnnoPaiementChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noDossier() As Global.System.Int32
+            Get
+                Return _noDossier
+            End Get
+            Set
+                OnnoDossierChanging(value)
+                ReportPropertyChanging("noDossier")
+                _noDossier = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("noDossier")
+                OnnoDossierChanged()
+            End Set
+        End Property
+    
+        Private _noDossier As Global.System.Int32
+        Private Partial Sub OnnoDossierChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoDossierChanged()
         End Sub
 
         #End Region
@@ -1794,75 +1846,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "groupesinscription", "groupes")>
-        Public Property groupes() As groupes
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupesinscription", "groupes").Value
-            End Get
-            Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupesinscription", "groupes").Value = value
-            End Set
-        End Property
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <BrowsableAttribute(False)>
-        <DataMemberAttribute()>
-        Public Property groupesReference() As EntityReference(Of groupes)
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupesinscription", "groupes")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.groupesinscription", "groupes", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "paiementsinscription", "paiements")>
-        Public Property paiements() As paiements
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of paiements)("Model.paiementsinscription", "paiements").Value
-            End Get
-            Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of paiements)("Model.paiementsinscription", "paiements").Value = value
-            End Set
-        End Property
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <BrowsableAttribute(False)>
-        <DataMemberAttribute()>
-        Public Property paiementsReference() As EntityReference(Of paiements)
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of paiements)("Model.paiementsinscription", "paiements")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of paiements)("Model.paiementsinscription", "paiements", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "clientsinscription", "clients")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_clients", "clients")>
         Public Property clients() As clients
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.clientsinscription", "clients").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.FK_inscription_clients", "clients").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.clientsinscription", "clients").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.FK_inscription_clients", "clients").Value = value
             End Set
         End Property
         ''' <summary>
@@ -1872,11 +1862,104 @@ Namespace Model
         <DataMemberAttribute()>
         Public Property clientsReference() As EntityReference(Of clients)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.clientsinscription", "clients")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.FK_inscription_clients", "clients")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of clients)("Model.clientsinscription", "clients", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of clients)("Model.FK_inscription_clients", "clients", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_dossiers", "dossiers")>
+        Public Property dossiers() As dossiers
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_inscription_dossiers", "dossiers").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_inscription_dossiers", "dossiers").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property dossiersReference() As EntityReference(Of dossiers)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_inscription_dossiers", "dossiers")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of dossiers)("Model.FK_inscription_dossiers", "dossiers", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_groupes", "groupes")>
+        Public Property groupes() As groupes
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_inscription_groupes", "groupes").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_inscription_groupes", "groupes").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property groupesReference() As EntityReference(Of groupes)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_inscription_groupes", "groupes")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.FK_inscription_groupes", "groupes", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_paiements", "paiements")>
+        Public Property paiements() As paiements
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of paiements)("Model.FK_inscription_paiements", "paiements").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of paiements)("Model.FK_inscription_paiements", "paiements").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property paiementsReference() As EntityReference(Of paiements)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of paiements)("Model.FK_inscription_paiements", "paiements")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of paiements)("Model.FK_inscription_paiements", "paiements", value)
                 End If
             End Set
         End Property
@@ -1902,7 +1985,7 @@ Namespace Model
         ''' <param name="noGroupe">Valeur initiale de la propriété noGroupe.</param>
         ''' <param name="noClient">Valeur initiale de la propriété noClient.</param>
         ''' <param name="dateDebutAttente">Valeur initiale de la propriété dateDebutAttente.</param>
-        Public Shared Function CreatelisteAttente(noListeAttente As Global.System.Int32, noGroupe As Global.System.Int32, noClient As Global.System.String, dateDebutAttente As Global.System.String) As listeAttente
+        Public Shared Function CreatelisteAttente(noListeAttente As Global.System.Int32, noGroupe As Global.System.Int32, noClient As Global.System.Int32, dateDebutAttente As Global.System.String) As listeAttente
             Dim listeAttente as listeAttente = New listeAttente
             listeAttente.noListeAttente = noListeAttente
             listeAttente.noGroupe = noGroupe
@@ -1972,21 +2055,21 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noClient() As Global.System.String
+        Public Property noClient() As Global.System.Int32
             Get
                 Return _noClient
             End Get
             Set
                 OnnoClientChanging(value)
                 ReportPropertyChanging("noClient")
-                _noClient = StructuralObject.SetValidValue(value, false)
+                _noClient = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("noClient")
                 OnnoClientChanged()
             End Set
         End Property
     
-        Private _noClient As Global.System.String
-        Private Partial Sub OnnoClientChanging(value As Global.System.String)
+        Private _noClient As Global.System.Int32
+        Private Partial Sub OnnoClientChanging(value As Global.System.Int32)
         End Sub
     
         Private Partial Sub OnnoClientChanged()
@@ -2027,13 +2110,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "groupeslisteAttente", "groupes")>
-        Public Property groupes() As groupes
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_clientslisteAttente", "clients")>
+        Public Property clients() As clients
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupeslisteAttente", "groupes").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.FK_clientslisteAttente", "clients").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupeslisteAttente", "groupes").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.FK_clientslisteAttente", "clients").Value = value
             End Set
         End Property
         ''' <summary>
@@ -2041,13 +2124,13 @@ Namespace Model
         ''' </summary>
         <BrowsableAttribute(False)>
         <DataMemberAttribute()>
-        Public Property groupesReference() As EntityReference(Of groupes)
+        Public Property clientsReference() As EntityReference(Of clients)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.groupeslisteAttente", "groupes")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.FK_clientslisteAttente", "clients")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.groupeslisteAttente", "groupes", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of clients)("Model.FK_clientslisteAttente", "clients", value)
                 End If
             End Set
         End Property
@@ -2058,13 +2141,13 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "clientslisteAttente", "clients")>
-        Public Property clients() As clients
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_groupeslisteAttente", "groupes")>
+        Public Property groupes() As groupes
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.clientslisteAttente", "clients").Value
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_groupeslisteAttente", "groupes").Value
             End Get
             Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.clientslisteAttente", "clients").Value = value
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_groupeslisteAttente", "groupes").Value = value
             End Set
         End Property
         ''' <summary>
@@ -2072,13 +2155,13 @@ Namespace Model
         ''' </summary>
         <BrowsableAttribute(False)>
         <DataMemberAttribute()>
-        Public Property clientsReference() As EntityReference(Of clients)
+        Public Property groupesReference() As EntityReference(Of groupes)
             Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of clients)("Model.clientslisteAttente", "clients")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_groupeslisteAttente", "groupes")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of clients)("Model.clientslisteAttente", "clients", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.FK_groupeslisteAttente", "groupes", value)
                 End If
             End Set
         End Property
@@ -2310,14 +2393,14 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "paiementsinscription", "inscription")>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_inscription_paiements", "inscription")>
          Public Property inscription() As EntityCollection(Of inscription)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.paiementsinscription", "inscription")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of inscription)("Model.FK_inscription_paiements", "inscription")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.paiementsinscription", "inscription", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of inscription)("Model.FK_inscription_paiements", "inscription", value)
                 End If
             End Set
         End Property
@@ -2329,27 +2412,25 @@ Namespace Model
     ''' <summary>
     ''' Aucune documentation sur les métadonnées n'est disponible.
     ''' </summary>
-    <EdmEntityTypeAttribute(NamespaceName:="Model", Name:="prealables")>
+    <EdmEntityTypeAttribute(NamespaceName:="Model", Name:="sysdiagrams")>
     <Serializable()>
     <DataContractAttribute(IsReference:=True)>
-    Public Partial Class prealables
+    Public Partial Class sysdiagrams
         Inherits EntityObject
         #Region "Méthode de fabrique"
     
         ''' <summary>
-        ''' Créez un nouvel objet prealables.
+        ''' Créez un nouvel objet sysdiagrams.
         ''' </summary>
-        ''' <param name="noPrealable">Valeur initiale de la propriété noPrealable.</param>
-        ''' <param name="description">Valeur initiale de la propriété description.</param>
-        ''' <param name="noGroupe">Valeur initiale de la propriété noGroupe.</param>
-        ''' <param name="groupes_noGroupe">Valeur initiale de la propriété groupes_noGroupe.</param>
-        Public Shared Function Createprealables(noPrealable As Global.System.Int32, description As Global.System.String, noGroupe As Global.System.String, groupes_noGroupe As Global.System.Int32) As prealables
-            Dim prealables as prealables = New prealables
-            prealables.noPrealable = noPrealable
-            prealables.description = description
-            prealables.noGroupe = noGroupe
-            prealables.groupes_noGroupe = groupes_noGroupe
-            Return prealables
+        ''' <param name="name">Valeur initiale de la propriété name.</param>
+        ''' <param name="principal_id">Valeur initiale de la propriété principal_id.</param>
+        ''' <param name="diagram_id">Valeur initiale de la propriété diagram_id.</param>
+        Public Shared Function Createsysdiagrams(name As Global.System.String, principal_id As Global.System.Int32, diagram_id As Global.System.Int32) As sysdiagrams
+            Dim sysdiagrams as sysdiagrams = New sysdiagrams
+            sysdiagrams.name = name
+            sysdiagrams.principal_id = principal_id
+            sysdiagrams.diagram_id = diagram_id
+            Return sysdiagrams
         End Function
 
         #End Region
@@ -2359,139 +2440,129 @@ Namespace Model
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property name() As Global.System.String
+            Get
+                Return _name
+            End Get
+            Set
+                OnnameChanging(value)
+                ReportPropertyChanging("name")
+                _name = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("name")
+                OnnameChanged()
+            End Set
+        End Property
+    
+        Private _name As Global.System.String
+        Private Partial Sub OnnameChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnnameChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property principal_id() As Global.System.Int32
+            Get
+                Return _principal_id
+            End Get
+            Set
+                Onprincipal_idChanging(value)
+                ReportPropertyChanging("principal_id")
+                _principal_id = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("principal_id")
+                Onprincipal_idChanged()
+            End Set
+        End Property
+    
+        Private _principal_id As Global.System.Int32
+        Private Partial Sub Onprincipal_idChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub Onprincipal_idChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noPrealable() As Global.System.Int32
+        Public Property diagram_id() As Global.System.Int32
             Get
-                Return _noPrealable
+                Return _diagram_id
             End Get
             Set
-                If (_noPrealable <> Value) Then
-                    OnnoPrealableChanging(value)
-                    ReportPropertyChanging("noPrealable")
-                    _noPrealable = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noPrealable")
-                    OnnoPrealableChanged()
+                If (_diagram_id <> Value) Then
+                    Ondiagram_idChanging(value)
+                    ReportPropertyChanging("diagram_id")
+                    _diagram_id = StructuralObject.SetValidValue(value)
+                    ReportPropertyChanged("diagram_id")
+                    Ondiagram_idChanged()
                 End If
             End Set
         End Property
     
-        Private _noPrealable As Global.System.Int32
-        Private Partial Sub OnnoPrealableChanging(value As Global.System.Int32)
+        Private _diagram_id As Global.System.Int32
+        Private Partial Sub Ondiagram_idChanging(value As Global.System.Int32)
         End Sub
     
-        Private Partial Sub OnnoPrealableChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property description() As Global.System.String
-            Get
-                Return _description
-            End Get
-            Set
-                OndescriptionChanging(value)
-                ReportPropertyChanging("description")
-                _description = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("description")
-                OndescriptionChanged()
-            End Set
-        End Property
-    
-        Private _description As Global.System.String
-        Private Partial Sub OndescriptionChanging(value As Global.System.String)
-        End Sub
-    
-        Private Partial Sub OndescriptionChanged()
+        Private Partial Sub Ondiagram_idChanged()
         End Sub
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.String
+        Public Property version() As Nullable(Of Global.System.Int32)
             Get
-                Return _noGroupe
+                Return _version
             End Get
             Set
-                OnnoGroupeChanging(value)
-                ReportPropertyChanging("noGroupe")
-                _noGroupe = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("noGroupe")
-                OnnoGroupeChanged()
+                OnversionChanging(value)
+                ReportPropertyChanging("version")
+                _version = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("version")
+                OnversionChanged()
             End Set
         End Property
     
-        Private _noGroupe As Global.System.String
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.String)
+        Private _version As Nullable(Of Global.System.Int32)
+        Private Partial Sub OnversionChanging(value As Nullable(Of Global.System.Int32))
         End Sub
     
-        Private Partial Sub OnnoGroupeChanged()
+        Private Partial Sub OnversionChanged()
         End Sub
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
-        Public Property groupes_noGroupe() As Global.System.Int32
+        Public Property definition() As Global.System.Byte()
             Get
-                Return _groupes_noGroupe
+                    Return StructuralObject.GetValidValue(_definition)
             End Get
             Set
-                Ongroupes_noGroupeChanging(value)
-                ReportPropertyChanging("groupes_noGroupe")
-                _groupes_noGroupe = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("groupes_noGroupe")
-                Ongroupes_noGroupeChanged()
+                OndefinitionChanging(value)
+                ReportPropertyChanging("definition")
+                _definition = StructuralObject.SetValidValue(value, true)
+                ReportPropertyChanged("definition")
+                OndefinitionChanged()
             End Set
         End Property
     
-        Private _groupes_noGroupe As Global.System.Int32
-        Private Partial Sub Ongroupes_noGroupeChanging(value As Global.System.Int32)
+        Private _definition As Global.System.Byte()
+        Private Partial Sub OndefinitionChanging(value As Global.System.Byte())
         End Sub
     
-        Private Partial Sub Ongroupes_noGroupeChanged()
+        Private Partial Sub OndefinitionChanged()
         End Sub
-
-        #End Region
-
-        #Region "Propriétés de navigation"
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_prealablesgroupes", "groupes")>
-        Public Property groupesJeu() As groupes
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes").Value
-            End Get
-            Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes").Value = value
-            End Set
-        End Property
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <BrowsableAttribute(False)>
-        <DataMemberAttribute()>
-        Public Property groupesJeuReference() As EntityReference(Of groupes)
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of groupes)("Model.FK_prealablesgroupes", "groupes", value)
-                End If
-            End Set
-        End Property
 
         #End Region
 

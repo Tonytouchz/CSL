@@ -1,265 +1,9 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/maMasterPage.Master" AutoEventWireup="false"
-    CodeFile="AjouterActivite.aspx.vb" Inherits="AjouterActivite" %>
+    CodeFile="ListeGroupe.aspx.vb" Inherits="ListeGroupe" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="placeHolderContenu" runat="Server">
-    <asp:MultiView ID="mvActivite" runat="server" ActiveViewIndex="0">
-        <asp:View ID="viewChoix" runat="server">
-            <asp:Label ID="lblTitreChoix" runat="server" Text="Actions à prendre sur les activités"
-                    Style="text-decoration: underline; font-weight:bold"></asp:Label>
-            <br />
-            <asp:Button ID="btnChoixAjout" runat="server" Text="Ajouter une activité" />
-            <br />
-            <asp:Button ID="btnChoixSupprimer" runat="server" Text="Supprimer/Modifier une activité" />
-            <br />
-            <asp:Button ID="btnAfficher" runat="server" Text="Afficher les activités" />
-        </asp:View>
-        <asp:View ID="viewAjout" runat="server">
-            <asp:ListView ID="lvActivite" runat="server" DataSourceID="dsActivites" DataKeyNames="noActivite"
-                InsertItemPosition="LastItem">
-                <ItemTemplate>
-                </ItemTemplate>
-                <InsertItemTemplate>
-                    <asp:Label ID="lblTitreAjoutAct" runat="server" Text="Ajouter une activitée" Style="text-decoration: underline; font-weight:bold"></asp:Label>
-                    <br />
-                    <asp:Label ID="lblSucces" runat="server" Text="Activité ajoutée avec succès." Visible="false"
-                        Style="font-weight: bold"></asp:Label>
-                    <br />
-                    <br />
-                    <table style="width: 700px">
-                        <tr>
-                            <td style="width: 201px">
-                                <asp:Label ID="lblNomActivite" runat="server" Text="Nom de l'activité *"></asp:Label>
-                            </td>
-                            <td style="width: 180px" height="55px">
-                                <asp:TextBox ID="txtNomActivite" runat="server" MaxLength="100" Width="170px" DataSourceID="dsActivites"
-                                    Text='<%# Bind("nomActivite") %>'></asp:TextBox>
-                            
-                            <br />
-                                <asp:RequiredFieldValidator ID="reqValNomActivite" runat="server" ControlToValidate="txtNomActivite" CssClass="controleValidation"
-                                    ValidationGroup="ajoutActivite" Display="Dynamic"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge">Le nom de l'activité est requis</asp:RequiredFieldValidator>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 201px" height="40px">
-                                <asp:Label ID="lblTypeActivite" runat="server" Text="Type d'activité *"></asp:Label>
-                            </td>
-                            <td style="height: 23px; width: 180px;" height="40px">
-                                <asp:DropDownList ID="ddlTypeActivite" runat="server" Width="100px" SelectedValue='<%# Bind("typeActivite") %>'>
-                                    <asp:ListItem Value=""></asp:ListItem>
-                                    <asp:ListItem Value="Culture">Culture</asp:ListItem>
-                                    <asp:ListItem Value="Sport">Sport</asp:ListItem>
-                                    <asp:ListItem Value="Loisir">Loisir</asp:ListItem>
-                                </asp:DropDownList>                     
-                            <br />
-                                <asp:RequiredFieldValidator ID="reqValTypeActivite" runat="server" ControlToValidate="ddlTypeActivite" CssClass="controleValidation"
-                                    ValidationGroup="ajoutActivite"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge">Le type de l'activité est requis</asp:RequiredFieldValidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 201px" height="40px">
-                                <asp:Label ID="lblClientele" runat="server" Text="Clientèle *"></asp:Label>
-                            </td>
-                            <td style="width: 180px" height="55px">
-                                <asp:DropDownList ID="ddlClientele" runat="server" Width="103px" SelectedValue='<%# Bind("clientele") %>'>
-                                    <asp:ListItem Value=""></asp:ListItem>
-                                    <asp:ListItem Value="Adulte">Adulte</asp:ListItem>
-                                    <asp:ListItem Value="Enfant">Enfant</asp:ListItem>
-                                    <asp:ListItem Value="Parent">Parent</asp:ListItem>
-                                </asp:DropDownList>
-                            <br />
-                                <asp:RequiredFieldValidator ID="reqValClientele" runat="server" CssClass="controleValidation"
-                                    ControlToValidate="ddlClientele" ValidationGroup="ajoutActivite"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge">La clientèle est requise</asp:RequiredFieldValidator>
-                            </td>
-                        </tr>
-                    </table>
-                    <asp:Button ID="btnEnregistrer" runat="server" Text="Enregistrer modification" CausesValidation="true"
-                        CommandName="Insert" ToolTip="Enregistre l'activité" ValidationGroup="ajoutActivite" />
-                    <asp:Button ID="btnReinit" runat="server" Text="Réinitialiser" ToolTip="Réinitialise tous les champs" CommandName="Cancel" />
-                </InsertItemTemplate>
-            </asp:ListView>   
-
-        </asp:View>
-
-
-        <asp:View ID="viewModDel" runat="server">
-            
-            <asp:Label ID="Label2" runat="server" Text="Modifier et supprimer des activités" Font-Underline="True" Font-Bold="True"></asp:Label>
-            <br />
-            <br />
-
-            <asp:DataPager ID="dtPagerArticles" runat="server" PagedControlID="lvActiviteModDel"
-                PageSize="5" style="margin-left: 210px;" Font-Bold="True">
-                <Fields>
-                    <asp:NextPreviousPagerField ButtonType="Button" FirstPageText="Première Page" LastPageText="Dernière Page"
-                        ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                    <asp:NumericPagerField  />
-                    <asp:NextPreviousPagerField ButtonType="Button" FirstPageText="Première Page" LastPageText="Dernière Page"
-                        ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                </Fields>
-            </asp:DataPager>
-
-            <br />
-            <br />
-
-            <asp:ListView ID="lvActiviteModDel" runat="server" DataSourceID="dsActivites" DataKeyNames="noActivite">
-                <ItemTemplate>
-                    <table style="border-style: ridge; width: 600px; padding-top: 10px; padding-bottom: 10px; margin-top:5px; margin-bottom:5px" align="center">
-                        <tr>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblNom" runat="server" Text="Nom de l'activitée"></asp:Label>
-                            </td>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblClientele1" runat="server" Text="Clientèle"></asp:Label>
-                            </td>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblTypeAct" runat="server" Text="Type d'activité"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="33%" align="center">
-                                <asp:Label ID="lblModNom" runat="server" Text='<%#Eval("nomActivite")%>'></asp:Label>
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:Label ID="lblModCli" runat="server" Text='<%#Eval("clientele")%>'></asp:Label>
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:Label ID="lblModType" runat="server" Text='<%#Eval("typeActivite")%>'></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="33%" align="center">
-                                &nbsp;
-                            </td>
-                            <td width="33%" align="center">
-                                &nbsp;
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:Button ID="btnAjouterGroupe" runat="server" Text="Ajouter un groupe" />
-                                <asp:Button ID="btnModAct" runat="server" Text="Modifier" CommandName="Edit" />
-                                <asp:Button ID="btnDelAct" runat="server" Text="Supprimer" CommandName="Delete" OnClientClick='<%# "return confirm(""Voulez-vous supprimer  " + Eval("nomActivite") + "?"")" %>' />
-                            </td>
-                        </tr>
-                    </table>
-                </ItemTemplate>
-
-                <EditItemTemplate>
-                    <table style="border-style: ridge; width: 600px; padding-top: 10px; padding-bottom: 10px; margin-top:5px; margin-bottom:5px" align="center">
-                        <tr>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblNom" runat="server" Text="Nom de l'activitée *"></asp:Label>
-                            </td>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblClientele1" runat="server" Text="Clientèle *"></asp:Label>
-                            </td>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblTypeAct" runat="server" Text="Type d'activité *"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="33%" align="center">
-                                <asp:TextBox ID="txtEditNom" runat="server" Text='<%# Bind("nomActivite")%>'></asp:TextBox>
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:DropDownList ID="ddlClientele" runat="server" Width="103px" SelectedValue='<%# Bind("clientele") %>'>
-                                    <asp:ListItem Value=""></asp:ListItem>
-                                    <asp:ListItem Value="Adulte">Adulte</asp:ListItem>
-                                    <asp:ListItem Value="Enfant">Enfant</asp:ListItem>
-                                    <asp:ListItem Value="Parent">Parent</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:DropDownList ID="ddlTypeActivite" runat="server" Width="100px" SelectedValue='<%# Bind("typeActivite") %>' >
-                                    <asp:ListItem Value=""></asp:ListItem>
-                                    <asp:ListItem Value="Culture">Culture</asp:ListItem>
-                                    <asp:ListItem Value="Sport">Sport</asp:ListItem>
-                                    <asp:ListItem Value="Loisir">Loisir</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="33%" align="center">
-                                &nbsp;
-                            </td>
-                            <td width="33%" align="center">
-                                &nbsp;
-                            </td>
-                            <td width="33%" align="center">
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="33%" align="right">
-                                <asp:Button ID="btnConfMod" runat="server" Text="Confirmer modification" CommandName="Update" />
-                            </td>
-                            <td width="33%" align="left">
-                                <asp:Button ID="btnModAnn" runat="server" Text="Annuler" CommandName="Cancel" />
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:Button ID="btnModAct" runat="server" Text="Modifier" Enabled="false"/>
-                                <asp:Button ID="btnDelAct" runat="server" Text="Supprimer" Enabled="false"/>
-                            </td>
-                        </tr>
-                    </table>
-                </EditItemTemplate>                
-
-            </asp:ListView>
-
-        </asp:View>
-
-        <asp:View ID="viewReussit" runat="server">
-            <table style="width: 100%; text-align: center; font-size:larger; padding-top: 100px;">
-                <tr>
-                    <td>
-                        <asp:Image ID="Image1" runat="server" ImageUrl="~/App_Themes/Default/images/success.png" />
-                        <br />
-                        <br />
-                        <asp:Label ID="Label1" runat="server" Text="Opération Effectuée avec Succès!" />
-                        <br />
-                        <br />
-                        <asp:Button ID="btnRetour" runat="server" Text="Retour" CommandName="Cancel" />
-                    </td>                    
-                </tr>
-            </table>
-        </asp:View>
-
-        <asp:View ID="viewAfficher" runat="server">
-
-            <asp:Label ID="Label3" runat="server" Text="Liste des activités" Font-Underline="True" Font-Bold="True"></asp:Label>
-            <br />
-            <br />
-
-            <asp:ListView ID="ListView1" runat="server" DataSourceID="dsActivites" DataKeyNames="noActivite">
-                <ItemTemplate>
-
-                    <table style="border-style: ridge; width: 600px; padding-top: 10px; padding-bottom: 10px; margin-top:5px; margin-bottom:5px" align="center">
-                        <tr>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblNom" runat="server" Text="Nom de l'activitée"></asp:Label>
-                            </td>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblClientele1" runat="server" Text="Clientèle"></asp:Label>
-                            </td>
-                            <td width="33%" align="center" style="border-bottom-style: solid; border-bottom-width: thin">
-                                <asp:Label ID="lblTypeAct" runat="server" Text="Type d'activité"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="33%" align="center">
-                                <asp:Label ID="lblModNom" runat="server" Text='<%#Eval("nomActivite")%>'></asp:Label>
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:Label ID="lblModCli" runat="server" Text='<%#Eval("clientele")%>'></asp:Label>
-                            </td>
-                            <td width="33%" align="center">
-                                <asp:Label ID="lblModType" runat="server" Text='<%#Eval("typeActivite")%>'></asp:Label>
-                            </td>
-                        </tr>
-                    </table>
-                </ItemTemplate>
-            </asp:ListView>
-
-        </asp:View>
+    <asp:MultiView ID="MultiViewListeGroupe" runat="server" ActiveViewIndex="0">
         <asp:View ID="ViewListeGroupe" runat="server">
             <asp:DataPager ID="pagerListeGroupe" runat="server" PagedControlID="lvListeGroupes">
                 <Fields>
@@ -295,7 +39,7 @@
                         </tr>
                         <tr>
                             <td style="width: 131px" align="center">
-                                <asp:DropDownList ID="ddlModifActivite" runat="server" DataSourceID="dsActivites"
+                                <asp:DropDownList ID="ddlModifActivite" runat="server" DataSourceID="dsActivite"
                                     DataTextField="nomActivite" DataValueField="noActivite" SelectedValue='<%#Bind("noActivite")%>'>
                                 </asp:DropDownList>
                             </td>
@@ -606,8 +350,8 @@
                                 Activité*
                             </td>
                             <td style="width: 198px; height: 45px">
-                                <asp:DropDownList ID="ddlNoActivite" runat="server" DataSourceID="dsActivites" DataTextField="nomActivite"
-                                    DataValueField="noActivite" >
+                                <asp:DropDownList ID="ddlNoActivite" runat="server" DataSourceID="dsActivite" DataTextField="nomActivite"
+                                    DataValueField="noActivite">
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -656,7 +400,7 @@
                                 Age Minimum*
                             </td>
                             <td style="width: 198px; height: 45px">
-                                <asp:TextBox ID="txtAgeMin" runat="server" Width="25px" MaxLength="3"></asp:TextBox>
+                                <asp:TextBox ID="txtAgeMin" runat="server" Width="50px"></asp:TextBox>
                                 <br />
                                 <asp:RequiredFieldValidator ID="reqValAgeMin" ValidationGroup="creeCroupe" runat="server"
                                     CssClass="controleValidation" ControlToValidate="txtAgeMin"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge">L'âge minimum est requis</asp:RequiredFieldValidator>
@@ -667,7 +411,7 @@
                                 Age Maximum*
                             </td>
                             <td style="width: 198px; height: 45px">
-                                <asp:TextBox ID="txtAgeMax" runat="server" Width="25px" MaxLength="3"></asp:TextBox>
+                                <asp:TextBox ID="txtAgeMax" runat="server" Width="50px"></asp:TextBox>
                                 <br />
                                 <asp:RequiredFieldValidator ID="reqVal" ValidationGroup="creeCroupe" runat="server"
                                     CssClass="controleValidation" ControlToValidate="txtAgeMax"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge">L'âge maximum est requis</asp:RequiredFieldValidator>
@@ -678,7 +422,7 @@
                                 Nombre de Places*
                             </td>
                             <td style="width: 198px; height: 45px">
-                                <asp:TextBox ID="txtNbPlaceDisponible" runat="server" Width="25px"></asp:TextBox>
+                                <asp:TextBox ID="txtNbPlaceDisponible" runat="server" Width="50px"></asp:TextBox>
                                 <br />
                                 <asp:RequiredFieldValidator ID="reqValNbPlaces" ValidationGroup="creeCroupe" runat="server"
                                     CssClass="controleValidation" ControlToValidate="txtNbPlaceDisponible"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge">Le nombre de places disponibles est requis</asp:RequiredFieldValidator>
@@ -716,8 +460,7 @@
                             </td>
                             <td style="width: 198px; height: 45px">
                                 <asp:Button ID="btnInsertGroupe" runat="server" Text="Ajouter" ValidationGroup="creeCroupe" />
-                                <asp:Button ID="btnAfficheGroupe" runat="server" Text="Afficher les groupes" />
-                                <asp:Button ID="btnAnnuler" runat="server" Text="Annuler" CommandName="Cancel" />
+                                <asp:Button ID="btnAnnuler" runat="server" Text="Annuler" />
                             </td>
                         </tr>
                     </table>
@@ -725,21 +468,14 @@
             </asp:ListView>
         </asp:View>
     </asp:MultiView>
-    
-    <asp:ScriptManager ID="ScriptManager" runat="server">
-    </asp:ScriptManager>
-
-    <%--------------------------------------------------- Datasources ----------------------------------------------------------------%>
-
-    <asp:EntityDataSource ID="dsActivites" runat="server" ConnectionString="name=ModelContainer1"
-        DefaultContainerName="ModelContainer1" EnableFlattening="False" EntitySetName="activites"
-        EnableInsert="true" EnableDelete="true" EnableUpdate="true" >
-    </asp:EntityDataSource> 
-
     <asp:EntityDataSource ID="dsListeGroupe" runat="server" ConnectionString="name=ModelContainer1"
         DefaultContainerName="ModelContainer1" EntitySetName="groupes" EnableDelete="True"
-        EnableUpdate="True" EntityTypeFilter="groupes" Include="activites" 
-        EnableFlattening="False">
+        EnableUpdate="True" EntityTypeFilter="groupes" Include="activites">
     </asp:EntityDataSource>
-
+    <asp:EntityDataSource ID="dsActivite" runat="server" ConnectionString="name=ModelContainer1"
+        DefaultContainerName="ModelContainer1" EnableFlattening="False" EntitySetName="activites"
+        EnableDelete="True" EnableInsert="True" EnableUpdate="True" EntityTypeFilter="activites">
+    </asp:EntityDataSource>
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
 </asp:Content>

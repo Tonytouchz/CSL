@@ -86,13 +86,15 @@
     background-color: #3aafd6; 
 }
 #footer
-{   
+{
+    position: absolute;
     text-align: center;
     width: 1000px;
     height: 100px;
     clear: both;
+    padding-top: 25px;
     background-image: url('images/footer.gif');
-   
+    background-repeat: no-repeat;
 }
 
 menu leMenu MenuItem
