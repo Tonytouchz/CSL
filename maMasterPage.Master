@@ -101,27 +101,19 @@
                             ForeColor="#025570" />
                         <DynamicMenuItemStyle 
                             ForeColor="White" />
-                       <%-- <DynamicItemTemplate>
-                            <%# Eval("Text") %>
-                        </DynamicItemTemplate>--%>
                         <Items>
                             <asp:MenuItem Text="Accueil" Value="Accueil" NavigateUrl="~/Historique.aspx"></asp:MenuItem>
-                            <asp:MenuItem Text="Activités" Value="Activites" 
-                                NavigateUrl="AjouterActivite.aspx">
-                                <asp:MenuItem Text="Ajouter une activité" Value="ajouterActivite"></asp:MenuItem>
-                                <asp:MenuItem Text="Supprimer une activité" Value="supprimerActivite"></asp:MenuItem>
-                                <asp:MenuItem Text="Afficher les activités" Value="afficherActivite"></asp:MenuItem>
+                            <asp:MenuItem Text="Activités Client" Value="Activites" 
+                                NavigateUrl="AfficheCoursClient.aspx">
                             </asp:MenuItem> 
-                             <asp:MenuItem Text="Groupes" Value="Nous Contacter" 
-                                NavigateUrl="~/ListeGroupe.aspx"></asp:MenuItem>
-                            <asp:MenuItem Text="Profil" Value="Mon Profil">
-                                <asp:MenuItem Text="Consulter mon profil" Value="consulterProfil" 
-                                    NavigateUrl="~/ChangerInfo.aspx"></asp:MenuItem>
-                                <asp:MenuItem Text="Consulter mon horaire" Value="consulterHoraire"></asp:MenuItem>
-                                <asp:MenuItem Text="Consulter mes factures" Value="consulterFacture"></asp:MenuItem>
+                             <asp:MenuItem Text="Activités Admin" Value="Activites" 
+                                NavigateUrl="aAfficheCours.aspx">
+                            </asp:MenuItem> 
+                            <asp:MenuItem Text="Profil" Value="Mon Profil" NavigateUrl="~/ChangerInfo.aspx">
                             </asp:MenuItem>
                             <asp:MenuItem Text="Nous Contacter" Value="Nous Contacter" 
                                 NavigateUrl="~/NousContacter.aspx"></asp:MenuItem>
+                             <asp:MenuItem Text="Paiement" Value="Paiement" NavigateUrl="~/Paiement.aspx"></asp:MenuItem>
                         </Items>
                         <StaticHoverStyle Font-Bold="True" Font-Size="XX-Large" 
                             Font-Underline="False" />

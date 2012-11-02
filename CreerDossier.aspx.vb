@@ -62,7 +62,7 @@ Partial Class CreerDossier
             leContexte.AddObject("clients", newClient)
             leContexte.SaveChanges()
 
-            Response.Redirect("CreerDossierSucces.aspx", True)
+            mvCreerDossier.ActiveViewIndex = 1
 
         End If
 
@@ -142,7 +142,5 @@ Partial Class CreerDossier
         Next
         Return found
     End Function
-
-    
 
 End Class

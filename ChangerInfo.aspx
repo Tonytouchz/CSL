@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/maMasterPage.Master" AutoEventWireup="false"
+﻿<%@ Page Title="Changer les informations" Language="VB" MasterPageFile="~/maMasterPage.Master" AutoEventWireup="false"
     CodeFile="ChangerInfo.aspx.vb" Inherits="CreerDossier" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="contenu" ContentPlaceHolderID="placeHolderContenu" runat="Server">
     <asp:MultiView ID="mltClientDossier" runat="server" ActiveViewIndex="0">
         <asp:View runat="server">
-            <asp:DataPager ID="datePagerlvClient" runat="server" PagedControlID="lvClient" PageSize="4" style="margin-left: 210px">
+            <asp:DataPager ID="datePagerlvClient" runat="server" PagedControlID="lvClient" PageSize="10" style="margin-left: 210px">
                 <Fields>
                     <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
                         ShowNextPageButton="False" ShowPreviousPageButton="False" />
@@ -41,16 +41,11 @@
                             <td style="height: 45px; width: 240px;">
                                 <asp:Label ID="txtDateNaissance" runat="server" Text='<%# Eval("dateNaissance") %>' />
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 20px;">
-                                <asp:Button ID="btnEditerUtilisateur" runat="server" Text="Editer" CommandName="Edit" />
-                                <asp:Button ID="btnSupprimerUtilisateur" runat="server" Text="Supprimer" CommandName="Delete" />
-                            </td>
-                        </tr>
+                        </tr> 
+                    </table>
                 </ItemTemplate>
                 <InsertItemTemplate>
-                    <table style="width: 100%">
+                    <table>
                         <h2>
                             Ajouter un nouvel utilisateur</h2>
                         <tr>
@@ -94,74 +89,28 @@
                                 <br />
                                 <asp:RequiredFieldValidator ID="reqValDateNaissance" runat="server" ValidationGroup="creerUtilisateur"
                                     ControlToValidate="txtInsertDateNaissance" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance est requise</asp:RequiredFieldValidator>
-                                <asp:RangeValidator ID="rangeValDateNaissanceMax" runat="server" ValidationGroup="creerUtilisateur"
-                                    ControlToValidate="txtInsertDateNaissance" CssClass="controleValidation" MinimumValue="12/12/1900"
-                                    MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:RangeValidator>
+                               <asp:RangeValidator ID="rangeValDateNaissanceMax" runat="server" ValidationGroup="creerUtilisateur"
+                                ControlToValidate="txtInsertDateNaissance" CssClass="controleValidation" MinimumValue="31/12/1900"
+                                MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date" Display="Dynamic"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:RangeValidator>
                                 <asp:HiddenField ID="hiddenFieldnoDossierClient" runat="server" Value='<%# Bind("noDossier") %>' />
-                            </td>
-                        </tr>
-                    </table>
-                    <table style="width: 100%; padding-top: 20px">
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnAjouterUser" runat="server" Text="Créer un nouveau usagé" ValidationGroup="creerUtilisateur"
-                                    Style="float: left" CommandName="Insert" />
-                                <asp:Button ID="btnRetablir" runat="server" Text="Rétablir" CausesValidation="False"
-                                    ValidationGroup="creerUtilisateur" CommandName="Cancel" Style="float: left; margin-left: 10px" />
-                            </td>
-                        </tr>
-                    </table>
-                </InsertItemTemplate>
-                <EditItemTemplate>
-                    <table>
-                        <tr style="width:100%;">
-                            <td style="width: 240px;">
-                                <asp:TextBox ID="txtInsertNom" runat="server" Width="150px" MaxLength="20" ValidationGroup="creerUtilisateur"
-                                    TabIndex="3" Text='<%# Bind("nom") %>' />
-                                <br />
-                                <asp:RequiredFieldValidator ID="ReqValNom" runat="server" ControlToValidate="txtInsertNom"
-                                    ValidationGroup="modifierUtilisateur" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Nom est requis</asp:RequiredFieldValidator>
-                            </td>
-                            <td style="width: 240px;">
-                                <asp:TextBox ID="txtInsertPrenom" runat="server" Width="150px" MaxLength="20" ValidationGroup="modifierUtilisateur"
-                                    TabIndex="4" Text='<%# Bind("prenom") %>' />
-                                <br />
-                                <asp:RequiredFieldValidator ID="ReqValPrenom" runat="server" ControlToValidate="txtInsertPrenom"
-                                    ValidationGroup="modifierUtilisateur" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Prénom est requis</asp:RequiredFieldValidator>
-                            </td>
-                            <td style="width: 240px;">
-                                <asp:TextBox ID="txtInsertDateNaissance" runat="server" MaxLength="10" TabIndex="5"
-                                    Width="67px" Enabled="True" Text='<%# Bind("dateNaissance") %>' />
-                                <asp:TextBoxWatermarkExtender ID="txtInsertDateNaissance_TextBoxWatermarkExtender"
-                                    runat="server" TargetControlID="txtInsertDateNaissance" WatermarkCssClass="waterMark"
-                                    WatermarkText="jj/mm/aaaa">
-                                </asp:TextBoxWatermarkExtender>
-                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtInsertDateNaissance"
-                                    DefaultView="Years" TodaysDateFormat="dd MMMM yyyy">
-                                </asp:CalendarExtender>
-                                <br />
-                                <asp:RequiredFieldValidator ID="reqValDateNaissance" runat="server" ValidationGroup="modifierUtilisateur"
-                                    ControlToValidate="txtInsertDateNaissance" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance est requise</asp:RequiredFieldValidator>
-                                <asp:RangeValidator ID="rangeValDateNaissanceMax" runat="server" ValidationGroup="modifierUtilisateur"
-                                    ControlToValidate="txtInsertDateNaissance" CssClass="controleValidation" MinimumValue="12/12/1900"
-                                    MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:RangeValidator>
                             </td>
                         </tr>
                         </table>
                         <table>
                         <tr align="right">
-                            <td style="height: 45px; width:100%; padding-top: 10px;">
-                                <asp:Button ID="btnAjouterUser" runat="server" Text="Enregistrer les modifications"
-                                    ValidationGroup="modifierUtilisateur" Style="float: left" CommandName="Update" />
-                                <asp:Button ID="btnRetablir" runat="server" Text="Cancel" CausesValidation="False"
-                                    ValidationGroup="modifierUtilisateur" CommandName="Cancel" Style="float: left;" />          
+                            <td style="height:45px; width:35%">
+                            </td>
+                            <td style=" height:45px; padding-top: 5px;">
+                                <asp:Button ID="btnAjouterUser" runat="server" Text="Créer un nouveau usagé" ValidationGroup="creerUtilisateur"
+                                    CommandName="Insert" /> 
+                                <asp:Button ID="btnRetablir" runat="server" Text="Rétablir" CausesValidation="False"
+                                    ValidationGroup="creerUtilisateur" CommandName="Cancel" /> 
+                            <asp:Button ID="btnInfoDossier" runat="server" Text="Consulter le dossier" />
                             </td>
                         </tr>
                     </table>
-                    <asp:HiddenField ID="hiddenFieldnoDossierClient" runat="server" Value='<%# Bind("noDossier") %>' />
-                </EditItemTemplate>
+                </InsertItemTemplate>
             </asp:ListView>
-            <asp:Button ID="btnInfoDossier" runat="server" Text="Consulter le dossier" />
         </asp:View>
         <asp:View runat="server">
             <asp:ListView ID="lvDossier" runat="server" DataSourceID="dsDossier" DataKeyNames="noDossier">
@@ -236,10 +185,12 @@
                                     MaxLength="15" TabIndex="12" Height="21px" Text='<%# Eval("username")%>' />
                             </td>
                         </tr>
-                        <tr>
-                            <td style="padding-top: 20px">
+                        <tr align="right">
+                            <td style="width:40%; height:45px"></td>
+                            <td style="width:60%; height:45px; padding-top: 20px;" >
                                 <asp:Button runat="server" ID="btnEditInfoDossier" Text="Éditer les information"
-                                    CommandName="Edit" />
+                                    CommandName="Edit" /> 
+                                <asp:Button ID="btnInfoClient" runat="server" Text="Consulter les clients" />
                             </td>
                         </tr>
                     </table>
@@ -384,25 +335,25 @@
                             <asp:TextBox ID="txtMotPasseRessaisir" runat="server" Width="200px" TextMode="Password"
                                 ValidationGroup="creerCompte" MaxLength="15" TabIndex="14" Height="22px"></asp:TextBox>
                             <br />
-                            <asp:CompareValidator ID="compValMotPasseRessaisir" runat="server" ControlToCompare="txtMotPasse"
-                                ControlToValidate="txtMotPasseRessaisir" ValidationGroup="creerCompte" Display="Dynamic"
-                                CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Mot de passe doit être le même</asp:CompareValidator>
+                            <asp:CompareValidator ID="compValMotPasseRessaisir" runat="server" ControlToCompare="txtMotPasseRessaisir"
+                                ControlToValidate="txtMotPasse" ValidationGroup="creerCompte" Display="Dynamic"
+                                CssClass="controleValidation" Operator="Equal"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Mot de passe doit être le même</asp:CompareValidator>
                         </td>
-                        <tr>
-                            <td style="padding-top: 20px">
-                                <asp:Button runat="server" ID="btnSauvegardeInfoDossier" Text="Éditer les information"
-                                    CommandName="Update" ValidationGroup="creerCompte" />
+                        <tr align=right> 
+                            <td style="height:45px"></td>
+                            <td style="height:45px; padding-top: 20px">
+                                <asp:Button runat="server" ID="btnSauvegardeInfoDossier" Text="Sauvegarder"
+                                    CommandName="Update" ValidationGroup="creerCompte" /> 
+                                <asp:Button ID="btnInfoClient" runat="server" Text="Consulter les clients" />
                             </td>
                         </tr>
                     </table>
                     <asp:HiddenField ID="hiddenFieldPassword" runat="server" Value='<%# Bind("password")%>' />
                 </EditItemTemplate>
             </asp:ListView>
-            <asp:Button ID="btnInfoClient" runat="server" Text="Consulter les clients" />
         </asp:View>
     </asp:MultiView>
-    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
-        EnableScriptLocalization="true">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true" EnableScriptLocalization="true">
     </asp:ScriptManager>
     <asp:EntityDataSource ID="dsClient" runat="server" ConnectionString="name=ModelContainer1"
         DefaultContainerName="ModelContainer1" EnableInsert="True" EntitySetName="clients"

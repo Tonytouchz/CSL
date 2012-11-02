@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/22/2012 14:37:35
+-- Date Created: 11/01/2012 14:05:03
 -- Generated from EDMX file: C:\Users\Maxime\Documents\Visual Studio 2010\WebSites\CSL\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -29,8 +29,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_groupeslisteAttente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[listeAttente] DROP CONSTRAINT [FK_groupeslisteAttente];
 GO
-IF OBJECT_ID(N'[dbo].[FK_horaires_groupes]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[horaires] DROP CONSTRAINT [FK_horaires_groupes];
+IF OBJECT_ID(N'[dbo].[FK_horaireDynamique_groupes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[horaireDynamique] DROP CONSTRAINT [FK_horaireDynamique_groupes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_horaireFixe_groupes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[horaireFixe] DROP CONSTRAINT [FK_horaireFixe_groupes];
 GO
 IF OBJECT_ID(N'[dbo].[FK_inscription_clients]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[inscription] DROP CONSTRAINT [FK_inscription_clients];
@@ -43,6 +46,12 @@ IF OBJECT_ID(N'[dbo].[FK_inscription_groupes]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_inscription_paiements]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[inscription] DROP CONSTRAINT [FK_inscription_paiements];
+GO
+IF OBJECT_ID(N'[dbo].[FK_panier_dossiers]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[panier] DROP CONSTRAINT [FK_panier_dossiers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_panier_groupes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[panier] DROP CONSTRAINT [FK_panier_groupes];
 GO
 
 -- --------------------------------------------------
@@ -61,8 +70,11 @@ GO
 IF OBJECT_ID(N'[dbo].[groupes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[groupes];
 GO
-IF OBJECT_ID(N'[dbo].[horaires]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[horaires];
+IF OBJECT_ID(N'[dbo].[horaireDynamique]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[horaireDynamique];
+GO
+IF OBJECT_ID(N'[dbo].[horaireFixe]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[horaireFixe];
 GO
 IF OBJECT_ID(N'[dbo].[inscription]', 'U') IS NOT NULL
     DROP TABLE [dbo].[inscription];
@@ -72,6 +84,9 @@ IF OBJECT_ID(N'[dbo].[listeAttente]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[paiements]', 'U') IS NOT NULL
     DROP TABLE [dbo].[paiements];
+GO
+IF OBJECT_ID(N'[dbo].[panier]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[panier];
 GO
 IF OBJECT_ID(N'[dbo].[sysdiagrams]', 'U') IS NOT NULL
     DROP TABLE [dbo].[sysdiagrams];
@@ -96,7 +111,8 @@ CREATE TABLE [dbo].[clients] (
     [nom] nvarchar(max)  NOT NULL,
     [prenom] nvarchar(max)  NOT NULL,
     [dateNaissance] nvarchar(max)  NOT NULL,
-    [noDossier] int  NOT NULL
+    [noDossier] int  NOT NULL,
+    [nomComplet] AS (prenom + SPACE(1) + nom)  NOT NULL
 );
 GO
 
@@ -131,12 +147,25 @@ CREATE TABLE [dbo].[groupes] (
 );
 GO
 
--- Creating table 'horaires'
-CREATE TABLE [dbo].[horaires] (
-    [noHoraire] int IDENTITY(1,1) NOT NULL,
+-- Creating table 'horaireDynamique'
+CREATE TABLE [dbo].[horaireDynamique] (
+    [noHoraireDynamique] int IDENTITY(1,1) NOT NULL,
     [noGroupe] int  NOT NULL,
-    [heureDebut] nvarchar(max)  NOT NULL,
-    [heureFin] nvarchar(max)  NOT NULL,
+    [dateDebut] nvarchar(max)  NOT NULL,
+    [heureDebut] nvarchar(10)  NOT NULL,
+    [heureFin] nvarchar(10)  NOT NULL,
+    [emplacement] nvarchar(max)  NOT NULL,
+    [dateFin] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'horaireFixe'
+CREATE TABLE [dbo].[horaireFixe] (
+    [noHoraireFixe] int IDENTITY(1,1) NOT NULL,
+    [noGroupe] int  NOT NULL,
+    [heureDebut] nvarchar(10)  NOT NULL,
+    [heureFin] nvarchar(10)  NOT NULL,
+    [jours] nvarchar(max)  NOT NULL,
     [emplacement] nvarchar(max)  NOT NULL
 );
 GO
@@ -171,6 +200,14 @@ CREATE TABLE [dbo].[paiements] (
     [TVQ] int  NOT NULL,
     [rabais] nvarchar(max)  NOT NULL,
     [totalPaiement] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'panier'
+CREATE TABLE [dbo].[panier] (
+    [noPanier] int IDENTITY(1,1) NOT NULL,
+    [noDossier] int  NOT NULL,
+    [noGroupe] int  NOT NULL
 );
 GO
 
@@ -212,10 +249,16 @@ ADD CONSTRAINT [PK_groupes]
     PRIMARY KEY CLUSTERED ([noGroupe] ASC);
 GO
 
--- Creating primary key on [noHoraire] in table 'horaires'
-ALTER TABLE [dbo].[horaires]
-ADD CONSTRAINT [PK_horaires]
-    PRIMARY KEY CLUSTERED ([noHoraire] ASC);
+-- Creating primary key on [noHoraireDynamique] in table 'horaireDynamique'
+ALTER TABLE [dbo].[horaireDynamique]
+ADD CONSTRAINT [PK_horaireDynamique]
+    PRIMARY KEY CLUSTERED ([noHoraireDynamique] ASC);
+GO
+
+-- Creating primary key on [noHoraireFixe] in table 'horaireFixe'
+ALTER TABLE [dbo].[horaireFixe]
+ADD CONSTRAINT [PK_horaireFixe]
+    PRIMARY KEY CLUSTERED ([noHoraireFixe] ASC);
 GO
 
 -- Creating primary key on [noInscription] in table 'inscription'
@@ -234,6 +277,12 @@ GO
 ALTER TABLE [dbo].[paiements]
 ADD CONSTRAINT [PK_paiements]
     PRIMARY KEY CLUSTERED ([noPaiement] ASC);
+GO
+
+-- Creating primary key on [noPanier] in table 'panier'
+ALTER TABLE [dbo].[panier]
+ADD CONSTRAINT [PK_panier]
+    PRIMARY KEY CLUSTERED ([noPanier] ASC);
 GO
 
 -- Creating primary key on [diagram_id] in table 'sysdiagrams'
@@ -316,6 +365,20 @@ ON [dbo].[inscription]
     ([noDossier]);
 GO
 
+-- Creating foreign key on [noDossier] in table 'panier'
+ALTER TABLE [dbo].[panier]
+ADD CONSTRAINT [FK_panier_dossiers]
+    FOREIGN KEY ([noDossier])
+    REFERENCES [dbo].[dossiers]
+        ([noDossier])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_panier_dossiers'
+CREATE INDEX [IX_FK_panier_dossiers]
+ON [dbo].[panier]
+    ([noDossier]);
+GO
+
 -- Creating foreign key on [noGroupe] in table 'listeAttente'
 ALTER TABLE [dbo].[listeAttente]
 ADD CONSTRAINT [FK_groupeslisteAttente]
@@ -330,17 +393,31 @@ ON [dbo].[listeAttente]
     ([noGroupe]);
 GO
 
--- Creating foreign key on [noGroupe] in table 'horaires'
-ALTER TABLE [dbo].[horaires]
-ADD CONSTRAINT [FK_horaires_groupes]
+-- Creating foreign key on [noGroupe] in table 'horaireDynamique'
+ALTER TABLE [dbo].[horaireDynamique]
+ADD CONSTRAINT [FK_horaireDynamique_groupes]
     FOREIGN KEY ([noGroupe])
     REFERENCES [dbo].[groupes]
         ([noGroupe])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_horaires_groupes'
-CREATE INDEX [IX_FK_horaires_groupes]
-ON [dbo].[horaires]
+-- Creating non-clustered index for FOREIGN KEY 'FK_horaireDynamique_groupes'
+CREATE INDEX [IX_FK_horaireDynamique_groupes]
+ON [dbo].[horaireDynamique]
+    ([noGroupe]);
+GO
+
+-- Creating foreign key on [noGroupe] in table 'horaireFixe'
+ALTER TABLE [dbo].[horaireFixe]
+ADD CONSTRAINT [FK_horaireFixe_groupes]
+    FOREIGN KEY ([noGroupe])
+    REFERENCES [dbo].[groupes]
+        ([noGroupe])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_horaireFixe_groupes'
+CREATE INDEX [IX_FK_horaireFixe_groupes]
+ON [dbo].[horaireFixe]
     ([noGroupe]);
 GO
 
@@ -355,6 +432,20 @@ ADD CONSTRAINT [FK_inscription_groupes]
 -- Creating non-clustered index for FOREIGN KEY 'FK_inscription_groupes'
 CREATE INDEX [IX_FK_inscription_groupes]
 ON [dbo].[inscription]
+    ([noGroupe]);
+GO
+
+-- Creating foreign key on [noGroupe] in table 'panier'
+ALTER TABLE [dbo].[panier]
+ADD CONSTRAINT [FK_panier_groupes]
+    FOREIGN KEY ([noGroupe])
+    REFERENCES [dbo].[groupes]
+        ([noGroupe])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_panier_groupes'
+CREATE INDEX [IX_FK_panier_groupes]
+ON [dbo].[panier]
     ([noGroupe]);
 GO
 

@@ -5,265 +5,353 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-  <EntityContainer Name="ModelStoreContainer">
-    <EntitySet Name="activites" EntityType="Model.Store.activites" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="clients" EntityType="Model.Store.clients" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="dossiers" EntityType="Model.Store.dossiers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="groupes" EntityType="Model.Store.groupes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="horaires" EntityType="Model.Store.horaires" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="inscription" EntityType="Model.Store.inscription" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="listeAttente" EntityType="Model.Store.listeAttente" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="paiements" EntityType="Model.Store.paiements" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_groupes_activites" Association="Model.Store.FK_groupes_activites">
-      <End Role="activites" EntitySet="activites" />
-      <End Role="groupes" EntitySet="groupes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_clientsJeu_dossiersJeu" Association="Model.Store.FK_clientsJeu_dossiersJeu">
-      <End Role="dossiers" EntitySet="dossiers" />
-      <End Role="clients" EntitySet="clients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_clientslisteAttente" Association="Model.Store.FK_clientslisteAttente">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="listeAttente" EntitySet="listeAttente" />
-    </AssociationSet>
-    <AssociationSet Name="FK_inscription_clients" Association="Model.Store.FK_inscription_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="inscription" EntitySet="inscription" />
-    </AssociationSet>
-    <AssociationSet Name="FK_inscription_dossiers" Association="Model.Store.FK_inscription_dossiers">
-      <End Role="dossiers" EntitySet="dossiers" />
-      <End Role="inscription" EntitySet="inscription" />
-    </AssociationSet>
-    <AssociationSet Name="FK_groupeslisteAttente" Association="Model.Store.FK_groupeslisteAttente">
-      <End Role="groupes" EntitySet="groupes" />
-      <End Role="listeAttente" EntitySet="listeAttente" />
-    </AssociationSet>
-    <AssociationSet Name="FK_horaires_groupes" Association="Model.Store.FK_horaires_groupes">
-      <End Role="groupes" EntitySet="groupes" />
-      <End Role="horaires" EntitySet="horaires" />
-    </AssociationSet>
-    <AssociationSet Name="FK_inscription_groupes" Association="Model.Store.FK_inscription_groupes">
-      <End Role="groupes" EntitySet="groupes" />
-      <End Role="inscription" EntitySet="inscription" />
-    </AssociationSet>
-    <AssociationSet Name="FK_inscription_paiements" Association="Model.Store.FK_inscription_paiements">
-      <End Role="paiements" EntitySet="paiements" />
-      <End Role="inscription" EntitySet="inscription" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="activites">
-    <Key>
-      <PropertyRef Name="noActivite" />
-    </Key>
-    <Property Name="noActivite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nomActivite" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="typeActivite" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="clientele" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="clients">
-    <Key>
-      <PropertyRef Name="noClient" />
-    </Key>
-    <Property Name="noClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="prenom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="dateNaissance" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noDossier" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="dossiers">
-    <Key>
-      <PropertyRef Name="noDossier" />
-    </Key>
-    <Property Name="noDossier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="adresse" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ville" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="codePostal" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="province" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noTelephone" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="typeUtilisateur" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="groupes">
-    <Key>
-      <PropertyRef Name="noGroupe" />
-    </Key>
-    <Property Name="noGroupe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nomProf" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="prix" Type="int" Nullable="false" />
-    <Property Name="nbPlaceDisponible" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ageMin" Type="int" Nullable="false" />
-    <Property Name="ageMax" Type="int" Nullable="false" />
-    <Property Name="session" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="dateDebut" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noActivite" Type="int" Nullable="false" />
-    <Property Name="materielRequis" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="prealable" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="horaires">
-    <Key>
-      <PropertyRef Name="noHoraire" />
-    </Key>
-    <Property Name="noHoraire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noGroupe" Type="int" Nullable="false" />
-    <Property Name="heureDebut" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="heureFin" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="emplacement" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="inscription">
-    <Key>
-      <PropertyRef Name="noInscription" />
-    </Key>
-    <Property Name="noInscription" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noClient" Type="int" Nullable="false" />
-    <Property Name="dateInscription" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="descriptionAchat" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noGroupe" Type="int" Nullable="false" />
-    <Property Name="noPaiement" Type="int" Nullable="false" />
-    <Property Name="noDossier" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="listeAttente">
-    <Key>
-      <PropertyRef Name="noListeAttente" />
-    </Key>
-    <Property Name="noListeAttente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noGroupe" Type="int" Nullable="false" />
-    <Property Name="noClient" Type="int" Nullable="false" />
-    <Property Name="dateDebutAttente" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="paiements">
-    <Key>
-      <PropertyRef Name="noPaiement" />
-    </Key>
-    <Property Name="noPaiement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noInscription" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="datePaiement" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TPS" Type="int" Nullable="false" />
-    <Property Name="TVQ" Type="int" Nullable="false" />
-    <Property Name="rabais" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="totalPaiement" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" Nullable="true" />
-    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
-  </EntityType>
-  <Association Name="FK_groupes_activites">
-    <End Role="activites" Type="Model.Store.activites" Multiplicity="1" />
-    <End Role="groupes" Type="Model.Store.groupes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="activites">
-        <PropertyRef Name="noActivite" />
-      </Principal>
-      <Dependent Role="groupes">
-        <PropertyRef Name="noActivite" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clientsJeu_dossiersJeu">
-    <End Role="dossiers" Type="Model.Store.dossiers" Multiplicity="1" />
-    <End Role="clients" Type="Model.Store.clients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="dossiers">
-        <PropertyRef Name="noDossier" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="noDossier" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clientslisteAttente">
-    <End Role="clients" Type="Model.Store.clients" Multiplicity="1" />
-    <End Role="listeAttente" Type="Model.Store.listeAttente" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="noClient" />
-      </Principal>
-      <Dependent Role="listeAttente">
-        <PropertyRef Name="noClient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_inscription_clients">
-    <End Role="clients" Type="Model.Store.clients" Multiplicity="1" />
-    <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="noClient" />
-      </Principal>
-      <Dependent Role="inscription">
-        <PropertyRef Name="noClient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_inscription_dossiers">
-    <End Role="dossiers" Type="Model.Store.dossiers" Multiplicity="1" />
-    <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="dossiers">
-        <PropertyRef Name="noDossier" />
-      </Principal>
-      <Dependent Role="inscription">
-        <PropertyRef Name="noDossier" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_groupeslisteAttente">
-    <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
-    <End Role="listeAttente" Type="Model.Store.listeAttente" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="groupes">
-        <PropertyRef Name="noGroupe" />
-      </Principal>
-      <Dependent Role="listeAttente">
-        <PropertyRef Name="noGroupe" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_horaires_groupes">
-    <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
-    <End Role="horaires" Type="Model.Store.horaires" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="groupes">
-        <PropertyRef Name="noGroupe" />
-      </Principal>
-      <Dependent Role="horaires">
-        <PropertyRef Name="noGroupe" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_inscription_groupes">
-    <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
-    <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="groupes">
-        <PropertyRef Name="noGroupe" />
-      </Principal>
-      <Dependent Role="inscription">
-        <PropertyRef Name="noGroupe" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_inscription_paiements">
-    <End Role="paiements" Type="Model.Store.paiements" Multiplicity="1" />
-    <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="paiements">
-        <PropertyRef Name="noPaiement" />
-      </Principal>
-      <Dependent Role="inscription">
-        <PropertyRef Name="noPaiement" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="activites" EntityType="Model.Store.activites" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="clients" EntityType="Model.Store.clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="dossiers" EntityType="Model.Store.dossiers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="groupes" EntityType="Model.Store.groupes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="horaireDynamique" EntityType="Model.Store.horaireDynamique" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="horaireFixe" EntityType="Model.Store.horaireFixe" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="inscription" EntityType="Model.Store.inscription" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="listeAttente" EntityType="Model.Store.listeAttente" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="paiements" EntityType="Model.Store.paiements" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="panier" EntityType="Model.Store.panier" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_clientsJeu_dossiersJeu" Association="Model.Store.FK_clientsJeu_dossiersJeu">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_clientslisteAttente" Association="Model.Store.FK_clientslisteAttente">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="listeAttente" EntitySet="listeAttente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groupes_activites" Association="Model.Store.FK_groupes_activites">
+            <End Role="activites" EntitySet="activites" />
+            <End Role="groupes" EntitySet="groupes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groupeslisteAttente" Association="Model.Store.FK_groupeslisteAttente">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="listeAttente" EntitySet="listeAttente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_horaireDynamique_groupes" Association="Model.Store.FK_horaireDynamique_groupes">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="horaireDynamique" EntitySet="horaireDynamique" />
+          </AssociationSet>
+          <AssociationSet Name="FK_horaireFixe_groupes" Association="Model.Store.FK_horaireFixe_groupes">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="horaireFixe" EntitySet="horaireFixe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inscription_clients" Association="Model.Store.FK_inscription_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="inscription" EntitySet="inscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inscription_dossiers" Association="Model.Store.FK_inscription_dossiers">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="inscription" EntitySet="inscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inscription_groupes" Association="Model.Store.FK_inscription_groupes">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="inscription" EntitySet="inscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inscription_paiements" Association="Model.Store.FK_inscription_paiements">
+            <End Role="paiements" EntitySet="paiements" />
+            <End Role="inscription" EntitySet="inscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_panier_clients" Association="Model.Store.FK_panier_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="panier" EntitySet="panier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_panier_dossiers" Association="Model.Store.FK_panier_dossiers">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="panier" EntitySet="panier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_panier_groupes" Association="Model.Store.FK_panier_groupes">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="panier" EntitySet="panier" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="activites">
+          <Key>
+            <PropertyRef Name="noActivite" />
+          </Key>
+          <Property Name="noActivite" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nomActivite" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="typeActivite" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="clientele" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="noClient" />
+          </Key>
+          <Property Name="noClient" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="prenom" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dateNaissance" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="noDossier" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dossiers">
+          <Key>
+            <PropertyRef Name="noDossier" />
+          </Key>
+          <Property Name="noDossier" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="adresse" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ville" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="codePostal" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="province" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="noTelephone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="username" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="typeUtilisateur" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="groupes">
+          <Key>
+            <PropertyRef Name="noGroupe" />
+          </Key>
+          <Property Name="noGroupe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nomProf" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="prix" Type="int" Nullable="false" />
+          <Property Name="nbPlaceDisponible" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ageMin" Type="int" Nullable="false" />
+          <Property Name="ageMax" Type="int" Nullable="false" />
+          <Property Name="session" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dateDebut" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="noActivite" Type="int" Nullable="false" />
+          <Property Name="materielRequis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="prealable" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="horaireDynamique">
+          <Key>
+            <PropertyRef Name="noHoraireDynamique" />
+          </Key>
+          <Property Name="noHoraireDynamique" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="noGroupe" Type="int" Nullable="false" />
+          <Property Name="dateDebut" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="heureDebut" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="heureFin" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="emplacement" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dateFin" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horaireFixe">
+          <Key>
+            <PropertyRef Name="noHoraireFixe" />
+          </Key>
+          <Property Name="noHoraireFixe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="noGroupe" Type="int" Nullable="false" />
+          <Property Name="heureDebut" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="heureFin" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="jours" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="emplacement" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inscription">
+          <Key>
+            <PropertyRef Name="noInscription" />
+          </Key>
+          <Property Name="noInscription" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="noClient" Type="int" Nullable="false" />
+          <Property Name="dateInscription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="descriptionAchat" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="noGroupe" Type="int" Nullable="false" />
+          <Property Name="noPaiement" Type="int" Nullable="false" />
+          <Property Name="noDossier" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="listeAttente">
+          <Key>
+            <PropertyRef Name="noListeAttente" />
+          </Key>
+          <Property Name="noListeAttente" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="noGroupe" Type="int" Nullable="false" />
+          <Property Name="noClient" Type="int" Nullable="false" />
+          <Property Name="dateDebutAttente" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="paiements">
+          <Key>
+            <PropertyRef Name="noPaiement" />
+          </Key>
+          <Property Name="noPaiement" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="noInscription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="datePaiement" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TPS" Type="int" Nullable="false" />
+          <Property Name="TVQ" Type="int" Nullable="false" />
+          <Property Name="rabais" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="totalPaiement" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="panier">
+          <Key>
+            <PropertyRef Name="noPanier" />
+          </Key>
+          <Property Name="noPanier" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="noDossier" Type="int" Nullable="false" />
+          <Property Name="noGroupe" Type="int" Nullable="false" />
+          <Property Name="noClient" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_clientsJeu_dossiersJeu">
+          <End Role="dossiers" Type="Model.Store.dossiers" Multiplicity="1" />
+          <End Role="clients" Type="Model.Store.clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="noDossier" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="noDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_clientslisteAttente">
+          <End Role="clients" Type="Model.Store.clients" Multiplicity="1" />
+          <End Role="listeAttente" Type="Model.Store.listeAttente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="noClient" />
+            </Principal>
+            <Dependent Role="listeAttente">
+              <PropertyRef Name="noClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groupes_activites">
+          <End Role="activites" Type="Model.Store.activites" Multiplicity="1" />
+          <End Role="groupes" Type="Model.Store.groupes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activites">
+              <PropertyRef Name="noActivite" />
+            </Principal>
+            <Dependent Role="groupes">
+              <PropertyRef Name="noActivite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groupeslisteAttente">
+          <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
+          <End Role="listeAttente" Type="Model.Store.listeAttente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="listeAttente">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_horaireDynamique_groupes">
+          <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
+          <End Role="horaireDynamique" Type="Model.Store.horaireDynamique" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="horaireDynamique">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_horaireFixe_groupes">
+          <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
+          <End Role="horaireFixe" Type="Model.Store.horaireFixe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="horaireFixe">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inscription_clients">
+          <End Role="clients" Type="Model.Store.clients" Multiplicity="1" />
+          <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="noClient" />
+            </Principal>
+            <Dependent Role="inscription">
+              <PropertyRef Name="noClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inscription_dossiers">
+          <End Role="dossiers" Type="Model.Store.dossiers" Multiplicity="1" />
+          <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="noDossier" />
+            </Principal>
+            <Dependent Role="inscription">
+              <PropertyRef Name="noDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inscription_groupes">
+          <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
+          <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="inscription">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inscription_paiements">
+          <End Role="paiements" Type="Model.Store.paiements" Multiplicity="1" />
+          <End Role="inscription" Type="Model.Store.inscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paiements">
+              <PropertyRef Name="noPaiement" />
+            </Principal>
+            <Dependent Role="inscription">
+              <PropertyRef Name="noPaiement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_panier_clients">
+          <End Role="clients" Type="Model.Store.clients" Multiplicity="1" />
+          <End Role="panier" Type="Model.Store.panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="noClient" />
+            </Principal>
+            <Dependent Role="panier">
+              <PropertyRef Name="noClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_panier_dossiers">
+          <End Role="dossiers" Type="Model.Store.dossiers" Multiplicity="1" />
+          <End Role="panier" Type="Model.Store.panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="noDossier" />
+            </Principal>
+            <Dependent Role="panier">
+              <PropertyRef Name="noDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_panier_groupes">
+          <End Role="groupes" Type="Model.Store.groupes" Multiplicity="1" />
+          <End Role="panier" Type="Model.Store.panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="panier">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -272,10 +360,12 @@
           <EntitySet Name="clients" EntityType="Model.clients" />
           <EntitySet Name="dossiers" EntityType="Model.dossiers" />
           <EntitySet Name="groupes" EntityType="Model.groupes" />
-          <EntitySet Name="horaires" EntityType="Model.horaires" />
+          <EntitySet Name="horaireDynamique" EntityType="Model.horaireDynamique" />
+          <EntitySet Name="horaireFixe" EntityType="Model.horaireFixe" />
           <EntitySet Name="inscription" EntityType="Model.inscription" />
           <EntitySet Name="listeAttente" EntityType="Model.listeAttente" />
           <EntitySet Name="paiements" EntityType="Model.paiements" />
+          <EntitySet Name="panier" EntityType="Model.panier" />
           <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagrams" />
           <AssociationSet Name="FK_groupes_activites" Association="Model.FK_groupes_activites">
             <End Role="activites" EntitySet="activites" />
@@ -293,21 +383,37 @@
             <End Role="clients" EntitySet="clients" />
             <End Role="inscription" EntitySet="inscription" />
           </AssociationSet>
+          <AssociationSet Name="FK_panier_clients" Association="Model.FK_panier_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="panier" EntitySet="panier" />
+          </AssociationSet>
           <AssociationSet Name="FK_inscription_dossiers" Association="Model.FK_inscription_dossiers">
             <End Role="dossiers" EntitySet="dossiers" />
             <End Role="inscription" EntitySet="inscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_panier_dossiers" Association="Model.FK_panier_dossiers">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="panier" EntitySet="panier" />
           </AssociationSet>
           <AssociationSet Name="FK_groupeslisteAttente" Association="Model.FK_groupeslisteAttente">
             <End Role="groupes" EntitySet="groupes" />
             <End Role="listeAttente" EntitySet="listeAttente" />
           </AssociationSet>
-          <AssociationSet Name="FK_horaires_groupes" Association="Model.FK_horaires_groupes">
+          <AssociationSet Name="FK_horaireDynamique_groupes" Association="Model.FK_horaireDynamique_groupes">
             <End Role="groupes" EntitySet="groupes" />
-            <End Role="horaires" EntitySet="horaires" />
+            <End Role="horaireDynamique" EntitySet="horaireDynamique" />
+          </AssociationSet>
+          <AssociationSet Name="FK_horaireFixe_groupes" Association="Model.FK_horaireFixe_groupes">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="horaireFixe" EntitySet="horaireFixe" />
           </AssociationSet>
           <AssociationSet Name="FK_inscription_groupes" Association="Model.FK_inscription_groupes">
             <End Role="groupes" EntitySet="groupes" />
             <End Role="inscription" EntitySet="inscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_panier_groupes" Association="Model.FK_panier_groupes">
+            <End Role="groupes" EntitySet="groupes" />
+            <End Role="panier" EntitySet="panier" />
           </AssociationSet>
           <AssociationSet Name="FK_inscription_paiements" Association="Model.FK_inscription_paiements">
             <End Role="paiements" EntitySet="paiements" />
@@ -336,6 +442,7 @@
           <NavigationProperty Name="dossiers" Relationship="Model.FK_clientsJeu_dossiersJeu" FromRole="clients" ToRole="dossiers" />
           <NavigationProperty Name="listeAttente" Relationship="Model.FK_clientslisteAttente" FromRole="clients" ToRole="listeAttente" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_clients" FromRole="clients" ToRole="inscription" />
+          <NavigationProperty Name="panier" Relationship="Model.FK_panier_clients" FromRole="clients" ToRole="panier" />
         </EntityType>
         <EntityType Name="dossiers">
           <Key>
@@ -353,6 +460,7 @@
           <Property Type="String" Name="typeUtilisateur" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="clients" Relationship="Model.FK_clientsJeu_dossiersJeu" FromRole="dossiers" ToRole="clients" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_dossiers" FromRole="dossiers" ToRole="inscription" />
+          <NavigationProperty Name="panier" Relationship="Model.FK_panier_dossiers" FromRole="dossiers" ToRole="panier" />
         </EntityType>
         <EntityType Name="groupes">
           <Key>
@@ -368,22 +476,38 @@
           <Property Type="String" Name="dateDebut" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="noActivite" Nullable="false" />
           <Property Type="String" Name="materielRequis" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="prealable" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="prealable" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
           <NavigationProperty Name="activites" Relationship="Model.FK_groupes_activites" FromRole="groupes" ToRole="activites" />
           <NavigationProperty Name="listeAttente" Relationship="Model.FK_groupeslisteAttente" FromRole="groupes" ToRole="listeAttente" />
-          <NavigationProperty Name="horaires" Relationship="Model.FK_horaires_groupes" FromRole="groupes" ToRole="horaires" />
+          <NavigationProperty Name="horaireDynamique" Relationship="Model.FK_horaireDynamique_groupes" FromRole="groupes" ToRole="horaireDynamique" />
+          <NavigationProperty Name="horaireFixe" Relationship="Model.FK_horaireFixe_groupes" FromRole="groupes" ToRole="horaireFixe" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_groupes" FromRole="groupes" ToRole="inscription" />
+          <NavigationProperty Name="panier" Relationship="Model.FK_panier_groupes" FromRole="groupes" ToRole="panier" />
         </EntityType>
-        <EntityType Name="horaires">
+        <EntityType Name="horaireDynamique">
           <Key>
-            <PropertyRef Name="noHoraire" />
+            <PropertyRef Name="noHoraireDynamique" />
           </Key>
-          <Property Type="Int32" Name="noHoraire" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="noHoraireDynamique" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="noGroupe" Nullable="false" />
-          <Property Type="String" Name="heureDebut" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="heureFin" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dateDebut" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="heureDebut" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="heureFin" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="emplacement" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="groupes" Relationship="Model.FK_horaires_groupes" FromRole="horaires" ToRole="groupes" />
+          <Property Type="String" Name="dateFin" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="groupes" Relationship="Model.FK_horaireDynamique_groupes" FromRole="horaireDynamique" ToRole="groupes" />
+        </EntityType>
+        <EntityType Name="horaireFixe">
+          <Key>
+            <PropertyRef Name="noHoraireFixe" />
+          </Key>
+          <Property Type="Int32" Name="noHoraireFixe" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="noGroupe" Nullable="false" />
+          <Property Type="String" Name="heureDebut" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="heureFin" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="jours" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emplacement" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="groupes" Relationship="Model.FK_horaireFixe_groupes" FromRole="horaireFixe" ToRole="groupes" />
         </EntityType>
         <EntityType Name="inscription">
           <Key>
@@ -424,6 +548,18 @@
           <Property Type="String" Name="rabais" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="totalPaiement" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_paiements" FromRole="paiements" ToRole="inscription" />
+        </EntityType>
+        <EntityType Name="panier">
+          <Key>
+            <PropertyRef Name="noPanier" />
+          </Key>
+          <Property Type="Int32" Name="noPanier" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="noDossier" Nullable="false" />
+          <Property Type="Int32" Name="noGroupe" Nullable="false" />
+          <Property Type="Int32" Name="noClient" Nullable="false" />
+          <NavigationProperty Name="clients" Relationship="Model.FK_panier_clients" FromRole="panier" ToRole="clients" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_panier_dossiers" FromRole="panier" ToRole="dossiers" />
+          <NavigationProperty Name="groupes" Relationship="Model.FK_panier_groupes" FromRole="panier" ToRole="groupes" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -483,6 +619,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_panier_clients">
+          <End Type="Model.clients" Role="clients" Multiplicity="1" />
+          <End Type="Model.panier" Role="panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="noClient" />
+            </Principal>
+            <Dependent Role="panier">
+              <PropertyRef Name="noClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inscription_dossiers">
           <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
           <End Type="Model.inscription" Role="inscription" Multiplicity="*" />
@@ -491,6 +639,18 @@
               <PropertyRef Name="noDossier" />
             </Principal>
             <Dependent Role="inscription">
+              <PropertyRef Name="noDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_panier_dossiers">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.panier" Role="panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="noDossier" />
+            </Principal>
+            <Dependent Role="panier">
               <PropertyRef Name="noDossier" />
             </Dependent>
           </ReferentialConstraint>
@@ -507,14 +667,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_horaires_groupes">
+        <Association Name="FK_horaireDynamique_groupes">
           <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
-          <End Type="Model.horaires" Role="horaires" Multiplicity="*" />
+          <End Type="Model.horaireDynamique" Role="horaireDynamique" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="groupes">
               <PropertyRef Name="noGroupe" />
             </Principal>
-            <Dependent Role="horaires">
+            <Dependent Role="horaireDynamique">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_horaireFixe_groupes">
+          <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
+          <End Type="Model.horaireFixe" Role="horaireFixe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="horaireFixe">
               <PropertyRef Name="noGroupe" />
             </Dependent>
           </ReferentialConstraint>
@@ -527,6 +699,18 @@
               <PropertyRef Name="noGroupe" />
             </Principal>
             <Dependent Role="inscription">
+              <PropertyRef Name="noGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_panier_groupes">
+          <End Type="Model.groupes" Role="groupes" Multiplicity="1" />
+          <End Type="Model.panier" Role="panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groupes">
+              <PropertyRef Name="noGroupe" />
+            </Principal>
+            <Dependent Role="panier">
               <PropertyRef Name="noGroupe" />
             </Dependent>
           </ReferentialConstraint>
@@ -549,119 +733,143 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer1">
-    <EntitySetMapping Name="activites">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.activites)">
-        <MappingFragment StoreEntitySet="activites">
-          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
-          <ScalarProperty Name="nomActivite" ColumnName="nomActivite" />
-          <ScalarProperty Name="typeActivite" ColumnName="typeActivite" />
-          <ScalarProperty Name="clientele" ColumnName="clientele" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="clients">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.clients)">
-        <MappingFragment StoreEntitySet="clients">
-          <ScalarProperty Name="noClient" ColumnName="noClient" />
-          <ScalarProperty Name="nom" ColumnName="nom" />
-          <ScalarProperty Name="prenom" ColumnName="prenom" />
-          <ScalarProperty Name="dateNaissance" ColumnName="dateNaissance" />
-          <ScalarProperty Name="noDossier" ColumnName="noDossier" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="dossiers">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.dossiers)">
-        <MappingFragment StoreEntitySet="dossiers">
-          <ScalarProperty Name="noDossier" ColumnName="noDossier" />
-          <ScalarProperty Name="adresse" ColumnName="adresse" />
-          <ScalarProperty Name="ville" ColumnName="ville" />
-          <ScalarProperty Name="codePostal" ColumnName="codePostal" />
-          <ScalarProperty Name="province" ColumnName="province" />
-          <ScalarProperty Name="noTelephone" ColumnName="noTelephone" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="typeUtilisateur" ColumnName="typeUtilisateur" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="groupes">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.groupes)">
-        <MappingFragment StoreEntitySet="groupes">
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="nomProf" ColumnName="nomProf" />
-          <ScalarProperty Name="prix" ColumnName="prix" />
-          <ScalarProperty Name="nbPlaceDisponible" ColumnName="nbPlaceDisponible" />
-          <ScalarProperty Name="ageMin" ColumnName="ageMin" />
-          <ScalarProperty Name="ageMax" ColumnName="ageMax" />
-          <ScalarProperty Name="session" ColumnName="session" />
-          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
-          <ScalarProperty Name="noActivite" ColumnName="noActivite" />
-          <ScalarProperty Name="materielRequis" ColumnName="materielRequis" />
-          <ScalarProperty Name="prealable" ColumnName="prealable" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="horaires">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.horaires)">
-        <MappingFragment StoreEntitySet="horaires">
-          <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="heureDebut" ColumnName="heureDebut" />
-          <ScalarProperty Name="heureFin" ColumnName="heureFin" />
-          <ScalarProperty Name="emplacement" ColumnName="emplacement" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="inscription">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.inscription)">
-        <MappingFragment StoreEntitySet="inscription">
-          <ScalarProperty Name="noInscription" ColumnName="noInscription" />
-          <ScalarProperty Name="noClient" ColumnName="noClient" />
-          <ScalarProperty Name="dateInscription" ColumnName="dateInscription" />
-          <ScalarProperty Name="descriptionAchat" ColumnName="descriptionAchat" />
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
-          <ScalarProperty Name="noDossier" ColumnName="noDossier" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="listeAttente">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.listeAttente)">
-        <MappingFragment StoreEntitySet="listeAttente">
-          <ScalarProperty Name="noListeAttente" ColumnName="noListeAttente" />
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noClient" ColumnName="noClient" />
-          <ScalarProperty Name="dateDebutAttente" ColumnName="dateDebutAttente" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="paiements">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.paiements)">
-        <MappingFragment StoreEntitySet="paiements">
-          <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
-          <ScalarProperty Name="noInscription" ColumnName="noInscription" />
-          <ScalarProperty Name="datePaiement" ColumnName="datePaiement" />
-          <ScalarProperty Name="TPS" ColumnName="TPS" />
-          <ScalarProperty Name="TVQ" ColumnName="TVQ" />
-          <ScalarProperty Name="rabais" ColumnName="rabais" />
-          <ScalarProperty Name="totalPaiement" ColumnName="totalPaiement" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.sysdiagrams)">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-  </EntityContainerMapping>
+          <EntitySetMapping Name="activites">
+            <EntityTypeMapping TypeName="Model.activites">
+              <MappingFragment StoreEntitySet="activites">
+                <ScalarProperty Name="clientele" ColumnName="clientele" />
+                <ScalarProperty Name="typeActivite" ColumnName="typeActivite" />
+                <ScalarProperty Name="nomActivite" ColumnName="nomActivite" />
+                <ScalarProperty Name="noActivite" ColumnName="noActivite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="Model.clients">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="noDossier" ColumnName="noDossier" />
+                <ScalarProperty Name="dateNaissance" ColumnName="dateNaissance" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="noClient" ColumnName="noClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dossiers">
+            <EntityTypeMapping TypeName="Model.dossiers">
+              <MappingFragment StoreEntitySet="dossiers">
+                <ScalarProperty Name="typeUtilisateur" ColumnName="typeUtilisateur" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="noTelephone" ColumnName="noTelephone" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="codePostal" ColumnName="codePostal" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="noDossier" ColumnName="noDossier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groupes">
+            <EntityTypeMapping TypeName="Model.groupes">
+              <MappingFragment StoreEntitySet="groupes">
+                <ScalarProperty Name="prealable" ColumnName="prealable" />
+                <ScalarProperty Name="materielRequis" ColumnName="materielRequis" />
+                <ScalarProperty Name="noActivite" ColumnName="noActivite" />
+                <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+                <ScalarProperty Name="session" ColumnName="session" />
+                <ScalarProperty Name="ageMax" ColumnName="ageMax" />
+                <ScalarProperty Name="ageMin" ColumnName="ageMin" />
+                <ScalarProperty Name="nbPlaceDisponible" ColumnName="nbPlaceDisponible" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="nomProf" ColumnName="nomProf" />
+                <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horaireDynamique">
+            <EntityTypeMapping TypeName="Model.horaireDynamique">
+              <MappingFragment StoreEntitySet="horaireDynamique">
+                <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+                <ScalarProperty Name="emplacement" ColumnName="emplacement" />
+                <ScalarProperty Name="heureFin" ColumnName="heureFin" />
+                <ScalarProperty Name="heureDebut" ColumnName="heureDebut" />
+                <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+                <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+                <ScalarProperty Name="noHoraireDynamique" ColumnName="noHoraireDynamique" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horaireFixe">
+            <EntityTypeMapping TypeName="Model.horaireFixe">
+              <MappingFragment StoreEntitySet="horaireFixe">
+                <ScalarProperty Name="emplacement" ColumnName="emplacement" />
+                <ScalarProperty Name="jours" ColumnName="jours" />
+                <ScalarProperty Name="heureFin" ColumnName="heureFin" />
+                <ScalarProperty Name="heureDebut" ColumnName="heureDebut" />
+                <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+                <ScalarProperty Name="noHoraireFixe" ColumnName="noHoraireFixe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inscription">
+            <EntityTypeMapping TypeName="Model.inscription">
+              <MappingFragment StoreEntitySet="inscription">
+                <ScalarProperty Name="noDossier" ColumnName="noDossier" />
+                <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
+                <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+                <ScalarProperty Name="descriptionAchat" ColumnName="descriptionAchat" />
+                <ScalarProperty Name="dateInscription" ColumnName="dateInscription" />
+                <ScalarProperty Name="noClient" ColumnName="noClient" />
+                <ScalarProperty Name="noInscription" ColumnName="noInscription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="listeAttente">
+            <EntityTypeMapping TypeName="Model.listeAttente">
+              <MappingFragment StoreEntitySet="listeAttente">
+                <ScalarProperty Name="dateDebutAttente" ColumnName="dateDebutAttente" />
+                <ScalarProperty Name="noClient" ColumnName="noClient" />
+                <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+                <ScalarProperty Name="noListeAttente" ColumnName="noListeAttente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paiements">
+            <EntityTypeMapping TypeName="Model.paiements">
+              <MappingFragment StoreEntitySet="paiements">
+                <ScalarProperty Name="totalPaiement" ColumnName="totalPaiement" />
+                <ScalarProperty Name="rabais" ColumnName="rabais" />
+                <ScalarProperty Name="TVQ" ColumnName="TVQ" />
+                <ScalarProperty Name="TPS" ColumnName="TPS" />
+                <ScalarProperty Name="datePaiement" ColumnName="datePaiement" />
+                <ScalarProperty Name="noInscription" ColumnName="noInscription" />
+                <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="panier">
+            <EntityTypeMapping TypeName="Model.panier">
+              <MappingFragment StoreEntitySet="panier">
+                <ScalarProperty Name="noClient" ColumnName="noClient" />
+                <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+                <ScalarProperty Name="noDossier" ColumnName="noDossier" />
+                <ScalarProperty Name="noPanier" ColumnName="noPanier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
@@ -682,59 +890,112 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model" >
-        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="4.75" PointY="8.875" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="2.75" PointY="0.5" Height="2.5571907552083317" />
-        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="0.5" PointY="0.5" Height="3.3263964843750031" />
-        <EntityTypeShape EntityType="Model.groupes" Width="1.5" PointX="6.75" PointY="7.5" Height="3.9033007812500031" />
-        <EntityTypeShape EntityType="Model.horaires" Width="1.5" PointX="9.125" PointY="8.25" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="Model.inscription" Width="1.5" PointX="4.625" PointY="5" Height="3.1340950520833388" />
-        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="7.875" PointY="4.625" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="5.25" PointY="1.375" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.625" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="0.75" PointY="8.375" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="6" PointY="2" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="3.75" PointY="1.625" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Model.groupes" Width="1.5" PointX="3" PointY="7.25" Height="4.2879036458333388" />
+        <EntityTypeShape EntityType="Model.horaireDynamique" Width="1.5" PointX="5.25" PointY="6.625" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Model.horaireFixe" Width="1.5" PointX="5.25" PointY="9.875" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.inscription" Width="1.5" PointX="8.25" PointY="7.875" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="8.25" PointY="4.375" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="6" PointY="13.125" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Model.panier" Width="1.5" PointX="8.25" PointY="12.25" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333282" />
         <AssociationConnector Association="Model.FK_groupes_activites" >
-          <ConnectorPoint PointX="6.25" PointY="9.8651432291666659" />
-          <ConnectorPoint PointX="6.75" PointY="9.8651432291666659" />
+          <ConnectorPoint PointX="2.25" PointY="9.3651432291666659" />
+          <ConnectorPoint PointX="3" PointY="9.3651432291666659" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_clientsJeu_dossiersJeu" >
-          <ConnectorPoint PointX="2" PointY="1.7785953776041659" />
-          <ConnectorPoint PointX="2.75" PointY="1.7785953776041659" />
+          <ConnectorPoint PointX="5.25" PointY="3.3747460937500016" />
+          <ConnectorPoint PointX="6" PointY="3.3747460937500016" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_clientslisteAttente" >
-          <ConnectorPoint PointX="3.5" PointY="3.0571907552083317" />
-          <ConnectorPoint PointX="3.5" PointY="4.78125" />
-          <ConnectorPoint PointX="3.8229191666666664" PointY="4.7812499999999991" />
-          <ConnectorPoint PointX="3.9895858333333334" PointY="4.78125" />
-          <ConnectorPoint PointX="5.604166666666667" PointY="4.7812499999999991" />
-          <ConnectorPoint PointX="5.770833333333333" PointY="4.78125" />
-          <ConnectorPoint PointX="7.875" PointY="4.78125" />
+          <ConnectorPoint PointX="7.5" PointY="4.5622460937500016" />
+          <ConnectorPoint PointX="8.25" PointY="4.5622460937500016" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_clients" >
-          <ConnectorPoint PointX="3.9062525" PointY="3.0571907552083317" />
-          <ConnectorPoint PointX="3.9062525" PointY="6.9744356575520836" />
-          <ConnectorPoint PointX="4.625" PointY="6.9744356575520836" />
+          <ConnectorPoint PointX="7.15625" PointY="4.7494921875000031" />
+          <ConnectorPoint PointX="7.15625" PointY="9.52859537760417" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.52859537760417" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.52859537760417" />
+          <ConnectorPoint PointX="8.25" PointY="9.52859537760417" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_panier_clients" >
+          <ConnectorPoint PointX="7.5" PointY="4.7494921875000031" />
+          <ConnectorPoint PointX="7.875" PointY="5.1244921875000031" />
+          <ConnectorPoint PointX="7.875" PointY="13.432444661458334" />
+          <ConnectorPoint PointX="8.25" PointY="13.432444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_dossiers" >
-          <ConnectorPoint PointX="1.25" PointY="3.8263964843750031" />
-          <ConnectorPoint PointX="1.25" PointY="5.752271263020841" />
-          <ConnectorPoint PointX="3.8229191666666664" PointY="5.75227126302084" />
-          <ConnectorPoint PointX="3.9895858333333334" PointY="5.752271263020841" />
-          <ConnectorPoint PointX="4.625" PointY="5.752271263020841" />
+          <ConnectorPoint PointX="5.25" PointY="5.1436979166666674" />
+          <ConnectorPoint PointX="5.625" PointY="5.5186979166666674" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="5.5186979166666665" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="5.5186979166666674" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="5.5186979166666665" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="5.5186979166666674" />
+          <ConnectorPoint PointX="8" PointY="5.5186979166666674" />
+          <ConnectorPoint PointX="8" PointY="7.625" />
+          <ConnectorPoint PointX="8.25" PointY="7.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_panier_dossiers" >
+          <ConnectorPoint PointX="4.875" PointY="5.1436979166666674" />
+          <ConnectorPoint PointX="4.875" PointY="12.65625" />
+          <ConnectorPoint PointX="7.244791666666667" PointY="12.65625" />
+          <ConnectorPoint PointX="7.411458333333333" PointY="12.65625" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.65625" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.65625" />
+          <ConnectorPoint PointX="8.25" PointY="12.65625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_groupeslisteAttente" >
-          <ConnectorPoint PointX="8.0625" PointY="7.5" />
-          <ConnectorPoint PointX="8.0625" PointY="6.797587890624996" />
+          <ConnectorPoint PointX="3.34375" PointY="7.25" />
+          <ConnectorPoint PointX="3.34375" PointY="6.0331429036458317" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.0331429036458308" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="6.0331429036458317" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="6.0331429036458308" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="6.0331429036458317" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="6.0331429036458308" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="6.0331429036458317" />
+          <ConnectorPoint PointX="8.25" PointY="6.0331429036458317" />
         </AssociationConnector>
-        <AssociationConnector Association="Model.FK_horaires_groupes" >
-          <ConnectorPoint PointX="8.25" PointY="9.3362939453125016" />
-          <ConnectorPoint PointX="9.125" PointY="9.3362939453125016" />
+        <AssociationConnector Association="Model.FK_horaireDynamique_groupes" >
+          <ConnectorPoint PointX="4.5" PointY="8.21609537760417" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="8.21609537760417" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="8.21609537760417" />
+          <ConnectorPoint PointX="5.25" PointY="8.21609537760417" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_horaireFixe_groupes" >
+          <ConnectorPoint PointX="4.5" PointY="10.706451822916669" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="10.706451822916669" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="10.706451822916669" />
+          <ConnectorPoint PointX="5.25" PointY="10.706451822916669" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_groupes" >
-          <ConnectorPoint PointX="6.75" PointY="7.8170475260416694" />
-          <ConnectorPoint PointX="6.125" PointY="7.8170475260416694" />
+          <ConnectorPoint PointX="4.5" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="8.25" PointY="9.3241430664062541" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_panier_groupes" >
+          <ConnectorPoint PointX="3.75" PointY="11.537903645833339" />
+          <ConnectorPoint PointX="3.75" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="7.244791666666667" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="7.411458333333333" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="8.25" PointY="12.421872500000006" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_paiements" >
-          <ConnectorPoint PointX="5.6875" PointY="3.9321907552083388" />
-          <ConnectorPoint PointX="5.6875" PointY="5" />
+          <ConnectorPoint PointX="7.328125" PointY="13.125" />
+          <ConnectorPoint PointX="7.328125" PointY="9.7018001888020784" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.7018001888020784" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.7018001888020784" />
+          <ConnectorPoint PointX="8.25" PointY="9.7018001888020784" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

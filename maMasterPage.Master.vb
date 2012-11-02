@@ -34,6 +34,7 @@ Partial Class maMasterPage
             Dim leTypeUtilisateur = (From Model In leContexte.dossiers Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.typeUtilisateur).First
             Dim noDossierClient = (From Model In leContexte.dossiers Where (Model.username = txtLogin.Text And txtMotPasse.Text = Model.password) Select Model.noDossier).First
             Session("nomUtilisateur") = utilisateur
+            Session("typeUtilisateur") = leTypeUtilisateur
             Session("noDossier") = noDossierClient
 
             MultiViewConnection.ActiveViewIndex = 1
@@ -52,6 +53,7 @@ Partial Class maMasterPage
         Response.Cookies("typeUtilisateur").Value = Nothing
         Session("nomUtilisateur") = Nothing
         Session("typeUtilisateur") = Nothing
+        Session("noDossier") = Nothing
         MultiViewConnection.ActiveViewIndex = 0
         Response.Redirect("Historique.aspx")
 

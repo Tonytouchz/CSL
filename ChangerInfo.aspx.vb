@@ -24,7 +24,7 @@ Partial Class CreerDossier
         hiddenFieldnoDossier.Value = Session("noDossier")
         FindChildControl(Of HiddenField)(lvClient, "hiddenFieldnoDossierClient").Value = Session("noDossier")
 
-        If hiddenFieldnoDossier.Value = "" Then
+        If Session("noDossier") Is Nothing Then
 
             Response.Redirect("Connexion.aspx")
 
@@ -60,7 +60,6 @@ Partial Class CreerDossier
             e.ExceptionHandled = True
 
         End If
-
 
     End Sub
 
@@ -130,12 +129,11 @@ Partial Class CreerDossier
 
     End Sub
 
-    Protected Sub comparerPassword(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lvDossier.ItemCommand
+    Protected Sub lvDossier_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lvDossier.ItemCommand
 
         If e.CommandSource.id = "btnSauvegardeInfoDossier" Then
 
             Dim valPassword As String = FindChildControl(Of TextBox)(lvDossier, "txtMotPasse").Text
-
 
             If valPassword <> "" Then
 
@@ -145,17 +143,23 @@ Partial Class CreerDossier
 
         End If
 
+        If e.CommandSource.id = "btnInfoClient" Then
+
+            mltClientDossier.ActiveViewIndex = 0
+
+        End If
+
+
+
     End Sub
 
-    Protected Sub btnInfoDossier_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnInfoDossier.Click
+    Protected Sub lvClient_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lvClient.ItemCommand
 
-        mltClientDossier.ActiveViewIndex = 1
+        If e.CommandSource.id = "btnInfoDossier" Then
 
-    End Sub
+            mltClientDossier.ActiveViewIndex = 1
 
-    Protected Sub btnInfoClient_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnInfoClient.Click
-
-        mltClientDossier.ActiveViewIndex = 0
+        End If
 
     End Sub
 

@@ -3,13 +3,16 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="contenu" ContentPlaceHolderID="placeHolderContenu" runat="Server">
+    
+    <asp:MultiView ID="mvCreerDossier" runat="server" ActiveViewIndex=0>
+    <asp:View runat="server">
     <asp:ListView ID="lvDossier" runat="server" DataSourceID="dsDossier" DataKeyNames="noDossier"
         InsertItemPosition="LastItem">
         <ItemTemplate>
         </ItemTemplate>
         <InsertItemTemplate>
             <h2>Entrer vos informations personnels</h2>
-            <table >
+            <table>
                 <tr>
                     <td style="width: 224px; height: 45px;">
                         <asp:Label ID="lblNom" runat="server" Text="Nom*"></asp:Label>
@@ -28,7 +31,7 @@
                     </td>
                     <td style="height: 45px; width: 240px;">
                             <asp:TextBox ID="txtPrenom" runat="server" Width="170px" MaxLength="20" ValidationGroup="creerCompte"
-                            TabIndex="4" />
+                            TabIndex="4"/>
                         <br />
                         <asp:RequiredFieldValidator ID="ReqValPrenom" runat="server" ControlToValidate="txtPrenom"
                             ValidationGroup="creerCompte" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> Le Prénom est requis</asp:RequiredFieldValidator>
@@ -51,8 +54,8 @@
                         <asp:RequiredFieldValidator ID="reqValDateNaissance" runat="server" ValidationGroup="creerCompte"
                             ControlToValidate="txtDateNaissance" Display="Dynamic" CssClass="controleValidation"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance est requise</asp:RequiredFieldValidator>
                         <asp:RangeValidator ID="rangeValDateNaissanceMax" runat="server" ValidationGroup="creerCompte"
-                            ControlToValidate="txtDateNaissance" CssClass="controleValidation" MinimumValue="12/12/1900"
-                            MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:RangeValidator>
+                                ControlToValidate="txtDateNaissance" CssClass="controleValidation" MinimumValue="31/12/1900"
+                                MaximumValue='<%# DateTime.Today.ToShortDateString() %>' Type="Date" Display="Dynamic"><img src="App_Themes/Default/images/imgErreur.png" alt="Croix Rouge"> La Date de Naissance n'est pas valide</asp:RangeValidator>
                     </td>
                 </tr>
                 <tr>
@@ -212,9 +215,15 @@
                             <asp:ListItem Value="Professeur">Professeur</asp:ListItem>
                         </asp:DropDownList>
                     </td>
-                    <td>
+                    </tr>
+                    </table>
+                    <table>
+                    <tr>
+                    <td style="width:500px">
+                    </td>
+                    <td >
                         <asp:Button ID="btnInsertCompte" runat="server" Text="Créer le compte" ValidationGroup="creerCompte"
-                            Style="margin-left: 34px" CommandName="Insert" />
+                            CommandName="Insert" />
                         <asp:Button ID="btnRetablir" runat="server" Text="Rétablir" CausesValidation="False"
                             ValidationGroup="creerCompte" CommandName="Cancel" />
                     </td>
@@ -222,10 +231,14 @@
             </table>
         </InsertItemTemplate>
     </asp:ListView> 
-    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
-        EnableScriptLocalization="true">
+    </asp:View> 
+    <asp:View runat="server">
+    Le dossier a été créé avec succès
+    </asp:View>
+    </asp:MultiView>
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptLocalization="true" EnableScriptGlobalization="true">
     </asp:ScriptManager>
     <asp:EntityDataSource ID="dsDossier" runat="server" ConnectionString="name=ModelContainer1"
         DefaultContainerName="ModelContainer1" EnableFlattening="False" EntitySetName="dossiers"
-        EnableInsert="True" />
+        EnableInsert="True" Include="clients" />
 </asp:Content>
