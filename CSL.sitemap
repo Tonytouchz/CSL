@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="…" enableLocalization="true" >
-  <siteMapNode url="~/AfficherFacture.aspx" description="Historique des factures" title="Factures" resourceKey="Factures" />
-  <siteMapNode url="~/AfficherLaFacture.aspx" description="Afficher la facture" title="Facture" resourceKey="Facture" />
-  <siteMapNode url="~/CreerCompte.aspx" description="Creer un Compte" title="Compte" resourceKey="Compte" />
-  <siteMapNode url="~/FormulaireAjout.aspx" description="Historique des factures" title="Factures" resourceKey="Factures" />
-  <siteMapNode url="~/Historique.aspx" description="Historique de la compagnie" title="Historique" resourceKey="Historique" />
-  <siteMapNode url="~/HorairePerso.aspx" description="Horaire Personnel" title="Horaire" resourceKey="Horaire" />
-  <siteMapNode url="~/NousContacter.aspx" description="Nous contacter" title="Contacter" resourceKey="Contacter" />
-  <siteMapNode url="~/OublierMotPasse.aspx" description="Oubliez votre mot de passe" title="OubliezMotPasse" resourceKey="OubliezMotPasse" />
-  <siteMapNode url="~/NousContacter.aspx" description="Nous contacter" title="Contacter" resourceKey="Contacter" />
-  <siteMapNode url="~/panier.aspx" description="Votre Panier" title="Panier" resourceKey="Panier" />
-  <siteMapNode url="~/ResultatRecherche.aspx" description="Resultat de la Recherche" title="Recherche" resourceKey="Recherche" />
+  <siteMapNode url="~/Historique.aspx" description="Historique de la compagnie" title="Historique" resourceKey="Accueil">
+    <siteMapNode url="~/AfficherFacture.aspx" description="Historique des factures" title="Factures" resourceKey="Factures" />
+    <siteMapNode url="~/AfficherLaFacture.aspx" description="Afficher la facture" title="Facture" resourceKey="Facture" />
+    <siteMapNode url="~/CreerCompte.aspx" description="Creer un Compte" title="Compte" resourceKey="Compte" />
+    <siteMapNode url="~/FormulaireAjout.aspx" description="Historique des factures" title="Factures" resourceKey="Factures" />
+    <siteMapNode url="~/HorairePerso.aspx" description="Horaire Personnel" title="Horaire" resourceKey="Horaire" />
+    <siteMapNode url="~/NousContacter.aspx" description="Nous contacter" title="Contacter" resourceKey="Contacter" />
+    <siteMapNode url="~/OublierMotPasse.aspx" description="Oubliez votre mot de passe" title="OubliezMotPasse" resourceKey="OubliezMotPasse" />
+    <siteMapNode url="~/NousContacter.aspx" description="Nous contacter" title="Contacter" resourceKey="Contacter" />
+    <siteMapNode url="~/panier.aspx" description="Votre Panier" title="Panier" resourceKey="Panier" />
+    <siteMapNode url="~/ResultatRecherche.aspx" description="Resultat de la Recherche" title="Recherche" resourceKey="Recherche" />
+  </siteMapNode>
 </siteMap>

@@ -15,9 +15,7 @@
 
                     <asp:MultiView ID="MultiViewConnection" runat="server" ActiveViewIndex="0">
                      
-                    
                     <asp:View ID="ViewConnection" runat="server">
-
                     
                     <table class="style1">
                         <tr>
@@ -77,8 +75,14 @@
 
                 </div>
                 <div id="bandeHautGauche">
-                    
-                &nbsp;Accueil</div>
+                    <%-- <asp:SiteMapPath ID="siteMapPath" runat="server" Font-Names="Verdana" 
+                        Font-Size="0.8em" PathSeparator=" : " >
+                        <CurrentNodeStyle ForeColor="#333333" />
+                        <NodeStyle Font-Bold="True" ForeColor="#284E98" />
+                        <PathSeparatorStyle Font-Bold="True" ForeColor="#507CD1" />
+                        <RootNodeStyle Font-Bold="True" ForeColor="#507CD1" />
+                    </asp:SiteMapPath>--%>
+                </div>
                 <div id="bandeHautDroite">
                     <asp:LinkButton ID="lblLangue" runat="server" Text="Anglais" />
                     <asp:Label ID="lblBarreUn" runat="server" Text=" | " />
@@ -135,8 +139,8 @@
                     <asp:Label ID="lblDateModification" runat="server" Text="Dernière modification le 10 septembre 2012" />
                 </div>
     </div>
-
         </form>
     
     </body>
+    
 </html>

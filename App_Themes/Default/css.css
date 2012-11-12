@@ -115,3 +115,8 @@ menu leMenu MenuItem
     font-size: x-small;
     padding-top: 2px;
 }
+colgroup
+{
+    font-weight: bold;
+    font-size: large;
+}

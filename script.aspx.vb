@@ -108,70 +108,70 @@ Partial Class script
         leContexte.AddObject("groupes", Groupe12)
 
         'Adulte
-        Dim Activite13 = New activites With {.nomActivite = "Badminton", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite13)
-        Dim Activite14 = New activites With {.nomActivite = "Centre de tir", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite14)
-        Dim Activite15 = New activites With {.nomActivite = "Conditionnement physique de groupe", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite15)
-        Dim Activite16 = New activites With {.nomActivite = "Escrime", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite16)
-        Dim Activite17 = New activites With {.nomActivite = "Exercices physiques", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite17)
-        Dim Activite18 = New activites With {.nomActivite = "Judo", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite18)
-        Dim Activite19 = New activites With {.nomActivite = "Judo Ju Jitsu", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite19)
-        Dim Activite20 = New activites With {.nomActivite = "Karaté (style shotokan)", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite20)
-        Dim Activite21 = New activites With {.nomActivite = "Patinage (40 ans et plus)", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite21)
-        Dim Activite22 = New activites With {.nomActivite = "Pétanque intérieure", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite22)
-        Dim Activite23 = New activites With {.nomActivite = "Tai Chi", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite23)
-        Dim Activite24 = New activites With {.nomActivite = "Tennis de table", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite24)
-        Dim Activite25 = New activites With {.nomActivite = "Volley-ball", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite25)
-        Dim Activite26 = New activites With {.nomActivite = "Yoga", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite26)
+        'Dim Activite13 = New activites With {.nomActivite = "Badminton", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite13)
+        'Dim Activite14 = New activites With {.nomActivite = "Centre de tir", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite14)
+        'Dim Activite15 = New activites With {.nomActivite = "Conditionnement physique de groupe", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite15)
+        'Dim Activite16 = New activites With {.nomActivite = "Escrime", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite16)
+        'Dim Activite17 = New activites With {.nomActivite = "Exercices physiques", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite17)
+        'Dim Activite18 = New activites With {.nomActivite = "Judo", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite18)
+        'Dim Activite19 = New activites With {.nomActivite = "Judo Ju Jitsu", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite19)
+        'Dim Activite20 = New activites With {.nomActivite = "Karaté (style shotokan)", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite20)
+        'Dim Activite21 = New activites With {.nomActivite = "Patinage (40 ans et plus)", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite21)
+        'Dim Activite22 = New activites With {.nomActivite = "Pétanque intérieure", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite22)
+        'Dim Activite23 = New activites With {.nomActivite = "Tai Chi", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite23)
+        'Dim Activite24 = New activites With {.nomActivite = "Tennis de table", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite24)
+        'Dim Activite25 = New activites With {.nomActivite = "Volley-ball", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite25)
+        'Dim Activite26 = New activites With {.nomActivite = "Yoga", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite26)
 
         'Parents-enfants
-        Dim Activite27 = New activites With {.nomActivite = "Club de badminton", .typeActivite = "Sport", .clientele = "Parents-enfants"}
-        leContexte.AddObject("activites", Activite27)
-        Dim Activite28 = New activites With {.nomActivite = "Escalade", .typeActivite = "Sport", .clientele = "Parents-enfants"}
-        leContexte.AddObject("activites", Activite28)
-        Dim Activite29 = New activites With {.nomActivite = "Tennis de table", .typeActivite = "Sport", .clientele = "Parents-enfants"}
-        leContexte.AddObject("activites", Activite29)
-        Dim Activite30 = New activites With {.nomActivite = "Yoga", .typeActivite = "Sport", .clientele = "Parents-enfants"}
-        leContexte.AddObject("activites", Activite30)
+        'Dim Activite27 = New activites With {.nomActivite = "Club de badminton", .typeActivite = "Sport", .clientele = "Parents-enfants"}
+        'leContexte.AddObject("activites", Activite27)
+        'Dim Activite28 = New activites With {.nomActivite = "Escalade", .typeActivite = "Sport", .clientele = "Parents-enfants"}
+        'leContexte.AddObject("activites", Activite28)
+        'Dim Activite29 = New activites With {.nomActivite = "Tennis de table", .typeActivite = "Sport", .clientele = "Parents-enfants"}
+        'leContexte.AddObject("activites", Activite29)
+        'Dim Activite30 = New activites With {.nomActivite = "Yoga", .typeActivite = "Sport", .clientele = "Parents-enfants"}
+        'leContexte.AddObject("activites", Activite30)
 
         'Enfant
-        Dim Activite31 = New activites With {.nomActivite = "Programme Croix-Rouge", .typeActivite = "Sport", .clientele = "Enfant"}
-        leContexte.AddObject("activites", Activite31)
-        Dim Activite32 = New activites With {.nomActivite = "Cours de natation préscolaire", .typeActivite = "Sport", .clientele = "Enfant"}
-        leContexte.AddObject("activites", Activite32)
+        'Dim Activite31 = New activites With {.nomActivite = "Programme Croix-Rouge", .typeActivite = "Sport", .clientele = "Enfant"}
+        'leContexte.AddObject("activites", Activite31)
+        'Dim Activite32 = New activites With {.nomActivite = "Cours de natation préscolaire", .typeActivite = "Sport", .clientele = "Enfant"}
+        'leContexte.AddObject("activites", Activite32)
 
         'Adulte
-        Dim Activite33 = New activites With {.nomActivite = "Programme Croix-Rouge", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite33)
-        Dim Activite34 = New activites With {.nomActivite = "Cours de natation junior", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite34)
-        Dim Activite35 = New activites With {.nomActivite = "Aquaforme", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite35)
-        Dim Activite36 = New activites With {.nomActivite = "Aquaforme 50 ans et plus", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite36)
-        Dim Activite37 = New activites With {.nomActivite = "Aquajogging", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite37)
-        Dim Activite38 = New activites With {.nomActivite = "Aquapoussette", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite38)
-        Dim Activite39 = New activites With {.nomActivite = "Remise en forme", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite39)
-        Dim Activite40 = New activites With {.nomActivite = "Natation essentiel", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite40)
-        Dim Activite41 = New activites With {.nomActivite = "Natation style de nages", .typeActivite = "Sport", .clientele = "Adulte"}
-        leContexte.AddObject("activites", Activite41)
+        'Dim Activite33 = New activites With {.nomActivite = "Programme Croix-Rouge", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite33)
+        'Dim Activite34 = New activites With {.nomActivite = "Cours de natation junior", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite34)
+        'Dim Activite35 = New activites With {.nomActivite = "Aquaforme", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite35)
+        'Dim Activite36 = New activites With {.nomActivite = "Aquaforme 50 ans et plus", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite36)
+        'Dim Activite37 = New activites With {.nomActivite = "Aquajogging", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite37)
+        'Dim Activite38 = New activites With {.nomActivite = "Aquapoussette", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite38)
+        'Dim Activite39 = New activites With {.nomActivite = "Remise en forme", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite39)
+        'Dim Activite40 = New activites With {.nomActivite = "Natation essentiel", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite40)
+        'Dim Activite41 = New activites With {.nomActivite = "Natation style de nages", .typeActivite = "Sport", .clientele = "Adulte"}
+        'leContexte.AddObject("activites", Activite41)
 
         'Debut du 3ème pdf
 

@@ -1,9 +1,9 @@
-Username:			cghy_1351601141_biz@hotmail.com
+Username:		cghy_1351601141_biz@hotmail.com
 Mot de passe:		projet2012
 
 Informations d'authentification	Signature API
 
 Identifiant API:	cghy_1351601141_biz_api1.hotmail.com
 Mot de passe API:	1351601201
-Signature:			AC2fy6DVwQwFIcIr1FFE5.88FspVAgpap6JFB.6Wa9OBOVbetoH7PbZc
+Signature:		AC2fy6DVwQwFIcIr1FFE5.88FspVAgpap6JFB.6Wa9OBOVbetoH7PbZc
 Date de demande:	30 oct 2012 08:46:41 GMT-04:00

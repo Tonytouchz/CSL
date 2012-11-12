@@ -57,6 +57,10 @@
             <End Role="paiements" EntitySet="paiements" />
             <End Role="inscription" EntitySet="inscription" />
           </AssociationSet>
+          <AssociationSet Name="FK_paiements_dossiers" Association="Model.Store.FK_paiements_dossiers">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="paiements" EntitySet="paiements" />
+          </AssociationSet>
           <AssociationSet Name="FK_panier_clients" Association="Model.Store.FK_panier_clients">
             <End Role="clients" EntitySet="clients" />
             <End Role="panier" EntitySet="panier" />
@@ -88,6 +92,7 @@
           <Property Name="prenom" Type="nvarchar(max)" Nullable="false" />
           <Property Name="dateNaissance" Type="nvarchar(max)" Nullable="false" />
           <Property Name="noDossier" Type="int" Nullable="false" />
+          <Property Name="nomComplet" Type="nvarchar(max)" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="dossiers">
           <Key>
@@ -117,7 +122,7 @@
           <Property Name="session" Type="nvarchar(max)" Nullable="false" />
           <Property Name="dateDebut" Type="nvarchar(max)" Nullable="false" />
           <Property Name="noActivite" Type="int" Nullable="false" />
-          <Property Name="materielRequis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="materielRequis" Type="nvarchar(max)" />
           <Property Name="prealable" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="horaireDynamique">
@@ -150,7 +155,6 @@
           <Property Name="noInscription" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="noClient" Type="int" Nullable="false" />
           <Property Name="dateInscription" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="descriptionAchat" Type="nvarchar(max)" Nullable="false" />
           <Property Name="noGroupe" Type="int" Nullable="false" />
           <Property Name="noPaiement" Type="int" Nullable="false" />
           <Property Name="noDossier" Type="int" Nullable="false" />
@@ -169,12 +173,12 @@
             <PropertyRef Name="noPaiement" />
           </Key>
           <Property Name="noPaiement" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="noInscription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="datePaiement" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="TPS" Type="int" Nullable="false" />
-          <Property Name="TVQ" Type="int" Nullable="false" />
-          <Property Name="rabais" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="totalPaiement" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TPS" Type="float" Nullable="false" />
+          <Property Name="TVQ" Type="float" Nullable="false" />
+          <Property Name="rabais" Type="float" />
+          <Property Name="totalPaiement" Type="float" Nullable="false" />
+          <Property Name="noDossier" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="panier">
           <Key>
@@ -315,6 +319,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_paiements_dossiers">
+          <End Role="dossiers" Type="Model.Store.dossiers" Multiplicity="1" />
+          <End Role="paiements" Type="Model.Store.paiements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="noDossier" />
+            </Principal>
+            <Dependent Role="paiements">
+              <PropertyRef Name="noDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_panier_clients">
           <End Role="clients" Type="Model.Store.clients" Multiplicity="1" />
           <End Role="panier" Type="Model.Store.panier" Multiplicity="*" />
@@ -391,6 +407,10 @@
             <End Role="dossiers" EntitySet="dossiers" />
             <End Role="inscription" EntitySet="inscription" />
           </AssociationSet>
+          <AssociationSet Name="FK_paiements_dossiers" Association="Model.FK_paiements_dossiers">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="paiements" EntitySet="paiements" />
+          </AssociationSet>
           <AssociationSet Name="FK_panier_dossiers" Association="Model.FK_panier_dossiers">
             <End Role="dossiers" EntitySet="dossiers" />
             <End Role="panier" EntitySet="panier" />
@@ -439,6 +459,7 @@
           <Property Type="String" Name="prenom" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="dateNaissance" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="noDossier" Nullable="false" />
+          <Property Type="String" Name="nomComplet" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="dossiers" Relationship="Model.FK_clientsJeu_dossiersJeu" FromRole="clients" ToRole="dossiers" />
           <NavigationProperty Name="listeAttente" Relationship="Model.FK_clientslisteAttente" FromRole="clients" ToRole="listeAttente" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_clients" FromRole="clients" ToRole="inscription" />
@@ -460,6 +481,7 @@
           <Property Type="String" Name="typeUtilisateur" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="clients" Relationship="Model.FK_clientsJeu_dossiersJeu" FromRole="dossiers" ToRole="clients" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_dossiers" FromRole="dossiers" ToRole="inscription" />
+          <NavigationProperty Name="paiements" Relationship="Model.FK_paiements_dossiers" FromRole="dossiers" ToRole="paiements" />
           <NavigationProperty Name="panier" Relationship="Model.FK_panier_dossiers" FromRole="dossiers" ToRole="panier" />
         </EntityType>
         <EntityType Name="groupes">
@@ -475,8 +497,8 @@
           <Property Type="String" Name="session" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="dateDebut" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="noActivite" Nullable="false" />
-          <Property Type="String" Name="materielRequis" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="prealable" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Type="String" Name="materielRequis" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="prealable" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="activites" Relationship="Model.FK_groupes_activites" FromRole="groupes" ToRole="activites" />
           <NavigationProperty Name="listeAttente" Relationship="Model.FK_groupeslisteAttente" FromRole="groupes" ToRole="listeAttente" />
           <NavigationProperty Name="horaireDynamique" Relationship="Model.FK_horaireDynamique_groupes" FromRole="groupes" ToRole="horaireDynamique" />
@@ -516,7 +538,6 @@
           <Property Type="Int32" Name="noInscription" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="noClient" Nullable="false" />
           <Property Type="String" Name="dateInscription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="descriptionAchat" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="noGroupe" Nullable="false" />
           <Property Type="Int32" Name="noPaiement" Nullable="false" />
           <Property Type="Int32" Name="noDossier" Nullable="false" />
@@ -541,12 +562,13 @@
             <PropertyRef Name="noPaiement" />
           </Key>
           <Property Type="Int32" Name="noPaiement" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="noInscription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="datePaiement" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="TPS" Nullable="false" />
-          <Property Type="Int32" Name="TVQ" Nullable="false" />
-          <Property Type="String" Name="rabais" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="totalPaiement" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="TPS" Nullable="false" />
+          <Property Type="Double" Name="TVQ" Nullable="false" />
+          <Property Type="Double" Name="rabais" />
+          <Property Type="Double" Name="totalPaiement" Nullable="false" />
+          <Property Type="Int32" Name="noDossier" Nullable="false" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_paiements_dossiers" FromRole="paiements" ToRole="dossiers" />
           <NavigationProperty Name="inscription" Relationship="Model.FK_inscription_paiements" FromRole="paiements" ToRole="inscription" />
         </EntityType>
         <EntityType Name="panier">
@@ -639,6 +661,18 @@
               <PropertyRef Name="noDossier" />
             </Principal>
             <Dependent Role="inscription">
+              <PropertyRef Name="noDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_paiements_dossiers">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.paiements" Role="paiements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="noDossier" />
+            </Principal>
+            <Dependent Role="paiements">
               <PropertyRef Name="noDossier" />
             </Dependent>
           </ReferentialConstraint>
@@ -746,6 +780,7 @@
           <EntitySetMapping Name="clients">
             <EntityTypeMapping TypeName="Model.clients">
               <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="nomComplet" ColumnName="nomComplet" />
                 <ScalarProperty Name="noDossier" ColumnName="noDossier" />
                 <ScalarProperty Name="dateNaissance" ColumnName="dateNaissance" />
                 <ScalarProperty Name="prenom" ColumnName="prenom" />
@@ -818,7 +853,6 @@
                 <ScalarProperty Name="noDossier" ColumnName="noDossier" />
                 <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
                 <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-                <ScalarProperty Name="descriptionAchat" ColumnName="descriptionAchat" />
                 <ScalarProperty Name="dateInscription" ColumnName="dateInscription" />
                 <ScalarProperty Name="noClient" ColumnName="noClient" />
                 <ScalarProperty Name="noInscription" ColumnName="noInscription" />
@@ -838,12 +872,12 @@
           <EntitySetMapping Name="paiements">
             <EntityTypeMapping TypeName="Model.paiements">
               <MappingFragment StoreEntitySet="paiements">
+                <ScalarProperty Name="noDossier" ColumnName="noDossier" />
                 <ScalarProperty Name="totalPaiement" ColumnName="totalPaiement" />
                 <ScalarProperty Name="rabais" ColumnName="rabais" />
                 <ScalarProperty Name="TVQ" ColumnName="TVQ" />
                 <ScalarProperty Name="TPS" ColumnName="TPS" />
                 <ScalarProperty Name="datePaiement" ColumnName="datePaiement" />
-                <ScalarProperty Name="noInscription" ColumnName="noInscription" />
                 <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -890,112 +924,127 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model" >
-        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="0.75" PointY="8.375" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="6" PointY="2" Height="2.7494921875000031" />
-        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="3.75" PointY="1.625" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Model.groupes" Width="1.5" PointX="3" PointY="7.25" Height="4.2879036458333388" />
-        <EntityTypeShape EntityType="Model.horaireDynamique" Width="1.5" PointX="5.25" PointY="6.625" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="Model.horaireFixe" Width="1.5" PointX="5.25" PointY="9.875" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Model.inscription" Width="1.5" PointX="8.25" PointY="7.875" Height="3.1340950520833388" />
-        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="8.25" PointY="4.375" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="6" PointY="13.125" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="Model.panier" Width="1.5" PointX="8.25" PointY="12.25" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333282" />
+        <EntityTypeShape EntityType="Model.activites" Width="1.5" PointX="0.75" PointY="8.25" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="6" PointY="1.875" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="3.75" PointY="1.5" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Model.groupes" Width="1.5" PointX="3" PointY="7.125" Height="4.2879036458333246" />
+        <EntityTypeShape EntityType="Model.horaireDynamique" Width="1.5" PointX="5.25" PointY="6.5" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Model.horaireFixe" Width="1.5" PointX="5.25" PointY="9.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.inscription" Width="1.5" PointX="8.25" PointY="7.875" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Model.listeAttente" Width="1.5" PointX="8.25" PointY="4.25" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="Model.paiements" Width="1.5" PointX="6" PointY="12.875" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="Model.panier" Width="1.5" PointX="8.25" PointY="12.125" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333246" />
         <AssociationConnector Association="Model.FK_groupes_activites" >
-          <ConnectorPoint PointX="2.25" PointY="9.3651432291666659" />
-          <ConnectorPoint PointX="3" PointY="9.3651432291666659" />
+          <ConnectorPoint PointX="2.25" PointY="9.2401432291666623" />
+          <ConnectorPoint PointX="3" PointY="9.2401432291666623" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_clientsJeu_dossiersJeu" >
-          <ConnectorPoint PointX="5.25" PointY="3.3747460937500016" />
-          <ConnectorPoint PointX="6" PointY="3.3747460937500016" />
+          <ConnectorPoint PointX="5.25" PointY="3.3458968098958337" />
+          <ConnectorPoint PointX="6" PointY="3.3458968098958337" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_clientslisteAttente" >
-          <ConnectorPoint PointX="7.5" PointY="4.5622460937500016" />
-          <ConnectorPoint PointX="8.25" PointY="4.5622460937500016" />
+          <ConnectorPoint PointX="7.5" PointY="4.5333968098958337" />
+          <ConnectorPoint PointX="8.25" PointY="4.5333968098958337" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_clients" >
-          <ConnectorPoint PointX="7.15625" PointY="4.7494921875000031" />
-          <ConnectorPoint PointX="7.15625" PointY="9.52859537760417" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="9.52859537760417" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="9.52859537760417" />
-          <ConnectorPoint PointX="8.25" PointY="9.52859537760417" />
+          <ConnectorPoint PointX="7.15625" PointY="4.8167936197916674" />
+          <ConnectorPoint PointX="7.15625" PointY="9.4035953776041623" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.4035953776041623" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.4035953776041623" />
+          <ConnectorPoint PointX="8.25" PointY="9.4035953776041623" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_panier_clients" >
-          <ConnectorPoint PointX="7.5" PointY="4.7494921875000031" />
-          <ConnectorPoint PointX="7.875" PointY="5.1244921875000031" />
-          <ConnectorPoint PointX="7.875" PointY="13.432444661458334" />
-          <ConnectorPoint PointX="8.25" PointY="13.432444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="4.8167936197916674" />
+          <ConnectorPoint PointX="7.875" PointY="5.1917936197916674" />
+          <ConnectorPoint PointX="7.875" PointY="13.307444661458334" />
+          <ConnectorPoint PointX="8.25" PointY="13.307444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_dossiers" >
-          <ConnectorPoint PointX="5.25" PointY="5.1436979166666674" />
-          <ConnectorPoint PointX="5.625" PointY="5.5186979166666674" />
-          <ConnectorPoint PointX="7.072916666666667" PointY="5.5186979166666665" />
-          <ConnectorPoint PointX="7.239583333333333" PointY="5.5186979166666674" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="5.5186979166666665" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="5.5186979166666674" />
-          <ConnectorPoint PointX="8" PointY="5.5186979166666674" />
+          <ConnectorPoint PointX="5.25" PointY="5.2109993489583246" />
+          <ConnectorPoint PointX="5.625" PointY="5.5859993489583246" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="5.5859993489583237" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="5.5859993489583246" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="5.5859993489583237" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="5.5859993489583246" />
+          <ConnectorPoint PointX="8" PointY="5.5859993489583246" />
           <ConnectorPoint PointX="8" PointY="7.625" />
           <ConnectorPoint PointX="8.25" PointY="7.875" />
         </AssociationConnector>
+        <AssociationConnector Association="Model.FK_paiements_dossiers" >
+          <ConnectorPoint PointX="4.875" PointY="5.2109993489583246" />
+          <ConnectorPoint PointX="4.875" PointY="14.249746093750005" />
+          <ConnectorPoint PointX="6" PointY="14.249746093750005" />
+        </AssociationConnector>
         <AssociationConnector Association="Model.FK_panier_dossiers" >
-          <ConnectorPoint PointX="4.875" PointY="5.1436979166666674" />
-          <ConnectorPoint PointX="4.875" PointY="12.65625" />
-          <ConnectorPoint PointX="7.244791666666667" PointY="12.65625" />
-          <ConnectorPoint PointX="7.411458333333333" PointY="12.65625" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="12.65625" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="12.65625" />
-          <ConnectorPoint PointX="8.25" PointY="12.65625" />
+          <ConnectorPoint PointX="5.0625025" PointY="5.2109993489583246" />
+          <ConnectorPoint PointX="5.0625025" PointY="12.46875" />
+          <ConnectorPoint PointX="7.244791666666667" PointY="12.46875" />
+          <ConnectorPoint PointX="7.411458333333333" PointY="12.46875" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.46875" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.46875" />
+          <ConnectorPoint PointX="8.25" PointY="12.46875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_groupeslisteAttente" >
-          <ConnectorPoint PointX="3.34375" PointY="7.25" />
-          <ConnectorPoint PointX="3.34375" PointY="6.0331429036458317" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="6.0331429036458308" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="6.0331429036458317" />
-          <ConnectorPoint PointX="7.072916666666667" PointY="6.0331429036458308" />
-          <ConnectorPoint PointX="7.239583333333333" PointY="6.0331429036458317" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="6.0331429036458308" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="6.0331429036458317" />
-          <ConnectorPoint PointX="8.25" PointY="6.0331429036458317" />
+          <ConnectorPoint PointX="3.34375" PointY="7.125" />
+          <ConnectorPoint PointX="3.34375" PointY="6.0042936197916674" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.0042936197916665" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="6.0042936197916674" />
+          <ConnectorPoint PointX="4.9791691666666669" PointY="6.0042936197916665" />
+          <ConnectorPoint PointX="5.1458358333333329" PointY="6.0042936197916674" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="6.0042936197916665" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="6.0042936197916674" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="6.0042936197916665" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="6.0042936197916674" />
+          <ConnectorPoint PointX="8.25" PointY="6.0042936197916674" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_horaireDynamique_groupes" >
-          <ConnectorPoint PointX="4.5" PointY="8.21609537760417" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="8.21609537760417" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="8.21609537760417" />
-          <ConnectorPoint PointX="5.25" PointY="8.21609537760417" />
+          <ConnectorPoint PointX="4.5" PointY="8.0910953776041623" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="8.0910953776041623" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="8.0910953776041623" />
+          <ConnectorPoint PointX="4.9791691666666669" PointY="8.0910953776041623" />
+          <ConnectorPoint PointX="5.1458358333333329" PointY="8.0910953776041623" />
+          <ConnectorPoint PointX="5.25" PointY="8.0910953776041623" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_horaireFixe_groupes" >
-          <ConnectorPoint PointX="4.5" PointY="10.706451822916669" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="10.706451822916669" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="10.706451822916669" />
-          <ConnectorPoint PointX="5.25" PointY="10.706451822916669" />
+          <ConnectorPoint PointX="4.5" PointY="10.581451822916662" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="10.581451822916662" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="10.581451822916662" />
+          <ConnectorPoint PointX="4.9791691666666669" PointY="10.581451822916662" />
+          <ConnectorPoint PointX="5.1458358333333329" PointY="10.581451822916662" />
+          <ConnectorPoint PointX="5.25" PointY="10.581451822916662" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_groupes" >
-          <ConnectorPoint PointX="4.5" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="7.072916666666667" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="7.239583333333333" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="9.3241430664062541" />
-          <ConnectorPoint PointX="8.25" PointY="9.3241430664062541" />
+          <ConnectorPoint PointX="4.5" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="4.9791691666666669" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="5.1458358333333329" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.1991430664062435" />
+          <ConnectorPoint PointX="8.25" PointY="9.1991430664062435" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_panier_groupes" >
-          <ConnectorPoint PointX="3.75" PointY="11.537903645833339" />
-          <ConnectorPoint PointX="3.75" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="7.244791666666667" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="7.411458333333333" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="12.421872500000006" />
-          <ConnectorPoint PointX="8.25" PointY="12.421872500000006" />
+          <ConnectorPoint PointX="3.75" PointY="11.412903645833325" />
+          <ConnectorPoint PointX="3.75" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="4.9791691666666669" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="5.1458358333333329" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="7.244791666666667" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="7.411458333333333" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.265622500000006" />
+          <ConnectorPoint PointX="8.25" PointY="12.265622500000006" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_inscription_paiements" >
-          <ConnectorPoint PointX="7.328125" PointY="13.125" />
-          <ConnectorPoint PointX="7.328125" PointY="9.7018001888020784" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="9.7018001888020784" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="9.7018001888020784" />
-          <ConnectorPoint PointX="8.25" PointY="9.7018001888020784" />
+          <ConnectorPoint PointX="7.328125" PointY="12.875" />
+          <ConnectorPoint PointX="7.328125" PointY="9.5768001888020748" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.5768001888020748" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.5768001888020748" />
+          <ConnectorPoint PointX="8.25" PointY="9.5768001888020748" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

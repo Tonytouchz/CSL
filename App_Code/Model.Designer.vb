@@ -18,7 +18,7 @@ Imports System.Runtime.Serialization
 Imports System.Xml.Serialization
 
 
-<Assembly: EdmSchemaAttribute("e32d8e92-bd31-448b-8bcf-7cc874ec74fb")>
+<Assembly: EdmSchemaAttribute("5e058849-afff-4ca9-b273-741aff9ea851")>
 #Region "Métadonnées de relation EDM"
 <Assembly: EdmRelationshipAttribute("Model", "FK_groupes_activites", "activites", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.activites), "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.groupes), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_clientsJeu_dossiersJeu", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.clients), True)>
@@ -26,6 +26,7 @@ Imports System.Xml.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "FK_inscription_clients", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_panier_clients", "clients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.clients), "panier", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.panier), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_inscription_dossiers", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "inscription", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.inscription), True)>
+<Assembly: EdmRelationshipAttribute("Model", "FK_paiements_dossiers", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "paiements", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.paiements), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_panier_dossiers", "dossiers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.dossiers), "panier", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.panier), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_groupeslisteAttente", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "listeAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.listeAttente), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_horaireDynamique_groupes", "groupes", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.groupes), "horaireDynamique", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.horaireDynamique), True)>
@@ -505,13 +506,15 @@ Namespace Model
         ''' <param name="prenom">Valeur initiale de la propriété prenom.</param>
         ''' <param name="dateNaissance">Valeur initiale de la propriété dateNaissance.</param>
         ''' <param name="noDossier">Valeur initiale de la propriété noDossier.</param>
-        Public Shared Function Createclients(noClient As Global.System.Int32, nom As Global.System.String, prenom As Global.System.String, dateNaissance As Global.System.String, noDossier As Global.System.Int32) As clients
+        ''' <param name="nomComplet">Valeur initiale de la propriété nomComplet.</param>
+        Public Shared Function Createclients(noClient As Global.System.Int32, nom As Global.System.String, prenom As Global.System.String, dateNaissance As Global.System.String, noDossier As Global.System.Int32, nomComplet As Global.System.String) As clients
             Dim clients as clients = New clients
             clients.noClient = noClient
             clients.nom = nom
             clients.prenom = prenom
             clients.dateNaissance = dateNaissance
             clients.noDossier = noDossier
+            clients.nomComplet = nomComplet
             Return clients
         End Function
 
@@ -644,6 +647,31 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnnoDossierChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property nomComplet() As Global.System.String
+            Get
+                Return _nomComplet
+            End Get
+            Set
+                OnnomCompletChanging(value)
+                ReportPropertyChanging("nomComplet")
+                _nomComplet = StructuralObject.SetValidValue(value, true)
+                ReportPropertyChanged("nomComplet")
+                OnnomCompletChanged()
+            End Set
+        End Property
+    
+        Private _nomComplet As Global.System.String
+        Private Partial Sub OnnomCompletChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnnomCompletChanged()
         End Sub
 
         #End Region
@@ -1079,6 +1107,24 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_paiements_dossiers", "paiements")>
+         Public Property paiements() As EntityCollection(Of paiements)
+            Get
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of paiements)("Model.FK_paiements_dossiers", "paiements")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of paiements)("Model.FK_paiements_dossiers", "paiements", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
         <EdmRelationshipNavigationPropertyAttribute("Model", "FK_panier_dossiers", "panier")>
          Public Property panier() As EntityCollection(Of panier)
             Get
@@ -1117,8 +1163,7 @@ Namespace Model
         ''' <param name="session">Valeur initiale de la propriété session.</param>
         ''' <param name="dateDebut">Valeur initiale de la propriété dateDebut.</param>
         ''' <param name="noActivite">Valeur initiale de la propriété noActivite.</param>
-        ''' <param name="materielRequis">Valeur initiale de la propriété materielRequis.</param>
-        Public Shared Function Creategroupes(noGroupe As Global.System.Int32, nomProf As Global.System.String, prix As Global.System.Int32, nbPlaceDisponible As Global.System.String, ageMin As Global.System.Int32, ageMax As Global.System.Int32, session As Global.System.String, dateDebut As Global.System.String, noActivite As Global.System.Int32, materielRequis As Global.System.String) As groupes
+        Public Shared Function Creategroupes(noGroupe As Global.System.Int32, nomProf As Global.System.String, prix As Global.System.Int32, nbPlaceDisponible As Global.System.String, ageMin As Global.System.Int32, ageMax As Global.System.Int32, session As Global.System.String, dateDebut As Global.System.String, noActivite As Global.System.Int32) As groupes
             Dim groupes as groupes = New groupes
             groupes.noGroupe = noGroupe
             groupes.nomProf = nomProf
@@ -1129,7 +1174,6 @@ Namespace Model
             groupes.session = session
             groupes.dateDebut = dateDebut
             groupes.noActivite = noActivite
-            groupes.materielRequis = materielRequis
             Return groupes
         End Function
 
@@ -1367,7 +1411,7 @@ Namespace Model
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
         Public Property materielRequis() As Global.System.String
             Get
@@ -1376,7 +1420,7 @@ Namespace Model
             Set
                 OnmaterielRequisChanging(value)
                 ReportPropertyChanging("materielRequis")
-                _materielRequis = StructuralObject.SetValidValue(value, false)
+                _materielRequis = StructuralObject.SetValidValue(value, true)
                 ReportPropertyChanged("materielRequis")
                 OnmaterielRequisChanged()
             End Set
@@ -2036,16 +2080,14 @@ Namespace Model
         ''' <param name="noInscription">Valeur initiale de la propriété noInscription.</param>
         ''' <param name="noClient">Valeur initiale de la propriété noClient.</param>
         ''' <param name="dateInscription">Valeur initiale de la propriété dateInscription.</param>
-        ''' <param name="descriptionAchat">Valeur initiale de la propriété descriptionAchat.</param>
         ''' <param name="noGroupe">Valeur initiale de la propriété noGroupe.</param>
         ''' <param name="noPaiement">Valeur initiale de la propriété noPaiement.</param>
         ''' <param name="noDossier">Valeur initiale de la propriété noDossier.</param>
-        Public Shared Function Createinscription(noInscription As Global.System.Int32, noClient As Global.System.Int32, dateInscription As Global.System.String, descriptionAchat As Global.System.String, noGroupe As Global.System.Int32, noPaiement As Global.System.Int32, noDossier As Global.System.Int32) As inscription
+        Public Shared Function Createinscription(noInscription As Global.System.Int32, noClient As Global.System.Int32, dateInscription As Global.System.String, noGroupe As Global.System.Int32, noPaiement As Global.System.Int32, noDossier As Global.System.Int32) As inscription
             Dim inscription as inscription = New inscription
             inscription.noInscription = noInscription
             inscription.noClient = noClient
             inscription.dateInscription = dateInscription
-            inscription.descriptionAchat = descriptionAchat
             inscription.noGroupe = noGroupe
             inscription.noPaiement = noPaiement
             inscription.noDossier = noDossier
@@ -2131,31 +2173,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OndateInscriptionChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property descriptionAchat() As Global.System.String
-            Get
-                Return _descriptionAchat
-            End Get
-            Set
-                OndescriptionAchatChanging(value)
-                ReportPropertyChanging("descriptionAchat")
-                _descriptionAchat = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("descriptionAchat")
-                OndescriptionAchatChanged()
-            End Set
-        End Property
-    
-        Private _descriptionAchat As Global.System.String
-        Private Partial Sub OndescriptionAchatChanging(value As Global.System.String)
-        End Sub
-    
-        Private Partial Sub OndescriptionAchatChanged()
         End Sub
     
         ''' <summary>
@@ -2581,21 +2598,19 @@ Namespace Model
         ''' Créez un nouvel objet paiements.
         ''' </summary>
         ''' <param name="noPaiement">Valeur initiale de la propriété noPaiement.</param>
-        ''' <param name="noInscription">Valeur initiale de la propriété noInscription.</param>
         ''' <param name="datePaiement">Valeur initiale de la propriété datePaiement.</param>
         ''' <param name="tPS">Valeur initiale de la propriété TPS.</param>
         ''' <param name="tVQ">Valeur initiale de la propriété TVQ.</param>
-        ''' <param name="rabais">Valeur initiale de la propriété rabais.</param>
         ''' <param name="totalPaiement">Valeur initiale de la propriété totalPaiement.</param>
-        Public Shared Function Createpaiements(noPaiement As Global.System.Int32, noInscription As Global.System.String, datePaiement As Global.System.String, tPS As Global.System.Int32, tVQ As Global.System.Int32, rabais As Global.System.String, totalPaiement As Global.System.String) As paiements
+        ''' <param name="noDossier">Valeur initiale de la propriété noDossier.</param>
+        Public Shared Function Createpaiements(noPaiement As Global.System.Int32, datePaiement As Global.System.String, tPS As Global.System.Double, tVQ As Global.System.Double, totalPaiement As Global.System.Double, noDossier As Global.System.Int32) As paiements
             Dim paiements as paiements = New paiements
             paiements.noPaiement = noPaiement
-            paiements.noInscription = noInscription
             paiements.datePaiement = datePaiement
             paiements.TPS = tPS
             paiements.TVQ = tVQ
-            paiements.rabais = rabais
             paiements.totalPaiement = totalPaiement
+            paiements.noDossier = noDossier
             Return paiements
         End Function
 
@@ -2635,31 +2650,6 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noInscription() As Global.System.String
-            Get
-                Return _noInscription
-            End Get
-            Set
-                OnnoInscriptionChanging(value)
-                ReportPropertyChanging("noInscription")
-                _noInscription = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("noInscription")
-                OnnoInscriptionChanged()
-            End Set
-        End Property
-    
-        Private _noInscription As Global.System.String
-        Private Partial Sub OnnoInscriptionChanging(value As Global.System.String)
-        End Sub
-    
-        Private Partial Sub OnnoInscriptionChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
         Public Property datePaiement() As Global.System.String
             Get
                 Return _datePaiement
@@ -2685,7 +2675,7 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property TPS() As Global.System.Int32
+        Public Property TPS() As Global.System.Double
             Get
                 Return _TPS
             End Get
@@ -2698,8 +2688,8 @@ Namespace Model
             End Set
         End Property
     
-        Private _TPS As Global.System.Int32
-        Private Partial Sub OnTPSChanging(value As Global.System.Int32)
+        Private _TPS As Global.System.Double
+        Private Partial Sub OnTPSChanging(value As Global.System.Double)
         End Sub
     
         Private Partial Sub OnTPSChanged()
@@ -2710,7 +2700,7 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property TVQ() As Global.System.Int32
+        Public Property TVQ() As Global.System.Double
             Get
                 Return _TVQ
             End Get
@@ -2723,8 +2713,8 @@ Namespace Model
             End Set
         End Property
     
-        Private _TVQ As Global.System.Int32
-        Private Partial Sub OnTVQChanging(value As Global.System.Int32)
+        Private _TVQ As Global.System.Double
+        Private Partial Sub OnTVQChanging(value As Global.System.Double)
         End Sub
     
         Private Partial Sub OnTVQChanged()
@@ -2733,23 +2723,23 @@ Namespace Model
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
-        Public Property rabais() As Global.System.String
+        Public Property rabais() As Nullable(Of Global.System.Double)
             Get
                 Return _rabais
             End Get
             Set
                 OnrabaisChanging(value)
                 ReportPropertyChanging("rabais")
-                _rabais = StructuralObject.SetValidValue(value, false)
+                _rabais = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("rabais")
                 OnrabaisChanged()
             End Set
         End Property
     
-        Private _rabais As Global.System.String
-        Private Partial Sub OnrabaisChanging(value As Global.System.String)
+        Private _rabais As Nullable(Of Global.System.Double)
+        Private Partial Sub OnrabaisChanging(value As Nullable(Of Global.System.Double))
         End Sub
     
         Private Partial Sub OnrabaisChanged()
@@ -2760,29 +2750,85 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property totalPaiement() As Global.System.String
+        Public Property totalPaiement() As Global.System.Double
             Get
                 Return _totalPaiement
             End Get
             Set
                 OntotalPaiementChanging(value)
                 ReportPropertyChanging("totalPaiement")
-                _totalPaiement = StructuralObject.SetValidValue(value, false)
+                _totalPaiement = StructuralObject.SetValidValue(value)
                 ReportPropertyChanged("totalPaiement")
                 OntotalPaiementChanged()
             End Set
         End Property
     
-        Private _totalPaiement As Global.System.String
-        Private Partial Sub OntotalPaiementChanging(value As Global.System.String)
+        Private _totalPaiement As Global.System.Double
+        Private Partial Sub OntotalPaiementChanging(value As Global.System.Double)
         End Sub
     
         Private Partial Sub OntotalPaiementChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noDossier() As Global.System.Int32
+            Get
+                Return _noDossier
+            End Get
+            Set
+                OnnoDossierChanging(value)
+                ReportPropertyChanging("noDossier")
+                _noDossier = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("noDossier")
+                OnnoDossierChanged()
+            End Set
+        End Property
+    
+        Private _noDossier As Global.System.Int32
+        Private Partial Sub OnnoDossierChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoDossierChanged()
         End Sub
 
         #End Region
 
         #Region "Propriétés de navigation"
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_paiements_dossiers", "dossiers")>
+        Public Property dossiers() As dossiers
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_paiements_dossiers", "dossiers").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_paiements_dossiers", "dossiers").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property dossiersReference() As EntityReference(Of dossiers)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of dossiers)("Model.FK_paiements_dossiers", "dossiers")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of dossiers)("Model.FK_paiements_dossiers", "dossiers", value)
+                End If
+            End Set
+        End Property
     
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
