@@ -34,7 +34,7 @@
                                 <asp:Label ID="lblNomClient" runat="server" Text='<%#Eval("clients.nomComplet") %>' />
                             </td>
                             <td style='width: 100px; padding-right: 10px'>
-                                <asp:Label ID="lblPrix" runat="server" Text='<%#Eval("groupes.Prix") %>' />$
+                                <asp:Label ID="lblPrix" runat="server" Text='<%#Eval("groupes.prix")%>' />$
                             </td>
                         </tr>
                     </table>
@@ -122,6 +122,7 @@
                 <ItemTemplate>
                     <asp:HiddenField ID="hiddenFieldNom" runat="server" Value='<%#Eval("nom") %>' />
                     <asp:HiddenField ID="hiddenFieldPrenom" runat="server" Value='<%#Eval("prenom") %>' />
+                    <asp:HiddenField ID="hiddenFieldNomComplet" runat="server" Value='<%#Eval("nomComplet") %>' />
                     <asp:HiddenField ID="hiddenFieldAdresse" runat="server" Value='<%#Eval("dossiers.adresse") %>' />
                     <asp:HiddenField ID="hiddenFieldVille" runat="server" Value='<%#Eval("dossiers.ville") %>' />
                     <asp:HiddenField ID="hiddenFieldProvince" runat="server" Value='<%#Eval("dossiers.province") %>' />
@@ -130,8 +131,7 @@
                 </ItemTemplate>
             </asp:Repeater>
             <br />
-            <asp:ImageButton ID="imgPayPal" runat="server" ImageUrl="~/App_Themes/Default/images/Paypal.gif"
-                ValidationGroup="paiement" />
+            <asp:button ID="btnPayer" runat="server" ValidationGroup="paiement" Text="Payer" />
         </asp:View>
         <asp:View ID="vPaiementSucces" runat="server">
             <asp:Label ID="lblSucces" runat="server" />
@@ -156,9 +156,5 @@
         <WhereParameters>
             <asp:Parameter Name="leNoDossier" Type="Int32" />
         </WhereParameters>
-    </asp:EntityDataSource>
-    <asp:EntityDataSource ID="dsTransaction" runat="server" ConnectionString="name=ModelContainer1"
-        DefaultContainerName="ModelContainer1" EnableFlattening="False" EnableInsert="True"
-        EntitySetName="inscription">
     </asp:EntityDataSource>
 </asp:Content>

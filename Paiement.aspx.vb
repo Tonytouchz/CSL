@@ -9,6 +9,7 @@ Partial Class Paiement
     Inherits System.Web.UI.Page
 
     Private Shared leContexte As ModelContainer1 = Nothing
+    Private NoDossier As Integer = 0
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -16,18 +17,10 @@ Partial Class Paiement
 
         If Session("noDossier") IsNot Nothing Then
 
-            Dim unNoDossier As Integer = CType(Session("noDossier"), Integer)
-            dsPanier.WhereParameters("leNoDossier").DefaultValue = 10
-
-            Try
-
-                Dim numeroClient As clients = (From d In leContexte.clients Where d.noDossier = unNoDossier).First
-
-                dsClient.WhereParameters("leNoClient").DefaultValue = numeroClient.noClient
-
-            Catch
-
-            End Try
+            NoDossier = CType(Session("noDossier"), Integer)
+            dsPanier.WhereParameters("leNoDossier").DefaultValue = NoDossier
+            Dim unNoClient As Integer = (From c In leContexte.clients Where c.noDossier = NoDossier Select c.noClient).First
+            dsClient.WhereParameters("leNoClient").DefaultValue = unNoClient
 
         Else
 
@@ -55,8 +48,26 @@ Partial Class Paiement
 
     End Sub
 
+    Protected Sub dsPanierCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
+      Handles dsPanier.ContextCreating
 
-    Protected Sub imgPayPal_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles imgPayPal.Click
+        If Not leContexte Is Nothing Then
+
+            e.Context = leContexte
+
+        End If
+
+    End Sub
+
+    Protected Sub dsPanier_ContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
+        Handles dsPanier.ContextDisposing
+
+        e.Cancel = True
+
+    End Sub
+
+
+    Protected Sub btnPayer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPayer.Click
 
         If Me.IsValid Then
 
@@ -120,75 +131,84 @@ Partial Class Paiement
            "&PAYMENTACTION=Sale" & _
            "&VERSION=" & strAPIVersion
 
-            'Cree la requête
-            Dim wrWebRequest As System.Net.HttpWebRequest = DirectCast(System.Net.WebRequest.Create(strNVPSandboxServer), 
-                System.Net.HttpWebRequest)
-            wrWebRequest.Method = "POST"
+        'Cree la requête
+        Dim wrWebRequest As System.Net.HttpWebRequest = DirectCast(System.Net.WebRequest.Create(strNVPSandboxServer), 
+            System.Net.HttpWebRequest)
+        wrWebRequest.Method = "POST"
 
-            Dim requestWriter As New System.IO.StreamWriter(wrWebRequest.GetRequestStream())
-            requestWriter.Write(strNVP)
-            requestWriter.Close()
+        Dim requestWriter As New System.IO.StreamWriter(wrWebRequest.GetRequestStream())
+        requestWriter.Write(strNVP)
+        requestWriter.Close()
 
-            'Obtient la réponse
-            Dim hwrWebResponse As System.Net.HttpWebResponse = DirectCast(wrWebRequest.GetResponse(), System.Net.HttpWebResponse)
-            Dim responseReader As New System.IO.StreamReader(wrWebRequest.GetResponse().GetResponseStream())
+        'Obtient la réponse
+        Dim hwrWebResponse As System.Net.HttpWebResponse = DirectCast(wrWebRequest.GetResponse(), System.Net.HttpWebResponse)
+        Dim responseReader As New System.IO.StreamReader(wrWebRequest.GetResponse().GetResponseStream())
 
-            ' Lit la réponse
-            Dim dataReturned As String = responseReader.ReadToEnd()
-            responseReader.Close()
-            Dim result As String = Server.UrlDecode(dataReturned)
-            Dim arrResult As String() = result.Split("&"c)
-            Dim htResponse As New Hashtable()
-            Dim arrayReturned As String()
-            For Each item As String In arrResult
-                arrayReturned = item.Split("="c)
-                htResponse.Add(arrayReturned(0), arrayReturned(1))
-            Next
+        ' Lit la réponse
+        Dim dataReturned As String = responseReader.ReadToEnd()
+        responseReader.Close()
+        Dim result As String = Server.UrlDecode(dataReturned)
+        Dim arrResult As String() = result.Split("&"c)
+        Dim htResponse As New Hashtable()
+        Dim arrayReturned As String()
+        For Each item As String In arrResult
+            arrayReturned = item.Split("="c)
+            htResponse.Add(arrayReturned(0), arrayReturned(1))
+        Next
 
-            Dim strAck As String = htResponse("ACK").ToString()
-            'AFFICHE LA RÉPONSE
+        Dim strAck As String = htResponse("ACK").ToString()
+        'AFFICHE LA RÉPONSE
 
-            If strAck = "Success" OrElse strAck = "SuccessWithWarning" Then
-                Dim strAmt As String = htResponse("AMT").ToString()
-                Dim strCcy As String = htResponse("CURRENCYCODE").ToString()
-                Dim strTransactionID As String = htResponse("TRANSACTIONID").ToString()
-                For Each i In htResponse
-                    Response.Write(i.Key & ": " & i.Value & "<br />")
-                Next
+        If strAck = "Success" OrElse strAck = "SuccessWithWarning" Then
+            Dim strAmt As String = htResponse("AMT").ToString()
+            Dim strCcy As String = htResponse("CURRENCYCODE").ToString()
+            Dim strTransactionID As String = htResponse("TRANSACTIONID").ToString()
+            'For Each i In htResponse
+            '    Response.Write(i.Key & ": " & i.Value & "<br />")
+            'Next
 
-                Dim strSuccess As String = "Merci pour votre commande de : $" & strAmt & " " &
-                    strCcy & ", celle-ci a bien été traitée. Un courriel vous sera envoyé sous peu"
+            Dim strSuccess As String = "Merci pour votre commande de : $" & strAmt & " " &
+                strCcy & ", celle-ci a bien été traitée. Un courriel vous sera envoyé sous peu"
 
             PayerClient()
 
-            InscrireClient()
+            Dim laPosition = 0
+            Dim lePanier = (From g In leContexte.panier Where g.noDossier = 16)
 
+            For Each cours In lePanier
 
+                InscrireClient(lePanier.ToArray(laPosition).noGroupe, lePanier.ToArray(laPosition).noClient)
+                laPosition += 1
 
-                envoyeEmail(FindChildControl(Of HiddenField)(repeaterInformationsPersonnel, "hiddenFieldEmail").Value,
-                            strAmt,
-                            txtNoCarte.Text,
-                            ddlSorte.SelectedValue)
+            Next
 
-                lblSucces.Text = strSuccess
+            leContexte.SaveChanges()
 
-                mvPaiment.ActiveViewIndex = 1
+            envoyeEmail(FindChildControl(Of HiddenField)(repeaterInformationsPersonnel, "hiddenFieldEmail").Value,
+                        strAmt,
+                        txtNoCarte.Text,
+                        ddlSorte.SelectedValue,
+                        FindChildControl(Of HiddenField)(repeaterInformationsPersonnel, "hiddenFieldNomComplet").Value)
 
-            Else
+            lblSucces.Text = strSuccess
 
-                Dim strErr As String = "Error: " & htResponse("L_LONGMESSAGE0").ToString()
-                Dim strErrcode As String = "Error code: " & htResponse("L_ERRORCODE0").ToString()
+            mvPaiment.ActiveViewIndex = 1
 
-                Response.Write(strErr & "&lt;br /&gt;" & strErrcode)
-                For Each i In htResponse
-                    Response.Write(i.Key & ": " & i.Value & "<br />")
-                Next
+        Else
 
-                mvPaiment.ActiveViewIndex = 2
+            Dim strErr As String = "Error: " & htResponse("L_LONGMESSAGE0").ToString()
+            Dim strErrcode As String = "Error code: " & htResponse("L_ERRORCODE0").ToString()
 
-            End If
+            Response.Write(strErr & "&lt;br /&gt;" & strErrcode)
+            'For Each i In htResponse
+            '    Response.Write(i.Key & ": " & i.Value & "<br />")
+            'Next
 
-            ' FAITES QQCHOSE
+            mvPaiment.ActiveViewIndex = 2
+
+        End If
+
+        ' FAITES QQCHOSE
 
     End Sub
 
@@ -313,12 +333,12 @@ Partial Class Paiement
 
     End Sub
 
-    Private Sub envoyeEmail(ByVal emailUtilisateur As String, ByVal prix As String, ByVal noCarte As String, ByVal sorteCarte As String)
+    Private Sub envoyeEmail(ByVal emailUtilisateur As String, ByVal prix As String, ByVal noCarte As String, ByVal sorteCarte As String, ByVal nomUtilisateur As String)
 
         Try
 
-            Dim unPanier = (From p In leContexte.panier Where p.noDossier = 10)
-            Dim noPaiment As Integer = (From t In leContexte.paiements Where t.noDossier = 10 Select t.noPaiement).First
+            Dim unPanier = (From p In leContexte.panier Where p.noDossier = 16)
+            Dim noPaiment As Integer = (From t In leContexte.paiements Where t.noDossier = 16 Select t.noPaiement).First
             Dim laPosition As Integer = 0
 
             Dim strMsg As String = ""
@@ -326,7 +346,7 @@ Partial Class Paiement
                 "<table style='height: 130px; width: 700px; background-color:Silver'>" &
                 "<tr>" &
                 "<td style='width: 163px'><div style='font-weight:bold;'>Nom d'utilisateur:<br>Numéro de Commande:<br>Numéro de Carte:<br>Type de Carte:</td>" &
-                "<td>BMarley<br>" & noPaiment & "<br>XXXX-XXXX-XXXX-" & noCarte.Substring(12, 4) & "<br>" & sorteCarte & "</td>" &
+                "<td>" & nomUtilisateur & "<br>" & noPaiment & "<br>XXXX-XXXX-XXXX-" & noCarte.Substring(12, 4) & "<br>" & sorteCarte & "</td>" &
                 "</tr>" &
                 "</table>" &
                 "<br>" &
@@ -356,16 +376,34 @@ Partial Class Paiement
             For Each item In unPanier
 
 
-                strMsg &= "<tr style='background-color:Silver'>" &
-                "<td style='height: 50px; padding-left:10px'>" & unPanier.ToArray(laPosition).groupes.activites.nomActivite & "</td>" &
-                "<td style='height: 50px; padding-left:10px'>" & unPanier.ToArray(laPosition).clients.nomComplet() & "</td>" &
-                "<td style='height: 50px; padding-left:10px'>" & unPanier.ToArray(laPosition).groupes.prix() & "$</td>" &
+                strMsg &= "<tr align='left' style='background-color:Silver'>" &
+                "<td style='height: 50px; padding-left:10px;'>" & unPanier.ToArray(laPosition).groupes.activites.nomActivite & "</td>" &
+                "<td style='height: 50px; padding-left:10px;'>" & unPanier.ToArray(laPosition).clients.nomComplet() & "</td>" &
+                "<td align='right' style='height: 50px; padding-right:40px'>" & FormatNumber(unPanier.ToArray(laPosition).groupes.prix(), 2, TriState.True) & "$</td>" &
                 "</tr>"
                 laPosition += 1
 
             Next
-            
+
             strMsg &= "</table>" &
+                "<table style='height: 70px; width: 700px; background-color:Silver;'>" &
+                "<tr>" &
+                "<td align='right' style='width: 600px;'>" &
+                "TPS(9,5%)" &
+                "<br/>" &
+                "TVQ(5%)" &
+                "<br/>" &
+                "Total" &
+                "</td>" &
+                "<td align='right' style='padding-right: 40px; width: 96px'>" &
+                lblTPS.Text & "$" &
+                "<br/>" &
+                lblTVQ.Text & "$" &
+                "<br/>" &
+                lblTotal.Text & "$" &
+                "</td>" &
+                "</tr>" &
+                "</table>" &
                 "<br>" &
                 "<strong>Cordialement,</strong><br><br>" &
                 "<strong>L'équipe CSL Culture, Sport et Loisir</strong>"
@@ -419,7 +457,7 @@ Partial Class Paiement
         Dim prixTotal As Double = 0.0
         Dim laPosition As Integer = 0
         Dim lePanier = (From unPanier In leContexte.panier()
-        Where unPanier.noDossier = 10)
+        Where unPanier.noDossier = NoDossier)
 
         For Each leGroupes In lePanier
 
@@ -440,10 +478,10 @@ Partial Class Paiement
 
     Private Sub PayerClient()
 
-        Dim unPaiement = New paiements With {.noDossier = 10, .datePaiement = DateTime.Now.ToShortDateString, .TPS = lblTPS.Text, .TVQ = lblTVQ.Text, .totalPaiement = lblTotal.Text}
+        Dim unPaiement = New paiements With {.noDossier = NoDossier, .datePaiement = DateTime.Now.ToShortDateString, .TPS = lblTPS.Text, .TVQ = lblTVQ.Text, .totalPaiement = lblTotal.Text}
 
         Dim leDossier As dossiers = (From d In leContexte.dossiers
-                                  Where d.noDossier = 10
+                                  Where d.noDossier = NoDossier
                                   Select d).First
         unPaiement.dossiers = leDossier
 
@@ -452,34 +490,46 @@ Partial Class Paiement
 
     End Sub
 
-    Private Sub InscrireClient()
+    Private Sub InscrireClient(ByVal noGroupe As Integer, ByVal noClient As Integer)
 
-        Dim unPaiement As paiements = (From d In leContexte.paiements
-                                 Where d.noDossier = 10
+        Dim statutInscription = ""
+
+        Dim leGroupe As groupes = (From d In leContexte.groupes
+                                 Where d.noGroupe = noGroupe
                                  Select d).First
 
-        Dim unInscription = New inscription With {.noClient = 20, .dateInscription = DateTime.Now.ToShortDateString, .noGroupe = 49, .noPaiement = unPaiement.noPaiement, .noDossier = 10}
+        If leGroupe.nbPlaceDisponible > 0 Then
 
+            leGroupe.nbPlaceDisponible -= 1
+            statutInscription = "Inscrit"
+
+        Else
+
+            statutInscription = "Attente"
+
+        End If
+
+        Dim unPaiement As paiements = (From d In leContexte.paiements
+                                 Where d.noDossier = NoDossier
+                                 Select d).First
+
+        Dim unInscription = New inscription With {.noClient = noClient, .dateInscription = DateTime.Now.ToShortDateString, .noGroupe = noGroupe, .noPaiement = unPaiement.noPaiement, .noDossier = NoDossier, .statut = statutInscription}
+
+        unInscription.groupes = leGroupe
         unInscription.paiements = unPaiement
 
         Dim leClient As clients = (From d In leContexte.clients
-                                  Where d.noClient = 20
+                                  Where d.noClient = noClient
                                   Select d).First
+
         unInscription.clients = leClient
 
-        Dim leGroupe As groupes = (From d In leContexte.groupes
-                                 Where d.noGroupe = 49
-                                 Select d).First
-        unInscription.groupes = leGroupe
-
         Dim leDossier As dossiers = (From d In leContexte.dossiers
-                                  Where d.noDossier = 10
+                                  Where d.noDossier = NoDossier
                                   Select d).First
         unInscription.dossiers = leDossier
 
-
         leContexte.AddObject("inscription", unInscription)
-        leContexte.SaveChanges()
 
     End Sub
 
